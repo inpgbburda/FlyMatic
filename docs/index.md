@@ -1,17 +1,18 @@
-# Welcome to MkDocs
+# Welcome to FlyMatic
 
-For full documentation visit [mkdocs.org](https://www.mkdocs.org).
+## Overview
 
-## Commands
+### Sofware repositories
+[stm_slave_repo](https://github.com/inpgbburda/Stm32f401.git)  
+[main_repo](https://github.com/TomBartDrone/drone_code.git)
 
-* `mkdocs new [dir-name]` - Create a new project.
-* `mkdocs serve` - Start the live-reloading docs server.
-* `mkdocs build` - Build the documentation site.
-* `mkdocs -h` - Print help message and exit.
+### Hardware repositories
 
-## Project layout
+## Project architecture
 
-    mkdocs.yml    # The configuration file.
-    docs/
-        index.md  # The documentation homepage.
-        ...       # Other markdown pages, images and other files.
+``` mermaid
+graph TD
+    A[Raspberry pi] <--> B[Accelleration sensor]
+    A --> C[Stm32F4]
+    C --> D[Electric motors]
+```
