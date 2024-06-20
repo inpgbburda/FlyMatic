@@ -1,4 +1,9 @@
 site_name: FlyMatic
+
+nav:
+    - Home: index.md
+    - Angle Sensing: angle_sensing.md
+
 theme:
   name: material
   features:

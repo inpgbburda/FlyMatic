@@ -11,8 +11,11 @@
 ## Project architecture
 
 ``` mermaid
-graph TD
-    A[Raspberry pi] <--> B[Accelleration sensor]
-    A --> C[Stm32F4]
+    graph TD
+    
+    A[Raspberry pi
+    Real Time Linux/ C++] <--> B[Accelleration sensor]
+    A --> C[Stm32F4 
+    Bare metal /C]
     C --> D[Electric motors]
 ```
