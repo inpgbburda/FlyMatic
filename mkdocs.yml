@@ -3,6 +3,7 @@ site_name: FlyMatic
 nav:
     - Home: index.md
     - Angle Sensing: angle_sensing.md
+    - Motor Control: motor_control.md
 
 theme:
   name: material
