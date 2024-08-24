@@ -4,6 +4,7 @@ nav:
     - Home: index.md
     - Angle Sensing: angle_sensing.md
     - Motor Control: motor_control.md
+    - RTOS Configuration: rtos.md
 
 theme:
   name: material
