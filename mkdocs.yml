@@ -5,6 +5,7 @@ nav:
     - Angle Sensing: angle_sensing.md
     - Motor Control: motor_control.md
     - RTOS Configuration: rtos.md
+    - Unit Communication: ms_communication.md
 
 theme:
   name: material
@@ -24,13 +25,13 @@ theme:
       toggle:
         icon: material/toggle-switch-off-outline 
         name: Switch to dark mode
-      primary: teal
+      primary: brown
       accent: purple 
     - scheme: slate 
       toggle:
         icon: material/toggle-switch
         name: Switch to light mode    
-      primary: teal
+      primary: brown
       accent: lime
 plugins:
     - search

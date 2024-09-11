@@ -1,7 +1,16 @@
 # FlyMatic Project Documentation Index
 
 ## Overview
-FlyMatic is an drone project that integrates both software and hardware components to enable precision control. This documentation provides detailed information on the repositories, project architecture, and key functionalities.
+FlyMatic is an drone project that integrates both software and hardware components to enable device to fly. This documentation provides detailed information on the repositories, project architecture and key functionalities.
+
+## Prototypes revisions
+
+### Proto 1
+Pendulum with 2 motors, self balancing.
+
+### Proto 2
+Chassis with 4 proppellers, self stabilizing.  
+![Alt text](images/Proto_1_System_Overview.drawio.png)
 
 ### Software Repositories
 - [STM32 Firmware Repository](https://github.com/inpgbburda/Stm32f401.git): Contains the firmware for the STM32F4 microcontroller, including FreeRTOS and motor control logic.
@@ -15,9 +24,11 @@ FlyMatic is an drone project that integrates both software and hardware componen
 ``` mermaid
     graph TD
     
-    A[Raspberry pi
+    A[ MainUnit
+    Raspberry pi
     Real Time Linux/ C++] <--> |I2C| B[Accelleration sensor]
-    A --> |Spi| C[Stm32F4 
+    A --> |Spi| C[AuxUnit
+    Stm32F4 
     FreeRTOS/C]
     C --> |Pwm| D[Electric motors]
 ```

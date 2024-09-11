@@ -11,7 +11,7 @@ This document outlines the control of electric motors that drive the drone's pro
 
 ### PWM Configuration
 - **Frequency:** 50 Hz
-- **Duty Cycle:** 5% to 10% (corresponding to minimum and maximum speed)
+- **Duty Cycle:** 5% (1ms) to 10% (2ms) (corresponding to minimum and maximum speed)
 
 ### Relationship Between PWM and Motor Speed
 The PWM signal's duty cycle directly controls the motor speed. A higher duty cycle increases the speed, while a lower duty cycle decreases it.
