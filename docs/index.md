@@ -6,11 +6,13 @@ FlyMatic is an drone project that integrates both software and hardware componen
 ## Prototypes revisions
 
 ### Proto 1
-Pendulum with 2 motors, self balancing.
+Pendulum with 2 motors, self balancing.  
+![Alt text](images/Proto_1_System_Overview.drawio.png)
 
 ### Proto 2
 Chassis with 4 proppellers, self stabilizing.  
-![Alt text](images/Proto_1_System_Overview.drawio.png)
+To be done in further steps.  
+![Alt text](images/Proto_2_System_Overview.drawio.png)
 
 ### Software Repositories
 - [STM32 Firmware Repository](https://github.com/inpgbburda/Stm32f401.git): Contains the firmware for the STM32F4 microcontroller, including FreeRTOS and motor control logic.
