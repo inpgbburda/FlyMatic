@@ -9,6 +9,7 @@ nav:
 
 theme:
   name: material
+  favicon: images/icon.png
   logo: images/logo.png
   features:
     - navigation.tabs
@@ -27,7 +28,7 @@ theme:
         icon: material/weather-night
         name: Switch to dark mode
       primary: black
-      accent: purple 
+      accent: amber 
     - scheme: slate 
       toggle:
         icon: material/weather-sunny 
@@ -38,9 +39,13 @@ plugins:
     - search
     - mermaid2
 markdown_extensions:
+  - attr_list
   - pymdownx.arithmatex
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
 extra_javascript:
   - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
-  - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
 extra_css:
+  - https://cdnjs.cloudflare.com/ajax/libs/octicons/16.0.1/octicons.min.css
   - stylesheets/extra.css
