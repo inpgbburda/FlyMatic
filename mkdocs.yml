@@ -49,3 +49,8 @@ extra_javascript:
 extra_css:
   - https://cdnjs.cloudflare.com/ajax/libs/octicons/16.0.1/octicons.min.css
   - stylesheets/extra.css
+extra:
+  social:
+    - icon: fontawesome/brands/linkedin
+      link: https://www.linkedin.com/in/bartłomiej-burda-837579164
+      name: LinkedIn (Bartłomiej Burda)
