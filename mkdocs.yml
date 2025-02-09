@@ -28,13 +28,13 @@ theme:
         icon: material/weather-night
         name: Switch to dark mode
       primary: black
-      accent: amber 
-    - scheme: slate 
+      accent: amber
+    - scheme: slate
       toggle:
         icon: material/weather-sunny 
         name: Switch to light mode    
       primary: black
-      accent: lime
+      accent: indigo
 plugins:
     - search
     - mermaid2
@@ -44,8 +44,11 @@ markdown_extensions:
   - pymdownx.emoji:
       emoji_index: !!python/name:material.extensions.emoji.twemoji
       emoji_generator: !!python/name:material.extensions.emoji.to_svg
-extra_javascript:
-  - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
 extra_css:
   - https://cdnjs.cloudflare.com/ajax/libs/octicons/16.0.1/octicons.min.css
   - stylesheets/extra.css
