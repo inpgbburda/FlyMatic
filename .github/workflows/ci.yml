@@ -21,4 +21,5 @@ jobs:
       - run: pip install mkdocs-material
       - run: pip install pillow cairosvg
       - run: pip install mkdocs-mermaid2-plugin
+      - run: pip install mkdocs_puml
       - run: mkdocs gh-deploy --force
