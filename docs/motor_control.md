@@ -47,7 +47,6 @@ component "App" {
 
 ```puml
 @startuml
-
 title CalculateMotorsSets()
 
 participant "Task_1"     as Task_1
@@ -57,15 +56,34 @@ participant "Pwm_Hw"     as Pwm_Hw
 queue       "RTOS_Queue" as P1
 
 Spi_Hw -> Task_1 : MessRxCompleted()
-Task_1 ->> P1 : SetNewValues()
-P1 -->> Task_1 : 
-Task_1 ->> Spi_Hw : SpiReadIt()
-Spi_Hw -->> Task_1 : 
-Task_2 ->> P1 : GetLastValues()
-P1 -->> Task_2 : 
-Task_2 ->> Pwm_Hw : UpdatePwm()
-Pwm_Hw -->> Task_2 :
+activate Task_1
 
+Task_1 ->> P1 : SetNewValues()
+activate P1
+
+P1 -->> Task_1 :
+deactivate P1
+
+Task_1 ->> Spi_Hw : SpiReadIt()
+activate Spi_Hw 
+
+Spi_Hw -->> Task_1 :
+deactivate Spi_Hw
+deactivate Task_1
+
+Task_2 ->> P1 : GetLastValues()
+activate Task_2
+activate P1
+
+P1 -->> Task_2 : 
+deactivate P1
+
+Task_2 ->> Pwm_Hw : UpdatePwm()
+activate Pwm_Hw
+
+Pwm_Hw -->> Task_2 :
+deactivate Pwm_Hw
+deactivate Task_2
 @enduml
 ```
 
