@@ -98,7 +98,7 @@ title Main Application Sequence
 
 start
 :Get latest power requests;
-:Calculate new PWM values;
+:Calculate new PWM values in the loop;
 :Apply new PWM values;
 stop
 
