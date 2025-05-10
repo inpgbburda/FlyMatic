@@ -94,12 +94,19 @@ end
 @startuml
 
 scale 2
-title Main Application Sequence  
+title MotorCtrlExecutePeriodic()
 
 start
 :Get latest power requests;
-:Calculate new PWM values in the loop;
+if (item succesfully rceived from queue?) is (yes) then
+repeat
+:Calculate new PWM values;
 :Apply new PWM values;
+backward: motor++;
+repeat while (motor<MOTORS_NUMBER?) is (yes) not (no)
+else (no)
+
+endif
 stop
 
 @enduml
