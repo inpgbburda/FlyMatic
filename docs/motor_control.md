@@ -111,3 +111,41 @@ stop
 
 @enduml
 ```
+
+```puml
+@startuml
+
+scale 2
+title ReceiverCallRxCompleted()
+
+start
+:Notify Receiver main function;
+note right 
+    Set the xHigherPriorityTaskWoken to True,
+    when higher Prio Task scheduled
+end note
+:portYIELD_FROM_ISR(xHigherPriorityTaskWoken);
+note right 
+    Immediately switch context,
+    if xHigherPriorityTaskWoken set to True,
+end note
+stop
+@enduml
+```
+
+```puml
+@startuml
+
+scale 2
+title ReceiverExecute()
+
+start
+:Request Asynchronous SPI read;
+:ulTaskNotifyTake();
+note right 
+    Wait for the SPI finish notification 
+end note
+:xQueueSendToFront();
+stop
+@enduml
+```
