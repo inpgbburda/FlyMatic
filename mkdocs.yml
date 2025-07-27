@@ -2,6 +2,7 @@ site_name: FlyMatic
 
 nav:
     - Home: index.md
+    - MainUnit: main_unit.md
     - Angle Sensing: angle_sensing.md
     - Motor Control: motor_control.md
     - RTOS Configuration: rtos.md
