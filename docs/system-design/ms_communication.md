@@ -1,7 +1,7 @@
 # Sending power control from master to slave
 
 ## Frame format
-Information is send in the following frame format through the SPI:
+Power requests shall be send in the following frame format through the SPI bus:
 
 |    0    |    1    |    2    |    3    |
 |---------|---------|---------|---------|
@@ -15,12 +15,5 @@ Values are in range of `uint8` format:
 Bytes are sent in ascending order (Power_1 to Power_4)
 
 ## Period of sending
-Frames are sent from MainUnit to AuxUnit cyclicaly with `10ms` period.
-
-## Bus settings
-Bus details:  
-    - MainUnit is a master of communication.  
-    - Motorola mode  
-    - first edge of SCK as latching event  
-    - low SCK state assummed as idle  
-    - 8 bit format of data frame
+Frames shall be sent from MainUnit to AuxUnit cyclicaly with `10ms` period.
+MainUnit shall be a master of communication.

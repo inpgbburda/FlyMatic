@@ -12,6 +12,3 @@
 
 ### Task Synchronization
 The tasks are synchronized using FreeRTOS semaphores to ensure that PWM adjustments are made in real-time without data conflicts.
-
-## Related Sections
-- [Motor Control](motor_control.md): For understanding how the PWM values are generated and used.

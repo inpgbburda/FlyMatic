@@ -1,4 +1,5 @@
 # FlyMatic
 
 Running website locally:
-    mkdocs serve
+    `mkdocs serve`  
+    `ctrl`+ `c` - to stop serving

@@ -2,12 +2,15 @@ site_name: FlyMatic
 
 nav:
     - Home: index.md
-    - MainUnit: main_unit.md
-    - Angle Sensing: angle_sensing.md
-    - Motor Control: motor_control.md
-    - RTOS Configuration: rtos.md
-    - Unit Communication: ms_communication.md
-
+    - System design:
+      - Angle Sensing: system-design/angle_sensing.md
+      - Unit Communication: system-design/ms_communication.md
+      - Motor Control: system-design/motor_control.md
+    - Software design:
+      - MainUnit: software-design/main_unit.md
+      - AuxUnit - Motor Control: software-design/aux_unit-motor_control.md
+      - AuxUnit - RTOS Configuration: software-design/aux_unit-rtos.md
+      - AuxUnit - SPI: software-design/aux_unit-spi.md
 theme:
   name: material
   favicon: images/icon.png
@@ -44,7 +47,8 @@ plugins:
         num_workers: 8
 markdown_extensions:
   - attr_list
-  - pymdownx.arithmatex
+  - pymdownx.arithmatex:
+      generic: true
   - pymdownx.emoji:
       emoji_index: !!python/name:material.extensions.emoji.twemoji
       emoji_generator: !!python/name:material.extensions.emoji.to_svg
@@ -53,11 +57,14 @@ markdown_extensions:
         - name: mermaid
           class: mermaid
           format: !!python/name:pymdownx.superfences.fence_code_format
-extra_css:
-  - https://cdnjs.cloudflare.com/ajax/libs/octicons/16.0.1/octicons.min.css
-  - stylesheets/extra.css
 extra:
   social:
     - icon: fontawesome/brands/linkedin
       link: https://www.linkedin.com/in/bartłomiej-burda-837579164
       name: LinkedIn (Bartłomiej Burda)
+extra_css:
+  - https://cdnjs.cloudflare.com/ajax/libs/octicons/16.0.1/octicons.min.css
+  - stylesheets/extra.css
+extra_javascript:
+  - https://polyfill.io/v3/polyfill.min.js?features=es6
+  - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
