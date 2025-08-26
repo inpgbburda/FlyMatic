@@ -6,7 +6,7 @@
 ## Software solution
 
 ### Static Architecture
-![alt text](/images/MotorCtrlArchitecture.drawio.png)
+![alt text](../images/MotorCtrlArchitecture.drawio.png)
 
 ### Dynamic Architecture
 ```puml

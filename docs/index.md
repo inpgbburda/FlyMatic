@@ -19,7 +19,10 @@ To be done in further steps.
 - [Raspberry Pi Software Repository](https://github.com/TomBartDrone/drone_code.git): Contains the real-time Linux code for sensor data processing and communication.
 
 ### Hardware Repositories :octicons-mark-github-24: + :octicons-plug-24:
-- [EE KiCad Project Repository](https://github.com/inpgbburda/FlyMaticEE.git): Contains schematics of electrical conntections.
+- [EE KiCad Project Repository](https://github.com/inpgbburda/FlyMaticEE.git): Contains schematics of electrical conntections.  
+
+[Download - FlyMaticEE.pdf :material-download:](assets/FlyMaticEE.pdf){ .md-button }
+
 
 ## Project Architecture
 
