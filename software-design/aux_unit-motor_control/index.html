@@ -1,0 +1,806 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../main_unit/">
+      
+      
+        <link rel="next" href="../aux_unit-rtos/">
+      
+      
+      <link rel="icon" href="../../images/icon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.18">
+    
+    
+      
+        <title>AuxUnit - Motor Control - FlyMatic</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.7e37652d.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/octicons/16.0.1/octicons.min.css">
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+      <link rel="stylesheet" href="../../assets/mkdocs_puml/puml.css">
+    
+      <link rel="stylesheet" href="../../assets/mkdocs_puml/interaction.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="amber">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#motor-control-for-propulsion-system" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="FlyMatic" class="md-header__button md-logo" aria-label="FlyMatic" data-md-component="logo">
+      
+  <img src="../../images/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            FlyMatic
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              AuxUnit - Motor Control
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="amber"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../system-design/angle_sensing/" class="md-tabs__link">
+          
+  
+  
+  System design
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../main_unit/" class="md-tabs__link">
+          
+  
+  
+  Software design
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="FlyMatic" class="md-nav__button md-logo" aria-label="FlyMatic" data-md-component="logo">
+      
+  <img src="../../images/logo.png" alt="logo">
+
+    </a>
+    FlyMatic
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    System design
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            System design
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../system-design/angle_sensing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Angle Sensing
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../system-design/ms_communication/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Unit Communication
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../system-design/motor_control/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Motor Control
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    Software design
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Software design
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../main_unit/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    MainUnit
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    AuxUnit - Motor Control
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    AuxUnit - Motor Control
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#related-sections" class="md-nav__link">
+    <span class="md-ellipsis">
+      Related Sections
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#software-solution" class="md-nav__link">
+    <span class="md-ellipsis">
+      Software solution
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Software solution">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#static-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      Static Architecture
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dynamic-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      Dynamic Architecture
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#detailed-design" class="md-nav__link">
+    <span class="md-ellipsis">
+      Detailed Design
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../aux_unit-rtos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    AuxUnit - RTOS Configuration
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../aux_unit-spi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    AuxUnit - SPI
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="motor-control-for-propulsion-system">Motor Control for Propulsion System</h1>
+<h2 id="related-sections">Related Sections</h2>
+<ul>
+<li><a href="../aux_unit-rtos/">AuxUnit - RTOS Configuration</a>: For details on task scheduling related to motor control.</li>
+</ul>
+<h2 id="software-solution">Software solution</h2>
+<h3 id="static-architecture">Static Architecture</h3>
+<p><img alt="alt text" src="../../images/MotorCtrlArchitecture.drawio.png" /></p>
+<h3 id="dynamic-architecture">Dynamic Architecture</h3>
+<div class='puml-container'><div class="puml light" style=""><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentStyleType="text/css" data-diagram-type="SEQUENCE" height="477px" preserveAspectRatio="xMidYMid meet" style="width:542px;height:477px;background:#FFFFFF;" version="1.1" viewBox="0 0 542 477" width="542px" zoomAndPan="magnify" class="diagram"><title>CalculateMotorsSets()</title><defs/><g><text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="175.7178" x="184.8254" y="27.9951">CalculateMotorsSets()</text><g><title>Task_1</title><rect fill="#F1F1F1" height="86.2656" style="stroke:#181818;stroke-width:1;" width="10" x="126.8296" y="104.7266"/></g><g><title>Task_1</title><rect fill="#F1F1F1" height="86.2656" style="stroke:#181818;stroke-width:1;" width="10" x="126.8296" y="330.5234"/></g><g><title>Task_2</title><rect fill="#F1F1F1" height="57.1328" style="stroke:#181818;stroke-width:1;" width="10" x="199.269" y="244.2578"/></g><g><title>Spi_Hw</title><rect fill="#F1F1F1" height="14" style="stroke:#181818;stroke-width:1;" width="10" x="281.3628" y="176.9922"/></g><g><title>Spi_Hw</title><rect fill="#F1F1F1" height="14" style="stroke:#181818;stroke-width:1;" width="10" x="281.3628" y="402.7891"/></g><g><title>Pwm_Hw</title><rect fill="#F1F1F1" height="14" style="stroke:#181818;stroke-width:1;" width="10" x="361.937" y="287.3906"/></g><g><title>RTOS_Queue</title><rect fill="#F1F1F1" height="14" style="stroke:#181818;stroke-width:1;" width="10" x="465.7798" y="133.8594"/></g><g><title>RTOS_Queue</title><rect fill="#F1F1F1" height="14" style="stroke:#181818;stroke-width:1;" width="10" x="465.7798" y="244.2578"/></g><g><title>RTOS_Queue</title><rect fill="#F1F1F1" height="14" style="stroke:#181818;stroke-width:1;" width="10" x="465.7798" y="359.6563"/></g><rect fill="none" height="218.7969" style="stroke:#000000;stroke-width:1.5;" width="445.7588" x="90.6099" y="205.9922"/><g><title>RTOS</title><rect fill="#000000" fill-opacity="0.00000" height="368.1953" width="8" x="27.0928" y="73.5938"/><line style="stroke:#181818;stroke-width:0.5;stroke-dasharray:5,5;" x1="31" x2="31" y1="73.5938" y2="441.7891"/></g><g><title>Task_1</title><rect fill="#000000" fill-opacity="0.00000" height="368.1953" width="8" x="127.8296" y="73.5938"/><line style="stroke:#181818;stroke-width:0.5;stroke-dasharray:5,5;" x1="131.6099" x2="131.6099" y1="73.5938" y2="441.7891"/></g><g><title>Task_2</title><rect fill="#000000" fill-opacity="0.00000" height="368.1953" width="8" x="200.269" y="73.5938"/><line style="stroke:#181818;stroke-width:0.5;stroke-dasharray:5,5;" x1="204.0493" x2="204.0493" y1="73.5938" y2="441.7891"/></g><g><title>Spi_Hw</title><rect fill="#000000" fill-opacity="0.00000" height="368.1953" width="8" x="282.3628" y="73.5938"/><line style="stroke:#181818;stroke-width:0.5;stroke-dasharray:5,5;" x1="286.0425" x2="286.0425" y1="73.5938" y2="441.7891"/></g><g><title>Pwm_Hw</title><rect fill="#000000" fill-opacity="0.00000" height="368.1953" width="8" x="362.937" y="73.5938"/><line style="stroke:#181818;stroke-width:0.5;stroke-dasharray:5,5;" x1="366.6831" x2="366.6831" y1="73.5938" y2="441.7891"/></g><g><title>RTOS_Queue</title><rect fill="#000000" fill-opacity="0.00000" height="368.1953" width="8" x="466.7798" y="73.5938"/><line style="stroke:#181818;stroke-width:0.5;stroke-dasharray:5,5;" x1="470.1909" x2="470.1909" y1="73.5938" y2="441.7891"/></g><g class="participant participant-head" data-participant="RTOS"><rect fill="#E2E2F0" height="30.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="52.1855" x="5" y="42.2969"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="38.1855" x="12" y="62.292">RTOS</text></g><g class="participant participant-tail" data-participant="RTOS"><rect fill="#E2E2F0" height="30.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="52.1855" x="5" y="440.7891"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="38.1855" x="12" y="460.7842">RTOS</text></g><g class="participant participant-head" data-participant="Task_1"><rect fill="#E2E2F0" height="30.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="62.4395" x="100.6099" y="42.2969"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="48.4395" x="107.6099" y="62.292">Task_1</text></g><g class="participant participant-tail" data-participant="Task_1"><rect fill="#E2E2F0" height="30.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="62.4395" x="100.6099" y="440.7891"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="48.4395" x="107.6099" y="460.7842">Task_1</text></g><g class="participant participant-head" data-participant="Task_2"><rect fill="#E2E2F0" height="30.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="62.4395" x="173.0493" y="42.2969"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="48.4395" x="180.0493" y="62.292">Task_2</text></g><g class="participant participant-tail" data-participant="Task_2"><rect fill="#E2E2F0" height="30.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="62.4395" x="173.0493" y="440.7891"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="48.4395" x="180.0493" y="460.7842">Task_2</text></g><g class="participant participant-head" data-participant="Spi_Hw"><rect fill="#E2E2F0" height="30.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="64.6406" x="254.0425" y="42.2969"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="50.6406" x="261.0425" y="62.292">Spi_Hw</text></g><g class="participant participant-tail" data-participant="Spi_Hw"><rect fill="#E2E2F0" height="30.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="64.6406" x="254.0425" y="440.7891"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="50.6406" x="261.0425" y="460.7842">Spi_Hw</text></g><g class="participant participant-head" data-participant="Pwm_Hw"><rect fill="#E2E2F0" height="30.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="76.5078" x="328.6831" y="42.2969"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="62.5078" x="335.6831" y="62.292">Pwm_Hw</text></g><g class="participant participant-tail" data-participant="Pwm_Hw"><rect fill="#E2E2F0" height="30.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="76.5078" x="328.6831" y="440.7891"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="62.5078" x="335.6831" y="460.7842">Pwm_Hw</text></g><g class="participant participant-head" data-participant="P1"><path d="M420.1909,47.2969 L521.3687,47.2969 C526.3687,47.2969 526.3687,60.4453 526.3687,60.4453 C526.3687,60.4453 526.3687,73.5938 521.3687,73.5938 L420.1909,73.5938 C415.1909,73.5938 415.1909,60.4453 415.1909,60.4453 C415.1909,60.4453 415.1909,47.2969 420.1909,47.2969" fill="#E2E2F0" style="stroke:#181818;stroke-width:0.5;"/><path d="M521.3687,47.2969 C516.3687,47.2969 516.3687,60.4453 516.3687,60.4453 C516.3687,73.5938 521.3687,73.5938 521.3687,73.5938" fill="none" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="91.1777" x="420.1909" y="65.292">RTOS_Queue</text></g><g class="participant participant-tail" data-participant="P1"><path d="M420.1909,440.7891 L521.3687,440.7891 C526.3687,440.7891 526.3687,453.9375 526.3687,453.9375 C526.3687,453.9375 526.3687,467.0859 521.3687,467.0859 L420.1909,467.0859 C415.1909,467.0859 415.1909,453.9375 415.1909,453.9375 C415.1909,453.9375 415.1909,440.7891 420.1909,440.7891" fill="#E2E2F0" style="stroke:#181818;stroke-width:0.5;"/><path d="M521.3687,440.7891 C516.3687,440.7891 516.3687,453.9375 516.3687,453.9375 C516.3687,467.0859 521.3687,467.0859 521.3687,467.0859" fill="none" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="91.1777" x="420.1909" y="458.7842">RTOS_Queue</text></g><g><title>Task_1</title><rect fill="#F1F1F1" height="86.2656" style="stroke:#181818;stroke-width:1;" width="10" x="126.8296" y="104.7266"/></g><g><title>Task_1</title><rect fill="#F1F1F1" height="86.2656" style="stroke:#181818;stroke-width:1;" width="10" x="126.8296" y="330.5234"/></g><g><title>Task_2</title><rect fill="#F1F1F1" height="57.1328" style="stroke:#181818;stroke-width:1;" width="10" x="199.269" y="244.2578"/></g><g><title>Spi_Hw</title><rect fill="#F1F1F1" height="14" style="stroke:#181818;stroke-width:1;" width="10" x="281.3628" y="176.9922"/></g><g><title>Spi_Hw</title><rect fill="#F1F1F1" height="14" style="stroke:#181818;stroke-width:1;" width="10" x="281.3628" y="402.7891"/></g><g><title>Pwm_Hw</title><rect fill="#F1F1F1" height="14" style="stroke:#181818;stroke-width:1;" width="10" x="361.937" y="287.3906"/></g><g><title>RTOS_Queue</title><rect fill="#F1F1F1" height="14" style="stroke:#181818;stroke-width:1;" width="10" x="465.7798" y="133.8594"/></g><g><title>RTOS_Queue</title><rect fill="#F1F1F1" height="14" style="stroke:#181818;stroke-width:1;" width="10" x="465.7798" y="244.2578"/></g><g><title>RTOS_Queue</title><rect fill="#F1F1F1" height="14" style="stroke:#181818;stroke-width:1;" width="10" x="465.7798" y="359.6563"/></g><g class="message" data-participant-1="RTOS" data-participant-2="Task_1"><polygon fill="#181818" points="114.8296,100.7266,124.8296,104.7266,114.8296,108.7266,118.8296,104.7266" style="stroke:#181818;stroke-width:1;"/><line style="stroke:#181818;stroke-width:1;" x1="31.0928" x2="120.8296" y1="104.7266" y2="104.7266"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="76.7368" x="38.0928" y="99.6606">StartTask_1</text></g><g class="message" data-participant-1="Task_1" data-participant-2="P1"><line style="stroke:#181818;stroke-width:1;" x1="463.7798" x2="453.7798" y1="133.8594" y2="129.8594"/><line style="stroke:#181818;stroke-width:1;" x1="463.7798" x2="453.7798" y1="133.8594" y2="137.8594"/><line style="stroke:#181818;stroke-width:1;" x1="136.8296" x2="464.7798" y1="133.8594" y2="133.8594"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="103.3271" x="143.8296" y="128.7935">SetNewValues()</text></g><g class="message" data-participant-1="P1" data-participant-2="Task_1"><line style="stroke:#181818;stroke-width:1;" x1="137.8296" x2="147.8296" y1="147.8594" y2="143.8594"/><line style="stroke:#181818;stroke-width:1;" x1="137.8296" x2="147.8296" y1="147.8594" y2="151.8594"/><line style="stroke:#181818;stroke-width:1;stroke-dasharray:2,2;" x1="136.8296" x2="469.7798" y1="147.8594" y2="147.8594"/></g><g class="message" data-participant-1="Task_1" data-participant-2="Spi_Hw"><line style="stroke:#181818;stroke-width:1;" x1="279.3628" x2="269.3628" y1="176.9922" y2="172.9922"/><line style="stroke:#181818;stroke-width:1;" x1="279.3628" x2="269.3628" y1="176.9922" y2="180.9922"/><line style="stroke:#181818;stroke-width:1;" x1="136.8296" x2="280.3628" y1="176.9922" y2="176.9922"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="72.4395" x="143.8296" y="171.9263">SpiReadIt()</text></g><g class="message" data-participant-1="Spi_Hw" data-participant-2="Task_1"><line style="stroke:#181818;stroke-width:1;" x1="132.8296" x2="142.8296" y1="190.9922" y2="186.9922"/><line style="stroke:#181818;stroke-width:1;" x1="132.8296" x2="142.8296" y1="190.9922" y2="194.9922"/><line style="stroke:#181818;stroke-width:1;stroke-dasharray:2,2;" x1="131.8296" x2="285.3628" y1="190.9922" y2="190.9922"/></g><path d="M90.6099,205.9922 L167.2339,205.9922 L167.2339,213.125 L157.2339,223.125 L90.6099,223.125 L90.6099,205.9922" fill="#EEEEEE" style="stroke:#000000;stroke-width:1.5;"/><rect fill="none" height="218.7969" style="stroke:#000000;stroke-width:1.5;" width="445.7588" x="90.6099" y="205.9922"/><text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="31.624" x="105.6099" y="219.0591">loop</text><text fill="#000000" font-family="sans-serif" font-size="11" font-weight="bold" lengthAdjust="spacing" textLength="54.5327" x="182.2339" y="218.2026">[infinite]</text><g class="message" data-participant-1="Task_2" data-participant-2="P1"><line style="stroke:#181818;stroke-width:1;" x1="463.7798" x2="453.7798" y1="244.2578" y2="240.2578"/><line style="stroke:#181818;stroke-width:1;" x1="463.7798" x2="453.7798" y1="244.2578" y2="248.2578"/><line style="stroke:#181818;stroke-width:1;" x1="209.269" x2="464.7798" y1="244.2578" y2="244.2578"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="103.873" x="216.269" y="239.1919">GetLastValues()</text></g><g class="message" data-participant-1="P1" data-participant-2="Task_2"><line style="stroke:#181818;stroke-width:1;" x1="210.269" x2="220.269" y1="258.2578" y2="254.2578"/><line style="stroke:#181818;stroke-width:1;" x1="210.269" x2="220.269" y1="258.2578" y2="262.2578"/><line style="stroke:#181818;stroke-width:1;stroke-dasharray:2,2;" x1="209.269" x2="469.7798" y1="258.2578" y2="258.2578"/></g><g class="message" data-participant-1="Task_2" data-participant-2="Pwm_Hw"><line style="stroke:#181818;stroke-width:1;" x1="359.937" x2="349.937" y1="287.3906" y2="283.3906"/><line style="stroke:#181818;stroke-width:1;" x1="359.937" x2="349.937" y1="287.3906" y2="291.3906"/><line style="stroke:#181818;stroke-width:1;" x1="209.269" x2="360.937" y1="287.3906" y2="287.3906"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="88.3594" x="216.269" y="282.3247">UpdatePwm()</text></g><g class="message" data-participant-1="Pwm_Hw" data-participant-2="Task_2"><line style="stroke:#181818;stroke-width:1;" x1="205.269" x2="215.269" y1="301.3906" y2="297.3906"/><line style="stroke:#181818;stroke-width:1;" x1="205.269" x2="215.269" y1="301.3906" y2="305.3906"/><line style="stroke:#181818;stroke-width:1;stroke-dasharray:2,2;" x1="204.269" x2="365.937" y1="301.3906" y2="301.3906"/></g><g class="message" data-participant-1="Spi_Hw" data-participant-2="Task_1"><polygon fill="#181818" points="147.8296,326.5234,137.8296,330.5234,147.8296,334.5234,143.8296,330.5234" style="stroke:#181818;stroke-width:1;"/><line style="stroke:#181818;stroke-width:1;" x1="141.8296" x2="285.3628" y1="330.5234" y2="330.5234"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="130.5332" x="153.8296" y="325.4575">MessRxCompleted()</text></g><g class="message" data-participant-1="Task_1" data-participant-2="P1"><line style="stroke:#181818;stroke-width:1;" x1="463.7798" x2="453.7798" y1="359.6563" y2="355.6563"/><line style="stroke:#181818;stroke-width:1;" x1="463.7798" x2="453.7798" y1="359.6563" y2="363.6563"/><line style="stroke:#181818;stroke-width:1;" x1="136.8296" x2="464.7798" y1="359.6563" y2="359.6563"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="103.3271" x="143.8296" y="354.5903">SetNewValues()</text></g><g class="message" data-participant-1="P1" data-participant-2="Task_1"><line style="stroke:#181818;stroke-width:1;" x1="137.8296" x2="147.8296" y1="373.6563" y2="369.6563"/><line style="stroke:#181818;stroke-width:1;" x1="137.8296" x2="147.8296" y1="373.6563" y2="377.6563"/><line style="stroke:#181818;stroke-width:1;stroke-dasharray:2,2;" x1="136.8296" x2="469.7798" y1="373.6563" y2="373.6563"/></g><g class="message" data-participant-1="Task_1" data-participant-2="Spi_Hw"><line style="stroke:#181818;stroke-width:1;" x1="279.3628" x2="269.3628" y1="402.7891" y2="398.7891"/><line style="stroke:#181818;stroke-width:1;" x1="279.3628" x2="269.3628" y1="402.7891" y2="406.7891"/><line style="stroke:#181818;stroke-width:1;" x1="136.8296" x2="280.3628" y1="402.7891" y2="402.7891"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="72.4395" x="143.8296" y="397.7231">SpiReadIt()</text></g><g class="message" data-participant-1="Spi_Hw" data-participant-2="Task_1"><line style="stroke:#181818;stroke-width:1;" x1="132.8296" x2="142.8296" y1="416.7891" y2="412.7891"/><line style="stroke:#181818;stroke-width:1;" x1="132.8296" x2="142.8296" y1="416.7891" y2="420.7891"/><line style="stroke:#181818;stroke-width:1;stroke-dasharray:2,2;" x1="131.8296" x2="285.3628" y1="416.7891" y2="416.7891"/></g></g></svg></div><div class="puml dark" style=""><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentStyleType="text/css" data-diagram-type="SEQUENCE" height="477px" preserveAspectRatio="xMidYMid meet" style="width:542px;height:477px;background:#1B1B1B;" version="1.1" viewBox="0 0 542 477" width="542px" zoomAndPan="magnify" class="diagram"><title>CalculateMotorsSets()</title><defs/><g><rect fill="#1B1B1B" height="477" style="stroke:none;stroke-width:1;" width="542" x="0" y="0"/><text fill="#FFFFFF" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="175.7178" x="184.8254" y="27.9951">CalculateMotorsSets()</text><g><title>Task_1</title><rect fill="#313139" height="86.2656" style="stroke:#E7E7E7;stroke-width:1;" width="10" x="126.8296" y="104.7266"/></g><g><title>Task_1</title><rect fill="#313139" height="86.2656" style="stroke:#E7E7E7;stroke-width:1;" width="10" x="126.8296" y="330.5234"/></g><g><title>Task_2</title><rect fill="#313139" height="57.1328" style="stroke:#E7E7E7;stroke-width:1;" width="10" x="199.269" y="244.2578"/></g><g><title>Spi_Hw</title><rect fill="#313139" height="14" style="stroke:#E7E7E7;stroke-width:1;" width="10" x="281.3628" y="176.9922"/></g><g><title>Spi_Hw</title><rect fill="#313139" height="14" style="stroke:#E7E7E7;stroke-width:1;" width="10" x="281.3628" y="402.7891"/></g><g><title>Pwm_Hw</title><rect fill="#313139" height="14" style="stroke:#E7E7E7;stroke-width:1;" width="10" x="361.937" y="287.3906"/></g><g><title>RTOS_Queue</title><rect fill="#313139" height="14" style="stroke:#E7E7E7;stroke-width:1;" width="10" x="465.7798" y="133.8594"/></g><g><title>RTOS_Queue</title><rect fill="#313139" height="14" style="stroke:#E7E7E7;stroke-width:1;" width="10" x="465.7798" y="244.2578"/></g><g><title>RTOS_Queue</title><rect fill="#313139" height="14" style="stroke:#E7E7E7;stroke-width:1;" width="10" x="465.7798" y="359.6563"/></g><rect fill="none" height="218.7969" style="stroke:#FFFFFF;stroke-width:1.5;" width="445.7588" x="90.6099" y="205.9922"/><g><title>RTOS</title><rect fill="#000000" fill-opacity="0.00000" height="368.1953" width="8" x="27.0928" y="73.5938"/><line style="stroke:#E7E7E7;stroke-width:0.5;stroke-dasharray:5,5;" x1="31" x2="31" y1="73.5938" y2="441.7891"/></g><g><title>Task_1</title><rect fill="#000000" fill-opacity="0.00000" height="368.1953" width="8" x="127.8296" y="73.5938"/><line style="stroke:#E7E7E7;stroke-width:0.5;stroke-dasharray:5,5;" x1="131.6099" x2="131.6099" y1="73.5938" y2="441.7891"/></g><g><title>Task_2</title><rect fill="#000000" fill-opacity="0.00000" height="368.1953" width="8" x="200.269" y="73.5938"/><line style="stroke:#E7E7E7;stroke-width:0.5;stroke-dasharray:5,5;" x1="204.0493" x2="204.0493" y1="73.5938" y2="441.7891"/></g><g><title>Spi_Hw</title><rect fill="#000000" fill-opacity="0.00000" height="368.1953" width="8" x="282.3628" y="73.5938"/><line style="stroke:#E7E7E7;stroke-width:0.5;stroke-dasharray:5,5;" x1="286.0425" x2="286.0425" y1="73.5938" y2="441.7891"/></g><g><title>Pwm_Hw</title><rect fill="#000000" fill-opacity="0.00000" height="368.1953" width="8" x="362.937" y="73.5938"/><line style="stroke:#E7E7E7;stroke-width:0.5;stroke-dasharray:5,5;" x1="366.6831" x2="366.6831" y1="73.5938" y2="441.7891"/></g><g><title>RTOS_Queue</title><rect fill="#000000" fill-opacity="0.00000" height="368.1953" width="8" x="466.7798" y="73.5938"/><line style="stroke:#E7E7E7;stroke-width:0.5;stroke-dasharray:5,5;" x1="470.1909" x2="470.1909" y1="73.5938" y2="441.7891"/></g><g class="participant participant-head" data-participant="RTOS"><rect fill="#222222" height="30.2969" rx="2.5" ry="2.5" style="stroke:#E7E7E7;stroke-width:0.5;" width="52.1855" x="5" y="42.2969"/><text fill="#FFFFFF" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="38.1855" x="12" y="62.292">RTOS</text></g><g class="participant participant-tail" data-participant="RTOS"><rect fill="#222222" height="30.2969" rx="2.5" ry="2.5" style="stroke:#E7E7E7;stroke-width:0.5;" width="52.1855" x="5" y="440.7891"/><text fill="#FFFFFF" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="38.1855" x="12" y="460.7842">RTOS</text></g><g class="participant participant-head" data-participant="Task_1"><rect fill="#222222" height="30.2969" rx="2.5" ry="2.5" style="stroke:#E7E7E7;stroke-width:0.5;" width="62.4395" x="100.6099" y="42.2969"/><text fill="#FFFFFF" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="48.4395" x="107.6099" y="62.292">Task_1</text></g><g class="participant participant-tail" data-participant="Task_1"><rect fill="#222222" height="30.2969" rx="2.5" ry="2.5" style="stroke:#E7E7E7;stroke-width:0.5;" width="62.4395" x="100.6099" y="440.7891"/><text fill="#FFFFFF" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="48.4395" x="107.6099" y="460.7842">Task_1</text></g><g class="participant participant-head" data-participant="Task_2"><rect fill="#222222" height="30.2969" rx="2.5" ry="2.5" style="stroke:#E7E7E7;stroke-width:0.5;" width="62.4395" x="173.0493" y="42.2969"/><text fill="#FFFFFF" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="48.4395" x="180.0493" y="62.292">Task_2</text></g><g class="participant participant-tail" data-participant="Task_2"><rect fill="#222222" height="30.2969" rx="2.5" ry="2.5" style="stroke:#E7E7E7;stroke-width:0.5;" width="62.4395" x="173.0493" y="440.7891"/><text fill="#FFFFFF" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="48.4395" x="180.0493" y="460.7842">Task_2</text></g><g class="participant participant-head" data-participant="Spi_Hw"><rect fill="#222222" height="30.2969" rx="2.5" ry="2.5" style="stroke:#E7E7E7;stroke-width:0.5;" width="64.6406" x="254.0425" y="42.2969"/><text fill="#FFFFFF" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="50.6406" x="261.0425" y="62.292">Spi_Hw</text></g><g class="participant participant-tail" data-participant="Spi_Hw"><rect fill="#222222" height="30.2969" rx="2.5" ry="2.5" style="stroke:#E7E7E7;stroke-width:0.5;" width="64.6406" x="254.0425" y="440.7891"/><text fill="#FFFFFF" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="50.6406" x="261.0425" y="460.7842">Spi_Hw</text></g><g class="participant participant-head" data-participant="Pwm_Hw"><rect fill="#222222" height="30.2969" rx="2.5" ry="2.5" style="stroke:#E7E7E7;stroke-width:0.5;" width="76.5078" x="328.6831" y="42.2969"/><text fill="#FFFFFF" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="62.5078" x="335.6831" y="62.292">Pwm_Hw</text></g><g class="participant participant-tail" data-participant="Pwm_Hw"><rect fill="#222222" height="30.2969" rx="2.5" ry="2.5" style="stroke:#E7E7E7;stroke-width:0.5;" width="76.5078" x="328.6831" y="440.7891"/><text fill="#FFFFFF" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="62.5078" x="335.6831" y="460.7842">Pwm_Hw</text></g><g class="participant participant-head" data-participant="P1"><path d="M420.1909,47.2969 L521.3687,47.2969 C526.3687,47.2969 526.3687,60.4453 526.3687,60.4453 C526.3687,60.4453 526.3687,73.5938 521.3687,73.5938 L420.1909,73.5938 C415.1909,73.5938 415.1909,60.4453 415.1909,60.4453 C415.1909,60.4453 415.1909,47.2969 420.1909,47.2969" fill="#222222" style="stroke:#E7E7E7;stroke-width:0.5;"/><path d="M521.3687,47.2969 C516.3687,47.2969 516.3687,60.4453 516.3687,60.4453 C516.3687,73.5938 521.3687,73.5938 521.3687,73.5938" fill="none" style="stroke:#E7E7E7;stroke-width:0.5;"/><text fill="#FFFFFF" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="91.1777" x="420.1909" y="65.292">RTOS_Queue</text></g><g class="participant participant-tail" data-participant="P1"><path d="M420.1909,440.7891 L521.3687,440.7891 C526.3687,440.7891 526.3687,453.9375 526.3687,453.9375 C526.3687,453.9375 526.3687,467.0859 521.3687,467.0859 L420.1909,467.0859 C415.1909,467.0859 415.1909,453.9375 415.1909,453.9375 C415.1909,453.9375 415.1909,440.7891 420.1909,440.7891" fill="#222222" style="stroke:#E7E7E7;stroke-width:0.5;"/><path d="M521.3687,440.7891 C516.3687,440.7891 516.3687,453.9375 516.3687,453.9375 C516.3687,467.0859 521.3687,467.0859 521.3687,467.0859" fill="none" style="stroke:#E7E7E7;stroke-width:0.5;"/><text fill="#FFFFFF" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="91.1777" x="420.1909" y="458.7842">RTOS_Queue</text></g><g><title>Task_1</title><rect fill="#313139" height="86.2656" style="stroke:#E7E7E7;stroke-width:1;" width="10" x="126.8296" y="104.7266"/></g><g><title>Task_1</title><rect fill="#313139" height="86.2656" style="stroke:#E7E7E7;stroke-width:1;" width="10" x="126.8296" y="330.5234"/></g><g><title>Task_2</title><rect fill="#313139" height="57.1328" style="stroke:#E7E7E7;stroke-width:1;" width="10" x="199.269" y="244.2578"/></g><g><title>Spi_Hw</title><rect fill="#313139" height="14" style="stroke:#E7E7E7;stroke-width:1;" width="10" x="281.3628" y="176.9922"/></g><g><title>Spi_Hw</title><rect fill="#313139" height="14" style="stroke:#E7E7E7;stroke-width:1;" width="10" x="281.3628" y="402.7891"/></g><g><title>Pwm_Hw</title><rect fill="#313139" height="14" style="stroke:#E7E7E7;stroke-width:1;" width="10" x="361.937" y="287.3906"/></g><g><title>RTOS_Queue</title><rect fill="#313139" height="14" style="stroke:#E7E7E7;stroke-width:1;" width="10" x="465.7798" y="133.8594"/></g><g><title>RTOS_Queue</title><rect fill="#313139" height="14" style="stroke:#E7E7E7;stroke-width:1;" width="10" x="465.7798" y="244.2578"/></g><g><title>RTOS_Queue</title><rect fill="#313139" height="14" style="stroke:#E7E7E7;stroke-width:1;" width="10" x="465.7798" y="359.6563"/></g><g class="message" data-participant-1="RTOS" data-participant-2="Task_1"><polygon fill="#E7E7E7" points="114.8296,100.7266,124.8296,104.7266,114.8296,108.7266,118.8296,104.7266" style="stroke:#E7E7E7;stroke-width:1;"/><line style="stroke:#E7E7E7;stroke-width:1;" x1="31.0928" x2="120.8296" y1="104.7266" y2="104.7266"/><text fill="#FFFFFF" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="76.7368" x="38.0928" y="99.6606">StartTask_1</text></g><g class="message" data-participant-1="Task_1" data-participant-2="P1"><line style="stroke:#E7E7E7;stroke-width:1;" x1="463.7798" x2="453.7798" y1="133.8594" y2="129.8594"/><line style="stroke:#E7E7E7;stroke-width:1;" x1="463.7798" x2="453.7798" y1="133.8594" y2="137.8594"/><line style="stroke:#E7E7E7;stroke-width:1;" x1="136.8296" x2="464.7798" y1="133.8594" y2="133.8594"/><text fill="#FFFFFF" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="103.3271" x="143.8296" y="128.7935">SetNewValues()</text></g><g class="message" data-participant-1="P1" data-participant-2="Task_1"><line style="stroke:#E7E7E7;stroke-width:1;" x1="137.8296" x2="147.8296" y1="147.8594" y2="143.8594"/><line style="stroke:#E7E7E7;stroke-width:1;" x1="137.8296" x2="147.8296" y1="147.8594" y2="151.8594"/><line style="stroke:#E7E7E7;stroke-width:1;stroke-dasharray:2,2;" x1="136.8296" x2="469.7798" y1="147.8594" y2="147.8594"/></g><g class="message" data-participant-1="Task_1" data-participant-2="Spi_Hw"><line style="stroke:#E7E7E7;stroke-width:1;" x1="279.3628" x2="269.3628" y1="176.9922" y2="172.9922"/><line style="stroke:#E7E7E7;stroke-width:1;" x1="279.3628" x2="269.3628" y1="176.9922" y2="180.9922"/><line style="stroke:#E7E7E7;stroke-width:1;" x1="136.8296" x2="280.3628" y1="176.9922" y2="176.9922"/><text fill="#FFFFFF" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="72.4395" x="143.8296" y="171.9263">SpiReadIt()</text></g><g class="message" data-participant-1="Spi_Hw" data-participant-2="Task_1"><line style="stroke:#E7E7E7;stroke-width:1;" x1="132.8296" x2="142.8296" y1="190.9922" y2="186.9922"/><line style="stroke:#E7E7E7;stroke-width:1;" x1="132.8296" x2="142.8296" y1="190.9922" y2="194.9922"/><line style="stroke:#E7E7E7;stroke-width:1;stroke-dasharray:2,2;" x1="131.8296" x2="285.3628" y1="190.9922" y2="190.9922"/></g><path d="M90.6099,205.9922 L167.2339,205.9922 L167.2339,213.125 L157.2339,223.125 L90.6099,223.125 L90.6099,205.9922" fill="#555555" style="stroke:#FFFFFF;stroke-width:1.5;"/><rect fill="none" height="218.7969" style="stroke:#FFFFFF;stroke-width:1.5;" width="445.7588" x="90.6099" y="205.9922"/><text fill="#FFFFFF" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="31.624" x="105.6099" y="219.0591">loop</text><text fill="#FFFFFF" font-family="sans-serif" font-size="11" font-weight="bold" lengthAdjust="spacing" textLength="54.5327" x="182.2339" y="218.2026">[infinite]</text><g class="message" data-participant-1="Task_2" data-participant-2="P1"><line style="stroke:#E7E7E7;stroke-width:1;" x1="463.7798" x2="453.7798" y1="244.2578" y2="240.2578"/><line style="stroke:#E7E7E7;stroke-width:1;" x1="463.7798" x2="453.7798" y1="244.2578" y2="248.2578"/><line style="stroke:#E7E7E7;stroke-width:1;" x1="209.269" x2="464.7798" y1="244.2578" y2="244.2578"/><text fill="#FFFFFF" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="103.873" x="216.269" y="239.1919">GetLastValues()</text></g><g class="message" data-participant-1="P1" data-participant-2="Task_2"><line style="stroke:#E7E7E7;stroke-width:1;" x1="210.269" x2="220.269" y1="258.2578" y2="254.2578"/><line style="stroke:#E7E7E7;stroke-width:1;" x1="210.269" x2="220.269" y1="258.2578" y2="262.2578"/><line style="stroke:#E7E7E7;stroke-width:1;stroke-dasharray:2,2;" x1="209.269" x2="469.7798" y1="258.2578" y2="258.2578"/></g><g class="message" data-participant-1="Task_2" data-participant-2="Pwm_Hw"><line style="stroke:#E7E7E7;stroke-width:1;" x1="359.937" x2="349.937" y1="287.3906" y2="283.3906"/><line style="stroke:#E7E7E7;stroke-width:1;" x1="359.937" x2="349.937" y1="287.3906" y2="291.3906"/><line style="stroke:#E7E7E7;stroke-width:1;" x1="209.269" x2="360.937" y1="287.3906" y2="287.3906"/><text fill="#FFFFFF" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="88.3594" x="216.269" y="282.3247">UpdatePwm()</text></g><g class="message" data-participant-1="Pwm_Hw" data-participant-2="Task_2"><line style="stroke:#E7E7E7;stroke-width:1;" x1="205.269" x2="215.269" y1="301.3906" y2="297.3906"/><line style="stroke:#E7E7E7;stroke-width:1;" x1="205.269" x2="215.269" y1="301.3906" y2="305.3906"/><line style="stroke:#E7E7E7;stroke-width:1;stroke-dasharray:2,2;" x1="204.269" x2="365.937" y1="301.3906" y2="301.3906"/></g><g class="message" data-participant-1="Spi_Hw" data-participant-2="Task_1"><polygon fill="#E7E7E7" points="147.8296,326.5234,137.8296,330.5234,147.8296,334.5234,143.8296,330.5234" style="stroke:#E7E7E7;stroke-width:1;"/><line style="stroke:#E7E7E7;stroke-width:1;" x1="141.8296" x2="285.3628" y1="330.5234" y2="330.5234"/><text fill="#FFFFFF" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="130.5332" x="153.8296" y="325.4575">MessRxCompleted()</text></g><g class="message" data-participant-1="Task_1" data-participant-2="P1"><line style="stroke:#E7E7E7;stroke-width:1;" x1="463.7798" x2="453.7798" y1="359.6563" y2="355.6563"/><line style="stroke:#E7E7E7;stroke-width:1;" x1="463.7798" x2="453.7798" y1="359.6563" y2="363.6563"/><line style="stroke:#E7E7E7;stroke-width:1;" x1="136.8296" x2="464.7798" y1="359.6563" y2="359.6563"/><text fill="#FFFFFF" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="103.3271" x="143.8296" y="354.5903">SetNewValues()</text></g><g class="message" data-participant-1="P1" data-participant-2="Task_1"><line style="stroke:#E7E7E7;stroke-width:1;" x1="137.8296" x2="147.8296" y1="373.6563" y2="369.6563"/><line style="stroke:#E7E7E7;stroke-width:1;" x1="137.8296" x2="147.8296" y1="373.6563" y2="377.6563"/><line style="stroke:#E7E7E7;stroke-width:1;stroke-dasharray:2,2;" x1="136.8296" x2="469.7798" y1="373.6563" y2="373.6563"/></g><g class="message" data-participant-1="Task_1" data-participant-2="Spi_Hw"><line style="stroke:#E7E7E7;stroke-width:1;" x1="279.3628" x2="269.3628" y1="402.7891" y2="398.7891"/><line style="stroke:#E7E7E7;stroke-width:1;" x1="279.3628" x2="269.3628" y1="402.7891" y2="406.7891"/><line style="stroke:#E7E7E7;stroke-width:1;" x1="136.8296" x2="280.3628" y1="402.7891" y2="402.7891"/><text fill="#FFFFFF" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="72.4395" x="143.8296" y="397.7231">SpiReadIt()</text></g><g class="message" data-participant-1="Spi_Hw" data-participant-2="Task_1"><line style="stroke:#E7E7E7;stroke-width:1;" x1="132.8296" x2="142.8296" y1="416.7891" y2="412.7891"/><line style="stroke:#E7E7E7;stroke-width:1;" x1="132.8296" x2="142.8296" y1="416.7891" y2="420.7891"/><line style="stroke:#E7E7E7;stroke-width:1;stroke-dasharray:2,2;" x1="131.8296" x2="285.3628" y1="416.7891" y2="416.7891"/></g></g></svg></div></div>
+
+<h3 id="detailed-design">Detailed Design</h3>
+<div class='puml-container'><div class="puml light" style=""><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentStyleType="text/css" data-diagram-type="ACTIVITY" height="964px" preserveAspectRatio="xMidYMid meet" style="width:730px;height:964px;background:#FFFFFF;" version="1.1" viewBox="0 0 730 964" width="730px" zoomAndPan="magnify" class="diagram"><title>MotorCtrlExecutePeriodic()</title><defs/><g><g class="title" data-source-line="4"><text fill="#000000" font-family="sans-serif" font-size="28" font-weight="bold" lengthAdjust="spacing" textLength="429.9395" x="147.551" y="65.9902">MotorCtrlExecutePeriodic()</text></g><ellipse cx="270.395" cy="114.5938" fill="#222222" rx="20" ry="20" style="stroke:#222222;stroke-width:1;"/><rect fill="#F1F1F1" height="67.9375" rx="25" ry="25" style="stroke:#181818;stroke-width:1;" width="351.5664" x="94.6118" y="174.5938"/><text fill="#000000" font-family="sans-serif" font-size="24" lengthAdjust="spacing" textLength="311.5664" x="114.6118" y="216.8711">Get latest power requests</text><rect fill="#F1F1F1" height="67.9375" rx="25" ry="25" style="stroke:#181818;stroke-width:1;" width="361.5508" x="89.6196" y="467.3359"/><text fill="#000000" font-family="sans-serif" font-size="24" lengthAdjust="spacing" textLength="321.5508" x="109.6196" y="509.6133">Calculate new PWM values</text><rect fill="#F1F1F1" height="67.9375" rx="25" ry="25" style="stroke:#181818;stroke-width:1;" width="317.2188" x="111.7856" y="605.2734"/><text fill="#000000" font-family="sans-serif" font-size="24" lengthAdjust="spacing" textLength="277.2188" x="131.7856" y="647.5508">Apply new PWM values</text><polygon fill="#F1F1F1" points="270.395,379.3359,294.395,403.3359,270.395,427.3359,246.395,403.3359,270.395,379.3359" style="stroke:#181818;stroke-width:1;"/><polygon fill="#F1F1F1" points="120.7671,713.2109,420.0229,713.2109,444.0229,737.2109,420.0229,761.2109,120.7671,761.2109,96.7671,737.2109,120.7671,713.2109" style="stroke:#181818;stroke-width:1;"/><text fill="#000000" font-family="sans-serif" font-size="22" lengthAdjust="spacing" textLength="27.4033" x="278.395" y="781.6318">no</text><text fill="#000000" font-family="sans-serif" font-size="22" lengthAdjust="spacing" textLength="299.2559" x="120.7671" y="744.8271">motor&lt;MOTORS_NUMBER?</text><text fill="#000000" font-family="sans-serif" font-size="22" lengthAdjust="spacing" textLength="38.0166" x="444.0229" y="732.0225">yes</text><rect fill="#F1F1F1" height="67.9375" rx="25" ry="25" style="stroke:#181818;stroke-width:1;" width="159.8711" x="499.1704" y="536.3047"/><text fill="#000000" font-family="sans-serif" font-size="24" lengthAdjust="spacing" textLength="112.2422" x="526.7993" y="578.582">motor++</text><polygon fill="#F1F1F1" points="64,282.5313,476.79,282.5313,500.79,306.5313,476.79,330.5313,64,330.5313,40,306.5313,64,282.5313" style="stroke:#181818;stroke-width:1;"/><text fill="#000000" font-family="sans-serif" font-size="22" lengthAdjust="spacing" textLength="38.0166" x="278.395" y="350.9521">yes</text><text fill="#000000" font-family="sans-serif" font-size="22" lengthAdjust="spacing" textLength="412.79" x="64" y="314.1475">item succesfully rceived from queue?</text><text fill="#000000" font-family="sans-serif" font-size="22" lengthAdjust="spacing" textLength="27.4033" x="500.79" y="301.3428">no</text><polygon fill="#F1F1F1" points="270.395,810.0156,294.395,834.0156,270.395,858.0156,246.395,834.0156,270.395,810.0156" style="stroke:#181818;stroke-width:1;"/><ellipse cx="270.395" cy="920.0156" fill="none" rx="22" ry="22" style="stroke:#222222;stroke-width:1;"/><ellipse cx="270.395" cy="920.0156" fill="#222222" rx="12" ry="12" style="stroke:#222222;stroke-width:2;"/><line style="stroke:#181818;stroke-width:2;" x1="270.395" x2="270.395" y1="134.5938" y2="174.5938"/><polygon fill="#181818" points="262.395,154.5938,270.395,174.5938,278.395,154.5938,270.395,162.5938" style="stroke:#181818;stroke-width:2;"/><line style="stroke:#181818;stroke-width:2;" x1="270.395" x2="270.395" y1="535.2734" y2="605.2734"/><polygon fill="#181818" points="262.395,585.2734,270.395,605.2734,278.395,585.2734,270.395,593.2734" style="stroke:#181818;stroke-width:2;"/><line style="stroke:#181818;stroke-width:2;" x1="270.395" x2="270.395" y1="427.3359" y2="467.3359"/><polygon fill="#181818" points="262.395,447.3359,270.395,467.3359,278.395,447.3359,270.395,455.3359" style="stroke:#181818;stroke-width:2;"/><line style="stroke:#181818;stroke-width:2;" x1="444.0229" x2="579.106" y1="737.2109" y2="737.2109"/><line style="stroke:#181818;stroke-width:2;" x1="579.106" x2="579.106" y1="604.2422" y2="737.2109"/><polygon fill="#181818" points="571.106,624.2422,579.106,604.2422,587.106,624.2422,579.106,616.2422" style="stroke:#181818;stroke-width:2;"/><line style="stroke:#181818;stroke-width:2;" x1="579.106" x2="579.106" y1="403.3359" y2="536.3047"/><line style="stroke:#181818;stroke-width:2;" x1="579.106" x2="294.395" y1="403.3359" y2="403.3359"/><polygon fill="#181818" points="314.395,395.3359,294.395,403.3359,314.395,411.3359,306.395,403.3359" style="stroke:#181818;stroke-width:2;"/><line style="stroke:#181818;stroke-width:2;" x1="270.395" x2="270.395" y1="673.2109" y2="713.2109"/><polygon fill="#181818" points="262.395,693.2109,270.395,713.2109,278.395,693.2109,270.395,701.2109" style="stroke:#181818;stroke-width:2;"/><line style="stroke:#181818;stroke-width:2;" x1="270.395" x2="270.395" y1="330.5313" y2="379.3359"/><polygon fill="#181818" points="262.395,359.3359,270.395,379.3359,278.395,359.3359,270.395,367.3359" style="stroke:#181818;stroke-width:2;"/><line style="stroke:#181818;stroke-width:2;" x1="500.79" x2="679.0415" y1="306.5313" y2="306.5313"/><polygon fill="#181818" points="671.0415,550.2734,679.0415,570.2734,687.0415,550.2734,679.0415,558.2734" style="stroke:#181818;stroke-width:2;"/><line style="stroke:#181818;stroke-width:2;" x1="679.0415" x2="679.0415" y1="306.5313" y2="834.0156"/><line style="stroke:#181818;stroke-width:2;" x1="679.0415" x2="294.395" y1="834.0156" y2="834.0156"/><polygon fill="#181818" points="314.395,826.0156,294.395,834.0156,314.395,842.0156,306.395,834.0156" style="stroke:#181818;stroke-width:2;"/><line style="stroke:#181818;stroke-width:2;" x1="270.395" x2="270.395" y1="761.2109" y2="810.0156"/><polygon fill="#181818" points="262.395,790.0156,270.395,810.0156,278.395,790.0156,270.395,798.0156" style="stroke:#181818;stroke-width:2;"/><line style="stroke:#181818;stroke-width:2;" x1="270.395" x2="270.395" y1="242.5313" y2="282.5313"/><polygon fill="#181818" points="262.395,262.5313,270.395,282.5313,278.395,262.5313,270.395,270.5313" style="stroke:#181818;stroke-width:2;"/><line style="stroke:#181818;stroke-width:2;" x1="270.395" x2="270.395" y1="858.0156" y2="898.0156"/><polygon fill="#181818" points="262.395,878.0156,270.395,898.0156,278.395,878.0156,270.395,886.0156" style="stroke:#181818;stroke-width:2;"/></g></svg></div><div class="puml dark" style=""><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentStyleType="text/css" data-diagram-type="ACTIVITY" height="964px" preserveAspectRatio="xMidYMid meet" style="width:730px;height:964px;background:#1B1B1B;" version="1.1" viewBox="0 0 730 964" width="730px" zoomAndPan="magnify" class="diagram"><title>MotorCtrlExecutePeriodic()</title><defs/><g><rect fill="#1B1B1B" height="964" style="stroke:none;stroke-width:2;" width="730" x="0" y="0"/><g class="title" data-source-line="4"><text fill="#FFFFFF" font-family="sans-serif" font-size="28" font-weight="bold" lengthAdjust="spacing" textLength="429.9395" x="147.551" y="65.9902">MotorCtrlExecutePeriodic()</text></g><ellipse cx="270.395" cy="114.5938" fill="#DDDDDD" rx="20" ry="20" style="stroke:#DDDDDD;stroke-width:1;"/><rect fill="#313139" height="67.9375" rx="25" ry="25" style="stroke:#E7E7E7;stroke-width:1;" width="351.5664" x="94.6118" y="174.5938"/><text fill="#FFFFFF" font-family="sans-serif" font-size="24" lengthAdjust="spacing" textLength="311.5664" x="114.6118" y="216.8711">Get latest power requests</text><rect fill="#313139" height="67.9375" rx="25" ry="25" style="stroke:#E7E7E7;stroke-width:1;" width="361.5508" x="89.6196" y="467.3359"/><text fill="#FFFFFF" font-family="sans-serif" font-size="24" lengthAdjust="spacing" textLength="321.5508" x="109.6196" y="509.6133">Calculate new PWM values</text><rect fill="#313139" height="67.9375" rx="25" ry="25" style="stroke:#E7E7E7;stroke-width:1;" width="317.2188" x="111.7856" y="605.2734"/><text fill="#FFFFFF" font-family="sans-serif" font-size="24" lengthAdjust="spacing" textLength="277.2188" x="131.7856" y="647.5508">Apply new PWM values</text><polygon fill="#313139" points="270.395,379.3359,294.395,403.3359,270.395,427.3359,246.395,403.3359,270.395,379.3359" style="stroke:#E7E7E7;stroke-width:1;"/><polygon fill="#313139" points="120.7671,713.2109,420.0229,713.2109,444.0229,737.2109,420.0229,761.2109,120.7671,761.2109,96.7671,737.2109,120.7671,713.2109" style="stroke:#E7E7E7;stroke-width:1;"/><text fill="#FFFFFF" font-family="sans-serif" font-size="22" lengthAdjust="spacing" textLength="27.4033" x="278.395" y="781.6318">no</text><text fill="#FFFFFF" font-family="sans-serif" font-size="22" lengthAdjust="spacing" textLength="299.2559" x="120.7671" y="744.8271">motor&lt;MOTORS_NUMBER?</text><text fill="#FFFFFF" font-family="sans-serif" font-size="22" lengthAdjust="spacing" textLength="38.0166" x="444.0229" y="732.0225">yes</text><rect fill="#313139" height="67.9375" rx="25" ry="25" style="stroke:#E7E7E7;stroke-width:1;" width="159.8711" x="499.1704" y="536.3047"/><text fill="#FFFFFF" font-family="sans-serif" font-size="24" lengthAdjust="spacing" textLength="112.2422" x="526.7993" y="578.582">motor++</text><polygon fill="#313139" points="64,282.5313,476.79,282.5313,500.79,306.5313,476.79,330.5313,64,330.5313,40,306.5313,64,282.5313" style="stroke:#E7E7E7;stroke-width:1;"/><text fill="#FFFFFF" font-family="sans-serif" font-size="22" lengthAdjust="spacing" textLength="38.0166" x="278.395" y="350.9521">yes</text><text fill="#FFFFFF" font-family="sans-serif" font-size="22" lengthAdjust="spacing" textLength="412.79" x="64" y="314.1475">item succesfully rceived from queue?</text><text fill="#FFFFFF" font-family="sans-serif" font-size="22" lengthAdjust="spacing" textLength="27.4033" x="500.79" y="301.3428">no</text><polygon fill="#313139" points="270.395,810.0156,294.395,834.0156,270.395,858.0156,246.395,834.0156,270.395,810.0156" style="stroke:#E7E7E7;stroke-width:1;"/><ellipse cx="270.395" cy="920.0156" fill="none" rx="22" ry="22" style="stroke:#DDDDDD;stroke-width:1;"/><ellipse cx="270.395" cy="920.0156" fill="#DDDDDD" rx="12" ry="12" style="stroke:#DDDDDD;stroke-width:2;"/><line style="stroke:#E7E7E7;stroke-width:2;" x1="270.395" x2="270.395" y1="134.5938" y2="174.5938"/><polygon fill="#E7E7E7" points="262.395,154.5938,270.395,174.5938,278.395,154.5938,270.395,162.5938" style="stroke:#E7E7E7;stroke-width:2;"/><line style="stroke:#E7E7E7;stroke-width:2;" x1="270.395" x2="270.395" y1="535.2734" y2="605.2734"/><polygon fill="#E7E7E7" points="262.395,585.2734,270.395,605.2734,278.395,585.2734,270.395,593.2734" style="stroke:#E7E7E7;stroke-width:2;"/><line style="stroke:#E7E7E7;stroke-width:2;" x1="270.395" x2="270.395" y1="427.3359" y2="467.3359"/><polygon fill="#E7E7E7" points="262.395,447.3359,270.395,467.3359,278.395,447.3359,270.395,455.3359" style="stroke:#E7E7E7;stroke-width:2;"/><line style="stroke:#E7E7E7;stroke-width:2;" x1="444.0229" x2="579.106" y1="737.2109" y2="737.2109"/><line style="stroke:#E7E7E7;stroke-width:2;" x1="579.106" x2="579.106" y1="604.2422" y2="737.2109"/><polygon fill="#E7E7E7" points="571.106,624.2422,579.106,604.2422,587.106,624.2422,579.106,616.2422" style="stroke:#E7E7E7;stroke-width:2;"/><line style="stroke:#E7E7E7;stroke-width:2;" x1="579.106" x2="579.106" y1="403.3359" y2="536.3047"/><line style="stroke:#E7E7E7;stroke-width:2;" x1="579.106" x2="294.395" y1="403.3359" y2="403.3359"/><polygon fill="#E7E7E7" points="314.395,395.3359,294.395,403.3359,314.395,411.3359,306.395,403.3359" style="stroke:#E7E7E7;stroke-width:2;"/><line style="stroke:#E7E7E7;stroke-width:2;" x1="270.395" x2="270.395" y1="673.2109" y2="713.2109"/><polygon fill="#E7E7E7" points="262.395,693.2109,270.395,713.2109,278.395,693.2109,270.395,701.2109" style="stroke:#E7E7E7;stroke-width:2;"/><line style="stroke:#E7E7E7;stroke-width:2;" x1="270.395" x2="270.395" y1="330.5313" y2="379.3359"/><polygon fill="#E7E7E7" points="262.395,359.3359,270.395,379.3359,278.395,359.3359,270.395,367.3359" style="stroke:#E7E7E7;stroke-width:2;"/><line style="stroke:#E7E7E7;stroke-width:2;" x1="500.79" x2="679.0415" y1="306.5313" y2="306.5313"/><polygon fill="#E7E7E7" points="671.0415,550.2734,679.0415,570.2734,687.0415,550.2734,679.0415,558.2734" style="stroke:#E7E7E7;stroke-width:2;"/><line style="stroke:#E7E7E7;stroke-width:2;" x1="679.0415" x2="679.0415" y1="306.5313" y2="834.0156"/><line style="stroke:#E7E7E7;stroke-width:2;" x1="679.0415" x2="294.395" y1="834.0156" y2="834.0156"/><polygon fill="#E7E7E7" points="314.395,826.0156,294.395,834.0156,314.395,842.0156,306.395,834.0156" style="stroke:#E7E7E7;stroke-width:2;"/><line style="stroke:#E7E7E7;stroke-width:2;" x1="270.395" x2="270.395" y1="761.2109" y2="810.0156"/><polygon fill="#E7E7E7" points="262.395,790.0156,270.395,810.0156,278.395,790.0156,270.395,798.0156" style="stroke:#E7E7E7;stroke-width:2;"/><line style="stroke:#E7E7E7;stroke-width:2;" x1="270.395" x2="270.395" y1="242.5313" y2="282.5313"/><polygon fill="#E7E7E7" points="262.395,262.5313,270.395,282.5313,278.395,262.5313,270.395,270.5313" style="stroke:#E7E7E7;stroke-width:2;"/><line style="stroke:#E7E7E7;stroke-width:2;" x1="270.395" x2="270.395" y1="858.0156" y2="898.0156"/><polygon fill="#E7E7E7" points="262.395,878.0156,270.395,898.0156,278.395,878.0156,270.395,886.0156" style="stroke:#E7E7E7;stroke-width:2;"/></g></svg></div></div>
+
+<div class='puml-container'><div class="puml light" style=""><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentStyleType="text/css" data-diagram-type="ACTIVITY" height="468px" preserveAspectRatio="xMidYMid meet" style="width:1282px;height:468px;background:#FFFFFF;" version="1.1" viewBox="0 0 1282 468" width="1282px" zoomAndPan="magnify" class="diagram"><title>ReceiverCallRxCompleted()</title><defs/><g><g class="title" data-source-line="4"><text fill="#000000" font-family="sans-serif" font-size="28" font-weight="bold" lengthAdjust="spacing" textLength="430.6504" x="422.978" y="65.9902">ReceiverCallRxCompleted()</text></g><ellipse cx="335.8184" cy="114.5938" fill="#222222" rx="20" ry="20" style="stroke:#222222;stroke-width:1;"/><path d="M574.4004,168.2969 L574.4004,200.5625 L534.4004,208.5625 L574.4004,216.5625 L574.4004,248.8281 A0,0 0 0 0 574.4004,248.8281 L1172.6201,248.8281 A0,0 0 0 0 1172.6201,248.8281 L1172.6201,188.2969 L1152.6201,168.2969 L574.4004,168.2969 A0,0 0 0 0 574.4004,168.2969" fill="#FEFFDD" style="stroke:#181818;stroke-width:1;"/><path d="M1152.6201,168.2969 L1152.6201,188.2969 L1172.6201,188.2969 L1152.6201,168.2969" fill="#FEFFDD" style="stroke:#181818;stroke-width:1;"/><text fill="#000000" font-family="sans-serif" font-size="26" lengthAdjust="spacing" textLength="556.2197" x="586.4004" y="202.4307">Set the xHigherPriorityTaskWoken to True,</text><text fill="#000000" font-family="sans-serif" font-size="26" lengthAdjust="spacing" textLength="429.584" x="586.4004" y="232.6963">when higher Prio Task scheduled</text><rect fill="#F1F1F1" height="67.9375" rx="25" ry="25" style="stroke:#181818;stroke-width:1;" width="397.1641" x="137.2363" y="174.5938"/><text fill="#000000" font-family="sans-serif" font-size="24" lengthAdjust="spacing" textLength="357.1641" x="157.2363" y="216.8711">Notify Receiver main function</text><path d="M689.6367,282.5313 L689.6367,314.7969 L649.6367,322.7969 L689.6367,330.7969 L689.6367,363.0625 A0,0 0 0 0 689.6367,363.0625 L1258.6064,363.0625 A0,0 0 0 0 1258.6064,363.0625 L1258.6064,302.5313 L1238.6064,282.5313 L689.6367,282.5313 A0,0 0 0 0 689.6367,282.5313" fill="#FEFFDD" style="stroke:#181818;stroke-width:1;"/><path d="M1238.6064,282.5313 L1238.6064,302.5313 L1258.6064,302.5313 L1238.6064,282.5313" fill="#FEFFDD" style="stroke:#181818;stroke-width:1;"/><text fill="#000000" font-family="sans-serif" font-size="26" lengthAdjust="spacing" textLength="369.0273" x="701.6367" y="316.665">Immediately switch context,</text><text fill="#000000" font-family="sans-serif" font-size="26" lengthAdjust="spacing" textLength="526.9697" x="701.6367" y="346.9307">if xHigherPriorityTaskWoken set to True,</text><rect fill="#F1F1F1" height="67.9375" rx="25" ry="25" style="stroke:#181818;stroke-width:1;" width="627.6367" x="22" y="288.8281"/><text fill="#000000" font-family="sans-serif" font-size="24" lengthAdjust="spacing" textLength="587.6367" x="42" y="331.1055">portYIELD_FROM_ISR(xHigherPriorityTaskWoken)</text><ellipse cx="335.8184" cy="425.0625" fill="none" rx="22" ry="22" style="stroke:#222222;stroke-width:1;"/><ellipse cx="335.8184" cy="425.0625" fill="#222222" rx="12" ry="12" style="stroke:#222222;stroke-width:2;"/><line style="stroke:#181818;stroke-width:2;" x1="335.8184" x2="335.8184" y1="134.5938" y2="174.5938"/><polygon fill="#181818" points="327.8184,154.5938,335.8184,174.5938,343.8184,154.5938,335.8184,162.5938" style="stroke:#181818;stroke-width:2;"/><line style="stroke:#181818;stroke-width:2;" x1="335.8184" x2="335.8184" y1="242.5313" y2="288.8281"/><polygon fill="#181818" points="327.8184,268.8281,335.8184,288.8281,343.8184,268.8281,335.8184,276.8281" style="stroke:#181818;stroke-width:2;"/><line style="stroke:#181818;stroke-width:2;" x1="335.8184" x2="335.8184" y1="356.7656" y2="403.0625"/><polygon fill="#181818" points="327.8184,383.0625,335.8184,403.0625,343.8184,383.0625,335.8184,391.0625" style="stroke:#181818;stroke-width:2;"/></g></svg></div><div class="puml dark" style=""><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentStyleType="text/css" data-diagram-type="ACTIVITY" height="468px" preserveAspectRatio="xMidYMid meet" style="width:1282px;height:468px;background:#1B1B1B;" version="1.1" viewBox="0 0 1282 468" width="1282px" zoomAndPan="magnify" class="diagram"><title>ReceiverCallRxCompleted()</title><defs/><g><rect fill="#1B1B1B" height="468" style="stroke:none;stroke-width:2;" width="1282" x="0" y="0"/><g class="title" data-source-line="4"><text fill="#FFFFFF" font-family="sans-serif" font-size="28" font-weight="bold" lengthAdjust="spacing" textLength="430.6504" x="422.978" y="65.9902">ReceiverCallRxCompleted()</text></g><ellipse cx="335.8184" cy="114.5938" fill="#DDDDDD" rx="20" ry="20" style="stroke:#DDDDDD;stroke-width:1;"/><path d="M574.4004,168.2969 L574.4004,200.5625 L534.4004,208.5625 L574.4004,216.5625 L574.4004,248.8281 A0,0 0 0 0 574.4004,248.8281 L1172.6201,248.8281 A0,0 0 0 0 1172.6201,248.8281 L1172.6201,188.2969 L1152.6201,168.2969 L574.4004,168.2969 A0,0 0 0 0 574.4004,168.2969" fill="#714137" style="stroke:#E7E7E7;stroke-width:1;"/><path d="M1152.6201,168.2969 L1152.6201,188.2969 L1172.6201,188.2969 L1152.6201,168.2969" fill="#714137" style="stroke:#E7E7E7;stroke-width:1;"/><text fill="#FFFFFF" font-family="sans-serif" font-size="26" lengthAdjust="spacing" textLength="556.2197" x="586.4004" y="202.4307">Set the xHigherPriorityTaskWoken to True,</text><text fill="#FFFFFF" font-family="sans-serif" font-size="26" lengthAdjust="spacing" textLength="429.584" x="586.4004" y="232.6963">when higher Prio Task scheduled</text><rect fill="#313139" height="67.9375" rx="25" ry="25" style="stroke:#E7E7E7;stroke-width:1;" width="397.1641" x="137.2363" y="174.5938"/><text fill="#FFFFFF" font-family="sans-serif" font-size="24" lengthAdjust="spacing" textLength="357.1641" x="157.2363" y="216.8711">Notify Receiver main function</text><path d="M689.6367,282.5313 L689.6367,314.7969 L649.6367,322.7969 L689.6367,330.7969 L689.6367,363.0625 A0,0 0 0 0 689.6367,363.0625 L1258.6064,363.0625 A0,0 0 0 0 1258.6064,363.0625 L1258.6064,302.5313 L1238.6064,282.5313 L689.6367,282.5313 A0,0 0 0 0 689.6367,282.5313" fill="#714137" style="stroke:#E7E7E7;stroke-width:1;"/><path d="M1238.6064,282.5313 L1238.6064,302.5313 L1258.6064,302.5313 L1238.6064,282.5313" fill="#714137" style="stroke:#E7E7E7;stroke-width:1;"/><text fill="#FFFFFF" font-family="sans-serif" font-size="26" lengthAdjust="spacing" textLength="369.0273" x="701.6367" y="316.665">Immediately switch context,</text><text fill="#FFFFFF" font-family="sans-serif" font-size="26" lengthAdjust="spacing" textLength="526.9697" x="701.6367" y="346.9307">if xHigherPriorityTaskWoken set to True,</text><rect fill="#313139" height="67.9375" rx="25" ry="25" style="stroke:#E7E7E7;stroke-width:1;" width="627.6367" x="22" y="288.8281"/><text fill="#FFFFFF" font-family="sans-serif" font-size="24" lengthAdjust="spacing" textLength="587.6367" x="42" y="331.1055">portYIELD_FROM_ISR(xHigherPriorityTaskWoken)</text><ellipse cx="335.8184" cy="425.0625" fill="none" rx="22" ry="22" style="stroke:#DDDDDD;stroke-width:1;"/><ellipse cx="335.8184" cy="425.0625" fill="#DDDDDD" rx="12" ry="12" style="stroke:#DDDDDD;stroke-width:2;"/><line style="stroke:#E7E7E7;stroke-width:2;" x1="335.8184" x2="335.8184" y1="134.5938" y2="174.5938"/><polygon fill="#E7E7E7" points="327.8184,154.5938,335.8184,174.5938,343.8184,154.5938,335.8184,162.5938" style="stroke:#E7E7E7;stroke-width:2;"/><line style="stroke:#E7E7E7;stroke-width:2;" x1="335.8184" x2="335.8184" y1="242.5313" y2="288.8281"/><polygon fill="#E7E7E7" points="327.8184,268.8281,335.8184,288.8281,343.8184,268.8281,335.8184,276.8281" style="stroke:#E7E7E7;stroke-width:2;"/><line style="stroke:#E7E7E7;stroke-width:2;" x1="335.8184" x2="335.8184" y1="356.7656" y2="403.0625"/><polygon fill="#E7E7E7" points="327.8184,383.0625,335.8184,403.0625,343.8184,383.0625,335.8184,391.0625" style="stroke:#E7E7E7;stroke-width:2;"/></g></svg></div></div>
+
+<div class='puml-container'><div class="puml light" style=""><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentStyleType="text/css" data-diagram-type="ACTIVITY" height="564px" preserveAspectRatio="xMidYMid meet" style="width:914px;height:564px;background:#FFFFFF;" version="1.1" viewBox="0 0 914 564" width="914px" zoomAndPan="magnify" class="diagram"><title>ReceiverExecute()</title><defs/><g><g class="title" data-source-line="4"><text fill="#000000" font-family="sans-serif" font-size="28" font-weight="bold" lengthAdjust="spacing" textLength="287.4648" x="310.7554" y="65.9902">ReceiverExecute()</text></g><ellipse cx="232.8574" cy="114.5938" fill="#222222" rx="20" ry="20" style="stroke:#222222;stroke-width:1;"/><rect fill="#F1F1F1" height="67.9375" rx="25" ry="25" style="stroke:#181818;stroke-width:1;" width="421.7148" x="22" y="174.5938"/><text fill="#000000" font-family="sans-serif" font-size="24" lengthAdjust="spacing" textLength="381.7148" x="42" y="216.8711">Request Asynchronous SPI read</text><path d="M405.7441,291.3672 L405.7441,308.5 L365.7441,316.5 L405.7441,324.5 L405.7441,341.6328 A0,0 0 0 0 405.7441,341.6328 L890.9756,341.6328 A0,0 0 0 0 890.9756,341.6328 L890.9756,311.3672 L870.9756,291.3672 L405.7441,291.3672 A0,0 0 0 0 405.7441,291.3672" fill="#FEFFDD" style="stroke:#181818;stroke-width:1;"/><path d="M870.9756,291.3672 L870.9756,311.3672 L890.9756,311.3672 L870.9756,291.3672" fill="#FEFFDD" style="stroke:#181818;stroke-width:1;"/><text fill="#000000" font-family="sans-serif" font-size="26" lengthAdjust="spacing" textLength="434.9668" x="417.7441" y="325.501">Wait for the SPI finish notification</text><rect fill="#F1F1F1" height="67.9375" rx="25" ry="25" style="stroke:#181818;stroke-width:1;" width="265.7734" x="99.9707" y="282.5313"/><text fill="#000000" font-family="sans-serif" font-size="24" lengthAdjust="spacing" textLength="225.7734" x="119.9707" y="324.8086">ulTaskNotifyTake()</text><rect fill="#F1F1F1" height="67.9375" rx="25" ry="25" style="stroke:#181818;stroke-width:1;" width="304.5391" x="80.5879" y="390.4688"/><text fill="#000000" font-family="sans-serif" font-size="24" lengthAdjust="spacing" textLength="264.5391" x="100.5879" y="432.7461">xQueueSendToFront()</text><ellipse cx="232.8574" cy="520.4063" fill="none" rx="22" ry="22" style="stroke:#222222;stroke-width:1;"/><ellipse cx="232.8574" cy="520.4063" fill="#222222" rx="12" ry="12" style="stroke:#222222;stroke-width:2;"/><line style="stroke:#181818;stroke-width:2;" x1="232.8574" x2="232.8574" y1="134.5938" y2="174.5938"/><polygon fill="#181818" points="224.8574,154.5938,232.8574,174.5938,240.8574,154.5938,232.8574,162.5938" style="stroke:#181818;stroke-width:2;"/><line style="stroke:#181818;stroke-width:2;" x1="232.8574" x2="232.8574" y1="242.5313" y2="282.5313"/><polygon fill="#181818" points="224.8574,262.5313,232.8574,282.5313,240.8574,262.5313,232.8574,270.5313" style="stroke:#181818;stroke-width:2;"/><line style="stroke:#181818;stroke-width:2;" x1="232.8574" x2="232.8574" y1="350.4688" y2="390.4688"/><polygon fill="#181818" points="224.8574,370.4688,232.8574,390.4688,240.8574,370.4688,232.8574,378.4688" style="stroke:#181818;stroke-width:2;"/><line style="stroke:#181818;stroke-width:2;" x1="232.8574" x2="232.8574" y1="458.4063" y2="498.4063"/><polygon fill="#181818" points="224.8574,478.4063,232.8574,498.4063,240.8574,478.4063,232.8574,486.4063" style="stroke:#181818;stroke-width:2;"/></g></svg></div><div class="puml dark" style=""><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentStyleType="text/css" data-diagram-type="ACTIVITY" height="564px" preserveAspectRatio="xMidYMid meet" style="width:914px;height:564px;background:#1B1B1B;" version="1.1" viewBox="0 0 914 564" width="914px" zoomAndPan="magnify" class="diagram"><title>ReceiverExecute()</title><defs/><g><rect fill="#1B1B1B" height="564" style="stroke:none;stroke-width:2;" width="914" x="0" y="0"/><g class="title" data-source-line="4"><text fill="#FFFFFF" font-family="sans-serif" font-size="28" font-weight="bold" lengthAdjust="spacing" textLength="287.4648" x="310.7554" y="65.9902">ReceiverExecute()</text></g><ellipse cx="232.8574" cy="114.5938" fill="#DDDDDD" rx="20" ry="20" style="stroke:#DDDDDD;stroke-width:1;"/><rect fill="#313139" height="67.9375" rx="25" ry="25" style="stroke:#E7E7E7;stroke-width:1;" width="421.7148" x="22" y="174.5938"/><text fill="#FFFFFF" font-family="sans-serif" font-size="24" lengthAdjust="spacing" textLength="381.7148" x="42" y="216.8711">Request Asynchronous SPI read</text><path d="M405.7441,291.3672 L405.7441,308.5 L365.7441,316.5 L405.7441,324.5 L405.7441,341.6328 A0,0 0 0 0 405.7441,341.6328 L890.9756,341.6328 A0,0 0 0 0 890.9756,341.6328 L890.9756,311.3672 L870.9756,291.3672 L405.7441,291.3672 A0,0 0 0 0 405.7441,291.3672" fill="#714137" style="stroke:#E7E7E7;stroke-width:1;"/><path d="M870.9756,291.3672 L870.9756,311.3672 L890.9756,311.3672 L870.9756,291.3672" fill="#714137" style="stroke:#E7E7E7;stroke-width:1;"/><text fill="#FFFFFF" font-family="sans-serif" font-size="26" lengthAdjust="spacing" textLength="434.9668" x="417.7441" y="325.501">Wait for the SPI finish notification</text><rect fill="#313139" height="67.9375" rx="25" ry="25" style="stroke:#E7E7E7;stroke-width:1;" width="265.7734" x="99.9707" y="282.5313"/><text fill="#FFFFFF" font-family="sans-serif" font-size="24" lengthAdjust="spacing" textLength="225.7734" x="119.9707" y="324.8086">ulTaskNotifyTake()</text><rect fill="#313139" height="67.9375" rx="25" ry="25" style="stroke:#E7E7E7;stroke-width:1;" width="304.5391" x="80.5879" y="390.4688"/><text fill="#FFFFFF" font-family="sans-serif" font-size="24" lengthAdjust="spacing" textLength="264.5391" x="100.5879" y="432.7461">xQueueSendToFront()</text><ellipse cx="232.8574" cy="520.4063" fill="none" rx="22" ry="22" style="stroke:#DDDDDD;stroke-width:1;"/><ellipse cx="232.8574" cy="520.4063" fill="#DDDDDD" rx="12" ry="12" style="stroke:#DDDDDD;stroke-width:2;"/><line style="stroke:#E7E7E7;stroke-width:2;" x1="232.8574" x2="232.8574" y1="134.5938" y2="174.5938"/><polygon fill="#E7E7E7" points="224.8574,154.5938,232.8574,174.5938,240.8574,154.5938,232.8574,162.5938" style="stroke:#E7E7E7;stroke-width:2;"/><line style="stroke:#E7E7E7;stroke-width:2;" x1="232.8574" x2="232.8574" y1="242.5313" y2="282.5313"/><polygon fill="#E7E7E7" points="224.8574,262.5313,232.8574,282.5313,240.8574,262.5313,232.8574,270.5313" style="stroke:#E7E7E7;stroke-width:2;"/><line style="stroke:#E7E7E7;stroke-width:2;" x1="232.8574" x2="232.8574" y1="350.4688" y2="390.4688"/><polygon fill="#E7E7E7" points="224.8574,370.4688,232.8574,390.4688,240.8574,370.4688,232.8574,378.4688" style="stroke:#E7E7E7;stroke-width:2;"/><line style="stroke:#E7E7E7;stroke-width:2;" x1="232.8574" x2="232.8574" y1="458.4063" y2="498.4063"/><polygon fill="#E7E7E7" points="224.8574,478.4063,232.8574,498.4063,240.8574,478.4063,232.8574,486.4063" style="stroke:#E7E7E7;stroke-width:2;"/></g></svg></div></div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+    <a href="https://www.linkedin.com/in/bartłomiej-burda-837579164" target="_blank" rel="noopener" title="LinkedIn (Bartłomiej Burda)" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3M135.4 416H69V202.2h66.5V416zM102.2 96a38.5 38.5 0 1 1 0 77 38.5 38.5 0 1 1 0-77m282.1 320h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "navigation.sections", "toc.integrate", "navigation.top", "search.suggest", "search.highlight", "content.tabs.link", "content.code.annotation", "content.code.copy"], "search": "../../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.92b07e13.min.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+        <script src="../../assets/mkdocs_puml/puml.js"></script>
+      
+        <script src="https://unpkg.com/@panzoom/panzoom@4.5.1/dist/panzoom.min.js"></script>
+      
+        <script src="../../assets/mkdocs_puml/interaction.js"></script>
+      
+    
+  </body>
+</html>
