@@ -16,7 +16,7 @@ To be done in further steps.
 
 ### Software Repositories :octicons-mark-github-24:
 - [STM32 Firmware Repository](https://github.com/inpgbburda/Stm32f401.git): Contains the firmware for the STM32F4 microcontroller, including FreeRTOS and motor control logic.
-- [Raspberry Pi Software Repository](https://github.com/TomBartDrone/drone_code.git): Contains the real-time Linux code for sensor data processing and communication.
+- [Raspberry Pi Software Repository](https://github.com/inpgbburda/FlyMatic_MainUnit.git): Contains the real-time Linux code for sensor data processing and communication.
 
 ### Hardware Repositories :octicons-mark-github-24: + :octicons-plug-24:
 - [EE KiCad Project Repository](https://github.com/inpgbburda/FlyMaticEE.git): Contains schematics of electrical conntections.  
