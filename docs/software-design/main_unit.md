@@ -24,12 +24,10 @@ title Reading the MPU sensor
 participant "Thr_Mpu6050_Read"  as Thr_Mpu6050_Read
 participant "Thr_Flight_Ctrl"   as Thr_Flight_Ctrl
 participant "Balancer"          as Balancer
-entity       "mpu6050"          as mpu6050
-entity       "Mpu6050::sensor_" as Mpu6050_sensor_
+participant "mpu6050"          as mpu6050
+participant "Mpu6050::sensor_" as Mpu6050_sensor_
 participant "i2c"               as i2c
 participant "Spi_Hw"            as Spi_Hw
-
-note over Mpu6050_sensor_: member-object of 'mpu6050'
 
 Thr_Mpu6050_Read ->> Balancer : ReadAccSensor()
 activate Thr_Mpu6050_Read
