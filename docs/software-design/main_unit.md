@@ -24,32 +24,29 @@ title Reading the MPU sensor
 participant "Thr_Mpu6050_Read"  as Thr_Mpu6050_Read
 participant "Balancer"          as Balancer
 participant "mpu6050"          as mpu6050
-participant Mpu6050_sensor_ [
+participant Mpu6050_sensor [
     =sensor_
     ----
     ""Mpu6050""
 ]
 participant "i2c"               as i2c
 
-Thr_Mpu6050_Read ->> Balancer : ReadAccSensor()
 activate Thr_Mpu6050_Read
+Thr_Mpu6050_Read ->> Balancer : ReadAccSensor()
 activate Balancer
-
 Balancer ->> mpu6050: mpu6050.ReadSensorData()
 activate mpu6050
-mpu6050 ->> Mpu6050_sensor_:         sensor_.ReadSensorData()
-activate Mpu6050_sensor_
-Mpu6050_sensor_ ->> Mpu6050_sensor_: ReadAcceleration()
-activate Mpu6050_sensor_
-Mpu6050_sensor_ ->> i2c:             ReadBlockOfBytes()
+mpu6050 ->> Mpu6050_sensor:         sensor_.ReadSensorData()
+activate Mpu6050_sensor
+Mpu6050_sensor ->> Mpu6050_sensor: ReadAcceleration()
+activate Mpu6050_sensor
+Mpu6050_sensor ->> i2c:             ReadBlockOfBytes()
 activate i2c
-
-i2c -->> Mpu6050_sensor_
-deactivate Mpu6050_sensor_
+i2c -->> Mpu6050_sensor
+deactivate Mpu6050_sensor
 deactivate i2c
-Mpu6050_sensor_ -->> mpu6050
-deactivate Mpu6050_sensor_
-
+Mpu6050_sensor -->> mpu6050
+deactivate Mpu6050_sensor
 mpu6050 -->> Balancer
 deactivate mpu6050
 Balancer -->> Thr_Mpu6050_Read:
