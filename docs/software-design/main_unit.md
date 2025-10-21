@@ -22,12 +22,14 @@ In most cases, it allows to achieve `100us` time resolution. More about it: [lin
 title Reading the MPU sensor
 
 participant "Thr_Mpu6050_Read"  as Thr_Mpu6050_Read
-participant "Thr_Flight_Ctrl"   as Thr_Flight_Ctrl
 participant "Balancer"          as Balancer
 participant "mpu6050"          as mpu6050
-participant "Mpu6050::sensor_" as Mpu6050_sensor_
+participant Mpu6050_sensor_ [
+    =sensor_
+    ----
+    ""Mpu6050""
+]
 participant "i2c"               as i2c
-participant "Spi_Hw"            as Spi_Hw
 
 Thr_Mpu6050_Read ->> Balancer : ReadAccSensor()
 activate Thr_Mpu6050_Read
@@ -49,7 +51,67 @@ Mpu6050_sensor_ -->> mpu6050
 deactivate Mpu6050_sensor_
 
 mpu6050 -->> Balancer
+deactivate mpu6050
 Balancer -->> Thr_Mpu6050_Read:
+deactivate Balancer
+deactivate Thr_Mpu6050_Read
+
+@enduml
+```
+
+```puml
+@startuml
+title Performing ACC Calculation and PID control
+
+participant "Thr_Flight_Ctrl"   as Thr_Flight_Ctrl
+participant "Balancer"          as Balancer
+participant "mpu6050"          as mpu6050
+participant Mpu6050_acc_converter [
+    =acc_converter_
+    ----
+    ""Mpu6050""
+]
+participant Mpu6050_angle_converter [
+    =angle_converter_
+    ----
+    ""Mpu6050""
+]
+participant "Spi_Hw"           as Spi_Hw
+
+activate Thr_Flight_Ctrl
+Thr_Flight_Ctrl ->> Balancer : CalculateFlightControls()
+activate Balancer 
+Balancer ->> mpu6050: mpu6050.ProcessSensorData()
+activate mpu6050
+mpu6050  ->> Mpu6050_acc_converter: ConvertRawToPhysical()
+note right: Atomic read of raw accelerations
+activate Mpu6050_acc_converter
+Mpu6050_acc_converter -->> mpu6050
+deactivate Mpu6050_acc_converter
+mpu6050  ->> Mpu6050_angle_converter: CalculateSpiritAngles()
+activate Mpu6050_angle_converter
+Mpu6050_angle_converter ->> Mpu6050_angle_converter: CalculateAngle()
+activate Mpu6050_angle_converter
+deactivate Mpu6050_angle_converter
+Mpu6050_angle_converter -->> mpu6050
+deactivate Mpu6050_angle_converter
+mpu6050 -->> Balancer
+deactivate mpu6050
+Balancer ->> mpu6050: mpu6050.mpu6050GetSpiritAngle()
+activate mpu6050
+
+mpu6050 -->> Balancer
+deactivate mpu6050
+
+Balancer ->> Balancer: CalculatePID()
+
+Balancer ->> Spi_Hw: spi_bus.ReadWriteData()
+activate Spi_Hw
+Spi_Hw -->> Balancer
+deactivate Spi_Hw
+
+Balancer -->> Thr_Flight_Ctrl
+deactivate Balancer
 
 @enduml
 ```
