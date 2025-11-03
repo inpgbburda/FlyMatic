@@ -8,6 +8,7 @@ nav:
       - Motor Control: system-design/motor_control.md
     - Software design:
       - MainUnit: software-design/main_unit.md
+      - MainUnit - Mpu6050: software-design/main_unit-mpu6050.md
       - AuxUnit - Motor Control: software-design/aux_unit-motor_control.md
       - AuxUnit - RTOS Configuration: software-design/aux_unit-rtos.md
       - AuxUnit - SPI: software-design/aux_unit-spi.md
