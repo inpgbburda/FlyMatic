@@ -1,7 +1,9 @@
 # Angle Sensing with MPU-6050 for Spirit Level Application
 
 ## Introduction
-This document describes the use of the MPU-6050 sensor for angle measurement, particularly in the context of a spirit level application. The MPU-6050 integrates a 3-axis accelerometer and a 3-axis gyroscope, enabling it to accurately measure the orientation of an object.
+This document describes the use of the MPU-6050 sensor for angle measurement, particularly in the context of a spirit level application. The MPU-6050 integrates a 3-axis accelerometer and a 3-axis gyroscope, enabling it to accurately measure the orientation of an object.  
+The standard Euler Angles are used as coordinate system.  
+![Alt text](../images/PitchYawRoll.png)
 
 ## Key Concepts
 
