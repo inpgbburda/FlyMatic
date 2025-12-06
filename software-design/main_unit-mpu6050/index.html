@@ -1,0 +1,860 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../main_unit/">
+      
+      
+        <link rel="next" href="../aux_unit-motor_control/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../images/icon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
+    
+    
+      
+        <title>MainUnit - Mpu6050 - FlyMatic</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.618322db.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/octicons/16.0.1/octicons.min.css">
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+      <link rel="stylesheet" href="../../assets/mkdocs_puml/puml.css">
+    
+      <link rel="stylesheet" href="../../assets/mkdocs_puml/interaction.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="amber">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#static-architecture" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="FlyMatic" class="md-header__button md-logo" aria-label="FlyMatic" data-md-component="logo">
+      
+  <img src="../../images/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            FlyMatic
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              MainUnit - Mpu6050
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="amber"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../system-design/angle_sensing/" class="md-tabs__link">
+          
+  
+  
+  System design
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../main_unit/" class="md-tabs__link">
+          
+  
+  
+  Software design
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="FlyMatic" class="md-nav__button md-logo" aria-label="FlyMatic" data-md-component="logo">
+      
+  <img src="../../images/logo.png" alt="logo">
+
+    </a>
+    FlyMatic
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    System design
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    System design
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../system-design/angle_sensing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Angle Sensing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../system-design/ms_communication/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Unit Communication
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../system-design/motor_control/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Motor Control
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Software design
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Software design
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../main_unit/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MainUnit
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MainUnit - Mpu6050
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MainUnit - Mpu6050
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#static-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Static Architecture
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dynamic-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dynamic Architecture
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../aux_unit-motor_control/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AuxUnit - Motor Control
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../aux_unit-rtos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AuxUnit - RTOS Configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../aux_unit-spi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AuxUnit - SPI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+  <h1>MainUnit - Mpu6050</h1>
+
+<h2 id="static-architecture">Static Architecture</h2>
+<div class='puml-container'><div class="puml light" style=""><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentStyleType="text/css" data-diagram-type="CLASS" height="667px" preserveAspectRatio="xMidYMid meet" style="width:1107px;height:667px;background:#FFFFFF;" version="1.1" viewBox="0 0 1107 667" width="1107px" zoomAndPan="magnify" class="diagram"><title>MPU6050 module - class relationships</title><defs/><g><g class="title" data-source-line="2"><text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="300.7061" x="396.5462" y="22.9951">MPU6050 module - class relationships</text></g><g class="entity" data-entity="I2c" data-source-line="4" data-uid="ent0002" id="entity_I2c"><rect fill="#F1F1F1" height="48" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="52.7334" x="982.98" y="575.4769"/><ellipse cx="997.98" cy="591.4769" fill="#ADD1B2" rx="11" ry="11" style="stroke:#181818;stroke-width:1;"/><path d="M1000.9488,597.1175 Q1000.3706,597.4144 999.73,597.555 Q999.0894,597.7113 998.3863,597.7113 Q995.8863,597.7113 994.5581,596.0706 Q993.2456,594.4144 993.2456,591.2894 Q993.2456,588.1644 994.5581,586.5081 Q995.8863,584.8519 998.3863,584.8519 Q999.0894,584.8519 999.73,585.0081 Q1000.3863,585.1644 1000.9488,585.4613 L1000.9488,588.18 Q1000.3238,587.6019 999.73,587.3363 Q999.1363,587.055 998.5113,587.055 Q997.1675,587.055 996.48,588.1331 Q995.7925,589.1956 995.7925,591.2894 Q995.7925,593.3831 996.48,594.4613 Q997.1675,595.5238 998.5113,595.5238 Q999.1363,595.5238 999.73,595.2581 Q1000.3238,594.9769 1000.9488,594.3988 L1000.9488,597.1175 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="20.7334" x="1011.98" y="596.3236">I2c</text><line style="stroke:#181818;stroke-width:0.5;" x1="983.98" x2="1034.7134" y1="607.4769" y2="607.4769"/><line style="stroke:#181818;stroke-width:0.5;" x1="983.98" x2="1034.7134" y1="615.4769" y2="615.4769"/></g><g class="entity" data-entity="SensorData" data-source-line="6" data-uid="ent0003" id="entity_SensorData"><rect fill="#F1F1F1" height="121.4531" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="257.5879" x="270.55" y="538.7569"/><ellipse cx="351.3029" cy="558.8897" fill="#ADD1B2" rx="11" ry="11" style="stroke:#181818;stroke-width:1;"/><path d="M354.2717,564.5303 Q353.6936,564.8272 353.0529,564.9678 Q352.4123,565.1241 351.7092,565.1241 Q349.2092,565.1241 347.8811,563.4834 Q346.5686,561.8272 346.5686,558.7022 Q346.5686,555.5772 347.8811,553.9209 Q349.2092,552.2647 351.7092,552.2647 Q352.4123,552.2647 353.0529,552.4209 Q353.7092,552.5772 354.2717,552.8741 L354.2717,555.5928 Q353.6467,555.0147 353.0529,554.7491 Q352.4592,554.4678 351.8342,554.4678 Q350.4904,554.4678 349.8029,555.5459 Q349.1154,556.6084 349.1154,558.7022 Q349.1154,560.7959 349.8029,561.8741 Q350.4904,562.9366 351.8342,562.9366 Q352.4592,562.9366 353.0529,562.6709 Q353.6467,562.3897 354.2717,561.8116 L354.2717,564.5303 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacing" textLength="91.582" x="369.8029" y="554.8955">«noncopyable»</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="81.416" x="374.8859" y="570.7207">SensorData</text><line style="stroke:#181818;stroke-width:0.5;" x1="271.55" x2="527.1379" y1="579.0225" y2="579.0225"/><g data-visibility-modifier="PUBLIC_FIELD"><ellipse cx="281.55" cy="592.6709" fill="none" rx="3" ry="3" style="stroke:#038048;stroke-width:1;"/></g><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="190.1553" x="290.55" y="596.0176">pthread_mutex_t acc_lock_</text><g data-visibility-modifier="PUBLIC_FIELD"><ellipse cx="281.55" cy="608.9678" fill="none" rx="3" ry="3" style="stroke:#038048;stroke-width:1;"/></g><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="199.9785" x="290.55" y="612.3145">std::map raw_accelerations_</text><g data-visibility-modifier="PUBLIC_FIELD"><ellipse cx="281.55" cy="625.2647" fill="none" rx="3" ry="3" style="stroke:#038048;stroke-width:1;"/></g><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="231.5879" x="290.55" y="628.6114">std::map physical_accelerations_</text><g data-visibility-modifier="PUBLIC_FIELD"><ellipse cx="281.55" cy="641.5616" fill="none" rx="3" ry="3" style="stroke:#038048;stroke-width:1;"/></g><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="161.998" x="290.55" y="644.9082">std::map spirit_angles_</text><line style="stroke:#181818;stroke-width:0.5;" x1="271.55" x2="527.1379" y1="652.21" y2="652.21"/></g><g class="entity" data-entity="Mpu6050Sensor" data-source-line="13" data-uid="ent0004" id="entity_Mpu6050Sensor"><rect fill="#F1F1F1" height="145.7813" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="205.9697" x="743.36" y="315.9769"/><ellipse cx="785.5912" cy="331.9769" fill="#ADD1B2" rx="11" ry="11" style="stroke:#181818;stroke-width:1;"/><path d="M788.5599,337.6175 Q787.9818,337.9144 787.3412,338.055 Q786.7005,338.2112 785.9974,338.2112 Q783.4974,338.2112 782.1693,336.5706 Q780.8568,334.9144 780.8568,331.7894 Q780.8568,328.6644 782.1693,327.0081 Q783.4974,325.3519 785.9974,325.3519 Q786.7005,325.3519 787.3412,325.5081 Q787.9974,325.6644 788.5599,325.9612 L788.5599,328.68 Q787.9349,328.1019 787.3412,327.8362 Q786.7474,327.555 786.1224,327.555 Q784.7787,327.555 784.0912,328.6331 Q783.4037,329.6956 783.4037,331.7894 Q783.4037,333.8831 784.0912,334.9612 Q784.7787,336.0237 786.1224,336.0237 Q786.7474,336.0237 787.3412,335.7581 Q787.9349,335.4769 788.5599,334.8987 L788.5599,337.6175 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="113.4561" x="805.6425" y="336.8236">Mpu6050Sensor</text><line style="stroke:#181818;stroke-width:0.5;" x1="744.36" x2="948.3297" y1="347.9769" y2="347.9769"/><g data-visibility-modifier="PRIVATE_FIELD"><rect fill="none" height="6" style="stroke:#C82930;stroke-width:1;" width="6" x="751.36" y="358.6253"/></g><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="114.3926" x="763.36" y="364.972">I2c* i2c_handle_</text><g data-visibility-modifier="PRIVATE_FIELD"><rect fill="none" height="6" style="stroke:#C82930;stroke-width:1;" width="6" x="751.36" y="374.9222"/></g><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="179.9697" x="763.36" y="381.2689">SensorData&amp; data_to_fill_</text><line style="stroke:#181818;stroke-width:0.5;" x1="744.36" x2="948.3297" y1="388.5706" y2="388.5706"/><g data-visibility-modifier="PUBLIC_METHOD"><ellipse cx="754.36" cy="402.2191" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1;"/></g><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="33.3047" x="763.36" y="405.5657">Init()</text><g data-visibility-modifier="PUBLIC_METHOD"><ellipse cx="754.36" cy="418.5159" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1;"/></g><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="45.124" x="763.36" y="421.8626">Start()</text><g data-visibility-modifier="PUBLIC_METHOD"><ellipse cx="754.36" cy="434.8128" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1;"/></g><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="128.1465" x="763.36" y="438.1595">ReadSensorData()</text><g data-visibility-modifier="PUBLIC_METHOD"><ellipse cx="754.36" cy="451.1097" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1;"/></g><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="129.0283" x="763.36" y="454.4564">SetLowPassFilter()</text></g><g class="entity" data-entity="Mpu6050AccConverter" data-source-line="22" data-uid="ent0005" id="entity_Mpu6050AccConverter"><rect fill="#F1F1F1" height="80.5938" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="196.1055" x="269.29" y="348.5669"/><ellipse cx="286.0628" cy="364.5669" fill="#ADD1B2" rx="11" ry="11" style="stroke:#181818;stroke-width:1;"/><path d="M289.0315,370.2075 Q288.4534,370.5044 287.8128,370.645 Q287.1721,370.8013 286.469,370.8013 Q283.969,370.8013 282.6409,369.1606 Q281.3284,367.5044 281.3284,364.3794 Q281.3284,361.2544 282.6409,359.5981 Q283.969,357.9419 286.469,357.9419 Q287.1721,357.9419 287.8128,358.0981 Q288.469,358.2544 289.0315,358.5513 L289.0315,361.27 Q288.4065,360.6919 287.8128,360.4263 Q287.219,360.145 286.594,360.145 Q285.2503,360.145 284.5628,361.2231 Q283.8753,362.2856 283.8753,364.3794 Q283.8753,366.4731 284.5628,367.5513 Q285.2503,368.6138 286.594,368.6138 Q287.219,368.6138 287.8128,368.3481 Q288.4065,368.0669 289.0315,367.4888 L289.0315,370.2075 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="160.166" x="300.4567" y="369.4136">Mpu6050AccConverter</text><line style="stroke:#181818;stroke-width:0.5;" x1="270.29" x2="464.3955" y1="380.5669" y2="380.5669"/><g data-visibility-modifier="PRIVATE_FIELD"><rect fill="none" height="6" style="stroke:#C82930;stroke-width:1;" width="6" x="277.29" y="391.2153"/></g><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="135.3174" x="289.29" y="397.562">SensorData&amp; data_</text><line style="stroke:#181818;stroke-width:0.5;" x1="270.29" x2="464.3955" y1="404.8638" y2="404.8638"/><g data-visibility-modifier="PUBLIC_METHOD"><ellipse cx="280.29" cy="418.5122" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1;"/></g><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="170.1055" x="289.29" y="421.8589">ConvertRawToPhysical()</text></g><g class="entity" data-entity="Mpu6050AngleConverter" data-source-line="27" data-uid="ent0006" id="entity_Mpu6050AngleConverter"><rect fill="#F1F1F1" height="96.8906" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="207.0342" x="500.83" y="340.4169"/><ellipse cx="515.83" cy="356.4169" fill="#ADD1B2" rx="11" ry="11" style="stroke:#181818;stroke-width:1;"/><path d="M518.7987,362.0575 Q518.2206,362.3544 517.58,362.495 Q516.9394,362.6512 516.2362,362.6512 Q513.7362,362.6512 512.4081,361.0106 Q511.0956,359.3544 511.0956,356.2294 Q511.0956,353.1044 512.4081,351.4481 Q513.7362,349.7919 516.2362,349.7919 Q516.9394,349.7919 517.58,349.9481 Q518.2362,350.1044 518.7987,350.4012 L518.7987,353.12 Q518.1737,352.5419 517.58,352.2762 Q516.9862,351.995 516.3612,351.995 Q515.0175,351.995 514.33,353.0731 Q513.6425,354.1356 513.6425,356.2294 Q513.6425,358.3231 514.33,359.4012 Q515.0175,360.4637 516.3612,360.4637 Q516.9862,360.4637 517.58,360.1981 Q518.1737,359.9169 518.7987,359.3387 L518.7987,362.0575 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="175.0342" x="529.83" y="361.2636">Mpu6050AngleConverter</text><line style="stroke:#181818;stroke-width:0.5;" x1="501.83" x2="706.8642" y1="372.4169" y2="372.4169"/><g data-visibility-modifier="PRIVATE_FIELD"><rect fill="none" height="6" style="stroke:#C82930;stroke-width:1;" width="6" x="508.83" y="383.0653"/></g><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="135.3174" x="520.83" y="389.412">SensorData&amp; data_</text><line style="stroke:#181818;stroke-width:0.5;" x1="501.83" x2="706.8642" y1="396.7137" y2="396.7137"/><g data-visibility-modifier="PRIVATE_METHOD"><rect fill="#F24D5C" height="6" style="stroke:#C82930;stroke-width:1;" width="6" x="508.83" y="407.3622"/></g><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="164.7051" x="520.83" y="413.7089">CalculateAngle(int32_t)</text><g data-visibility-modifier="PUBLIC_METHOD"><ellipse cx="511.83" cy="426.6591" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1;"/></g><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="160.2412" x="520.83" y="430.0057">CalculateSpiritAngles()</text></g><g class="entity" data-entity="Mpu6050" data-source-line="33" data-uid="ent0007" id="entity_Mpu6050"><rect fill="#F1F1F1" height="194.6719" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="325.9746" x="441.36" y="44.2969"/><ellipse cx="567.3634" cy="60.2969" fill="#ADD1B2" rx="11" ry="11" style="stroke:#181818;stroke-width:1;"/><path d="M570.3322,65.9375 Q569.754,66.2344 569.1134,66.375 Q568.4728,66.5313 567.7697,66.5313 Q565.2697,66.5313 563.9415,64.8906 Q562.629,63.2344 562.629,60.1094 Q562.629,56.9844 563.9415,55.3281 Q565.2697,53.6719 567.7697,53.6719 Q568.4728,53.6719 569.1134,53.8281 Q569.7697,53.9844 570.3322,54.2813 L570.3322,57 Q569.7072,56.4219 569.1134,56.1563 Q568.5197,55.875 567.8947,55.875 Q566.5509,55.875 565.8634,56.9531 Q565.1759,58.0156 565.1759,60.1094 Q565.1759,62.2031 565.8634,63.2813 Q566.5509,64.3438 567.8947,64.3438 Q568.5197,64.3438 569.1134,64.0781 Q569.7072,63.7969 570.3322,63.2188 L570.3322,65.9375 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="65.4678" x="587.8634" y="65.1436">Mpu6050</text><line style="stroke:#181818;stroke-width:0.5;" x1="442.36" x2="766.3346" y1="76.2969" y2="76.2969"/><g data-visibility-modifier="PRIVATE_FIELD"><rect fill="none" height="6" style="stroke:#C82930;stroke-width:1;" width="6" x="449.36" y="86.9453"/></g><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="114.3926" x="461.36" y="93.292">I2c* i2c_handle_</text><g data-visibility-modifier="PRIVATE_FIELD"><rect fill="none" height="6" style="stroke:#C82930;stroke-width:1;" width="6" x="449.36" y="103.2422"/></g><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="177.7959" x="461.36" y="109.5889">SensorData sensor_data_</text><g data-visibility-modifier="PRIVATE_FIELD"><rect fill="none" height="6" style="stroke:#C82930;stroke-width:1;" width="6" x="449.36" y="119.5391"/></g><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="171.3018" x="461.36" y="125.8857">Mpu6050Sensor sensor_</text><g data-visibility-modifier="PRIVATE_FIELD"><rect fill="none" height="6" style="stroke:#C82930;stroke-width:1;" width="6" x="449.36" y="135.8359"/></g><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="270.2383" x="461.36" y="142.1826">Mpu6050AccConverter acc_converter_</text><g data-visibility-modifier="PRIVATE_FIELD"><rect fill="none" height="6" style="stroke:#C82930;stroke-width:1;" width="6" x="449.36" y="152.1328"/></g><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="299.9746" x="461.36" y="158.4795">Mpu6050AngleConverter angle_converter_</text><line style="stroke:#181818;stroke-width:0.5;" x1="442.36" x2="766.3346" y1="165.7813" y2="165.7813"/><g data-visibility-modifier="PUBLIC_METHOD"><ellipse cx="452.36" cy="179.4297" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1;"/></g><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="33.3047" x="461.36" y="182.7764">Init()</text><g data-visibility-modifier="PUBLIC_METHOD"><ellipse cx="452.36" cy="195.7266" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1;"/></g><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="45.124" x="461.36" y="199.0732">Start()</text><g data-visibility-modifier="PUBLIC_METHOD"><ellipse cx="452.36" cy="212.0234" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1;"/></g><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="128.1465" x="461.36" y="215.3701">ReadSensorData()</text><g data-visibility-modifier="PUBLIC_METHOD"><ellipse cx="452.36" cy="228.3203" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1;"/></g><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="146.002" x="461.36" y="231.667">ProcessSensorData()</text></g><g class="entity" data-entity="GMN17" data-source-line="61" data-uid="ent0018" id="entity_GMN17"><path d="M563.55,579.3469 L563.55,595.4769 L528.62,599.4769 L563.55,603.4769 L563.55,619.6125 A0,0 0 0 0 563.55,619.6125 L907.1252,619.6125 A0,0 0 0 0 907.1252,619.6125 L907.1252,589.3469 L897.1252,579.3469 L563.55,579.3469 A0,0 0 0 0 563.55,579.3469" fill="#FEFFDD" style="stroke:#181818;stroke-width:0.5;"/><path d="M897.1252,579.3469 L897.1252,589.3469 L907.1252,589.3469 L897.1252,579.3469" fill="#FEFFDD" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="213.8779" x="569.55" y="596.4138">- Contains mutex (non-copyable)</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="322.5752" x="569.55" y="611.5466">- Shared by components; must outlive references</text></g><g class="entity" data-entity="GMN20" data-source-line="66" data-uid="ent0021" id="entity_GMN20"><path d="M6,121.5069 L6,161.7725 A0,0 0 0 0 6,161.7725 L406.6851,161.7725 A0,0 0 0 0 406.6851,161.7725 L406.6851,145.6369 L441.22,141.6369 L406.6851,137.6369 L406.6851,131.5069 L396.6851,121.5069 L6,121.5069 A0,0 0 0 0 6,121.5069" fill="#FEFFDD" style="stroke:#181818;stroke-width:0.5;"/><path d="M396.6851,121.5069 L396.6851,131.5069 L406.6851,131.5069 L396.6851,121.5069" fill="#FEFFDD" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="379.6851" x="12" y="138.5738">Member order ensures sensor_data_ is constructed before</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="309.7974" x="12" y="153.7066">component members that hold references to it.</text></g><g class="link" data-entity-1="Mpu6050" data-entity-2="SensorData" data-source-line="46" data-uid="lnk8" id="link_Mpu6050_SensorData"><path codeLine="46" d="M430.1392,236.4114 C424.5492,239.0514 429.84,236.4969 424.34,238.9769 C334.45,279.4369 272.66,235.0669 216.34,315.9769 C179.33,369.1469 187.31,403.8269 216.34,461.7569 C231.71,492.4269 257.59,517.9769 285.12,538.3669" fill="none" id="Mpu6050-backto-SensorData" style="stroke:#181818;stroke-width:1;"/><polygon fill="#181818" points="440.99,231.2869,433.8564,230.2322,430.1392,236.4114,437.2728,237.4661,440.99,231.2869" style="stroke:#181818;stroke-width:1;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="33.5981" x="217.34" y="393.4338">owns</text></g><g class="link" data-entity-1="Mpu6050" data-entity-2="Mpu6050Sensor" data-source-line="47" data-uid="lnk9" id="link_Mpu6050_Mpu6050Sensor"><path codeLine="47" d="M708.0698,247.7473 C733.1998,273.2073 751.45,291.7069 775.07,315.6469" fill="none" id="Mpu6050-backto-Mpu6050Sensor" style="stroke:#181818;stroke-width:1;"/><polygon fill="#181818" points="699.64,239.2069,701.0081,246.287,708.0698,247.7473,706.7017,240.6672,699.64,239.2069" style="stroke:#181818;stroke-width:1;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="33.5981" x="740.34" y="282.0438">owns</text></g><g class="link" data-entity-1="Mpu6050" data-entity-2="Mpu6050AccConverter" data-source-line="48" data-uid="lnk10" id="link_Mpu6050_Mpu6050AccConverter"><path codeLine="48" d="M502.6711,247.836 C465.8911,285.896 434.05,318.8469 405.55,348.3269" fill="none" id="Mpu6050-backto-Mpu6050AccConverter" style="stroke:#181818;stroke-width:1;"/><polygon fill="#181818" points="511.01,239.2069,503.9642,240.7418,502.6711,247.836,509.7169,246.3011,511.01,239.2069" style="stroke:#181818;stroke-width:1;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="33.5981" x="480.34" y="282.0438">owns</text></g><g class="link" data-entity-1="Mpu6050" data-entity-2="Mpu6050AngleConverter" data-source-line="49" data-uid="lnk11" id="link_Mpu6050_Mpu6050AngleConverter"><path codeLine="49" d="M604.34,251.2069 C604.34,285.7869 604.34,311.2669 604.34,339.9369" fill="none" id="Mpu6050-backto-Mpu6050AngleConverter" style="stroke:#181818;stroke-width:1;"/><polygon fill="#181818" points="604.34,239.2069,600.34,245.2069,604.34,251.2069,608.34,245.2069,604.34,239.2069" style="stroke:#181818;stroke-width:1;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="33.5981" x="605.34" y="282.0438">owns</text></g><g class="link" data-entity-1="Mpu6050Sensor" data-entity-2="SensorData" data-source-line="52" data-uid="lnk12" id="link_Mpu6050Sensor_SensorData"><path codeLine="52" d="M742.91,452.5769 C737.01,455.7569 731.13,458.8369 725.34,461.7569 C706.23,471.3869 616.6841,508.8228 534.1041,542.9928" fill="none" id="Mpu6050Sensor-to-SensorData" style="stroke:#181818;stroke-width:1;stroke-dasharray:7,7;"/><polygon fill="#181818" points="528.56,545.2869,538.4056,545.5419,533.1801,543.3752,535.3468,538.1497,528.56,545.2869" style="stroke:#181818;stroke-width:1;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="69.418" x="656.34" y="504.8238">references</text></g><g class="link" data-entity-1="Mpu6050AccConverter" data-entity-2="SensorData" data-source-line="53" data-uid="lnk13" id="link_Mpu6050AccConverter_SensorData"><path codeLine="53" d="M373.44,429.5969 C378.15,460.3269 383.8507,497.4662 389.2107,532.4262" fill="none" id="Mpu6050AccConverter-to-SensorData" style="stroke:#181818;stroke-width:1;stroke-dasharray:7,7;"/><polygon fill="#181818" points="390.12,538.3569,392.7099,528.8546,389.3623,533.4146,384.8023,530.067,390.12,538.3569" style="stroke:#181818;stroke-width:1;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="69.418" x="386.34" y="504.8238">references</text></g><g class="link" data-entity-1="Mpu6050AngleConverter" data-entity-2="SensorData" data-source-line="54" data-uid="lnk14" id="link_Mpu6050AngleConverter_SensorData"><path codeLine="54" d="M557.31,437.7269 C527.88,467.6769 493.915,502.237 462.475,534.237" fill="none" id="Mpu6050AngleConverter-to-SensorData" style="stroke:#181818;stroke-width:1;stroke-dasharray:7,7;"/><polygon fill="#181818" points="458.27,538.5169,467.4308,534.9003,461.7742,534.9503,461.7243,529.2936,458.27,538.5169" style="stroke:#181818;stroke-width:1;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="69.418" x="503.34" y="504.8238">references</text></g><g class="link" data-entity-1="Mpu6050" data-entity-2="I2c" data-source-line="57" data-uid="lnk15" id="link_Mpu6050_I2c"><path codeLine="57" d="M767.55,183.1869 C839.39,209.3469 918.22,251.0269 966.34,315.9769 C1025.41,395.6969 1019.104,517.3149 1013.224,569.3249" fill="none" id="Mpu6050-to-I2c" style="stroke:#181818;stroke-width:1;stroke-dasharray:7,7;"/><polygon fill="#181818" points="1012.55,575.2869,1017.5357,566.7932,1013.1117,570.3185,1009.5864,565.8945,1012.55,575.2869" style="stroke:#181818;stroke-width:1;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="85.4585" x="1014.34" y="393.4338">holds pointer</text></g><g class="link" data-entity-1="Mpu6050Sensor" data-entity-2="I2c" data-source-line="58" data-uid="lnk16" id="link_Mpu6050Sensor_I2c"><path codeLine="58" d="M902.89,462.2369 C933.79,501.7869 966.2858,543.369 987.5158,570.539" fill="none" id="Mpu6050Sensor-to-I2c" style="stroke:#181818;stroke-width:1;stroke-dasharray:7,7;"/><polygon fill="#181818" points="991.21,575.2669,988.8206,565.7123,988.1315,571.327,982.5167,570.6379,991.21,575.2669" style="stroke:#181818;stroke-width:1;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="29.7832" x="938.34" y="504.8238">uses</text></g></g></svg></div><div class="puml dark" style=""><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentStyleType="text/css" data-diagram-type="CLASS" height="667px" preserveAspectRatio="xMidYMid meet" style="width:1107px;height:667px;background:#1B1B1B;" version="1.1" viewBox="0 0 1107 667" width="1107px" zoomAndPan="magnify" class="diagram"><title>MPU6050 module - class relationships</title><defs/><g><rect fill="#1B1B1B" height="667" style="stroke:none;stroke-width:1;" width="1107" x="0" y="0"/><g class="title" data-source-line="2"><text fill="#FFFFFF" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="300.7061" x="396.5462" y="22.9951">MPU6050 module - class relationships</text></g><g class="entity" data-entity="I2c" data-source-line="4" data-uid="ent0002" id="entity_I2c"><rect fill="#313139" height="48" rx="2.5" ry="2.5" style="stroke:#E7E7E7;stroke-width:0.5;" width="52.7334" x="982.98" y="575.4769"/><ellipse cx="997.98" cy="591.4769" fill="#2E5233" rx="11" ry="11" style="stroke:#E7E7E7;stroke-width:1;"/><path d="M1000.9488,597.1175 Q1000.3706,597.4144 999.73,597.555 Q999.0894,597.7113 998.3863,597.7113 Q995.8863,597.7113 994.5581,596.0706 Q993.2456,594.4144 993.2456,591.2894 Q993.2456,588.1644 994.5581,586.5081 Q995.8863,584.8519 998.3863,584.8519 Q999.0894,584.8519 999.73,585.0081 Q1000.3863,585.1644 1000.9488,585.4613 L1000.9488,588.18 Q1000.3238,587.6019 999.73,587.3363 Q999.1363,587.055 998.5113,587.055 Q997.1675,587.055 996.48,588.1331 Q995.7925,589.1956 995.7925,591.2894 Q995.7925,593.3831 996.48,594.4613 Q997.1675,595.5238 998.5113,595.5238 Q999.1363,595.5238 999.73,595.2581 Q1000.3238,594.9769 1000.9488,594.3988 L1000.9488,597.1175 Z " fill="#FFFFFF"/><text fill="#FFFFFF" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="20.7334" x="1011.98" y="596.3236">I2c</text><line style="stroke:#E7E7E7;stroke-width:0.5;" x1="983.98" x2="1034.7134" y1="607.4769" y2="607.4769"/><line style="stroke:#E7E7E7;stroke-width:0.5;" x1="983.98" x2="1034.7134" y1="615.4769" y2="615.4769"/></g><g class="entity" data-entity="SensorData" data-source-line="6" data-uid="ent0003" id="entity_SensorData"><rect fill="#313139" height="121.4531" rx="2.5" ry="2.5" style="stroke:#E7E7E7;stroke-width:0.5;" width="257.5879" x="270.55" y="538.7569"/><ellipse cx="351.3029" cy="558.8897" fill="#2E5233" rx="11" ry="11" style="stroke:#E7E7E7;stroke-width:1;"/><path d="M354.2717,564.5303 Q353.6936,564.8272 353.0529,564.9678 Q352.4123,565.1241 351.7092,565.1241 Q349.2092,565.1241 347.8811,563.4834 Q346.5686,561.8272 346.5686,558.7022 Q346.5686,555.5772 347.8811,553.9209 Q349.2092,552.2647 351.7092,552.2647 Q352.4123,552.2647 353.0529,552.4209 Q353.7092,552.5772 354.2717,552.8741 L354.2717,555.5928 Q353.6467,555.0147 353.0529,554.7491 Q352.4592,554.4678 351.8342,554.4678 Q350.4904,554.4678 349.8029,555.5459 Q349.1154,556.6084 349.1154,558.7022 Q349.1154,560.7959 349.8029,561.8741 Q350.4904,562.9366 351.8342,562.9366 Q352.4592,562.9366 353.0529,562.6709 Q353.6467,562.3897 354.2717,561.8116 L354.2717,564.5303 Z " fill="#FFFFFF"/><text fill="#000000" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacing" textLength="91.582" x="369.8029" y="554.8955">«noncopyable»</text><text fill="#FFFFFF" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="81.416" x="374.8859" y="570.7207">SensorData</text><line style="stroke:#E7E7E7;stroke-width:0.5;" x1="271.55" x2="527.1379" y1="579.0225" y2="579.0225"/><g data-visibility-modifier="PUBLIC_FIELD"><ellipse cx="281.55" cy="592.6709" fill="none" rx="3" ry="3" style="stroke:#038048;stroke-width:1;"/></g><text fill="#FFFFFF" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="190.1553" x="290.55" y="596.0176">pthread_mutex_t acc_lock_</text><g data-visibility-modifier="PUBLIC_FIELD"><ellipse cx="281.55" cy="608.9678" fill="none" rx="3" ry="3" style="stroke:#038048;stroke-width:1;"/></g><text fill="#FFFFFF" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="199.9785" x="290.55" y="612.3145">std::map raw_accelerations_</text><g data-visibility-modifier="PUBLIC_FIELD"><ellipse cx="281.55" cy="625.2647" fill="none" rx="3" ry="3" style="stroke:#038048;stroke-width:1;"/></g><text fill="#FFFFFF" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="231.5879" x="290.55" y="628.6114">std::map physical_accelerations_</text><g data-visibility-modifier="PUBLIC_FIELD"><ellipse cx="281.55" cy="641.5616" fill="none" rx="3" ry="3" style="stroke:#038048;stroke-width:1;"/></g><text fill="#FFFFFF" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="161.998" x="290.55" y="644.9082">std::map spirit_angles_</text><line style="stroke:#E7E7E7;stroke-width:0.5;" x1="271.55" x2="527.1379" y1="652.21" y2="652.21"/></g><g class="entity" data-entity="Mpu6050Sensor" data-source-line="13" data-uid="ent0004" id="entity_Mpu6050Sensor"><rect fill="#313139" height="145.7813" rx="2.5" ry="2.5" style="stroke:#E7E7E7;stroke-width:0.5;" width="205.9697" x="743.36" y="315.9769"/><ellipse cx="785.5912" cy="331.9769" fill="#2E5233" rx="11" ry="11" style="stroke:#E7E7E7;stroke-width:1;"/><path d="M788.5599,337.6175 Q787.9818,337.9144 787.3412,338.055 Q786.7005,338.2112 785.9974,338.2112 Q783.4974,338.2112 782.1693,336.5706 Q780.8568,334.9144 780.8568,331.7894 Q780.8568,328.6644 782.1693,327.0081 Q783.4974,325.3519 785.9974,325.3519 Q786.7005,325.3519 787.3412,325.5081 Q787.9974,325.6644 788.5599,325.9612 L788.5599,328.68 Q787.9349,328.1019 787.3412,327.8362 Q786.7474,327.555 786.1224,327.555 Q784.7787,327.555 784.0912,328.6331 Q783.4037,329.6956 783.4037,331.7894 Q783.4037,333.8831 784.0912,334.9612 Q784.7787,336.0237 786.1224,336.0237 Q786.7474,336.0237 787.3412,335.7581 Q787.9349,335.4769 788.5599,334.8987 L788.5599,337.6175 Z " fill="#FFFFFF"/><text fill="#FFFFFF" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="113.4561" x="805.6425" y="336.8236">Mpu6050Sensor</text><line style="stroke:#E7E7E7;stroke-width:0.5;" x1="744.36" x2="948.3297" y1="347.9769" y2="347.9769"/><g data-visibility-modifier="PRIVATE_FIELD"><rect fill="none" height="6" style="stroke:#C82930;stroke-width:1;" width="6" x="751.36" y="358.6253"/></g><text fill="#FFFFFF" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="114.3926" x="763.36" y="364.972">I2c* i2c_handle_</text><g data-visibility-modifier="PRIVATE_FIELD"><rect fill="none" height="6" style="stroke:#C82930;stroke-width:1;" width="6" x="751.36" y="374.9222"/></g><text fill="#FFFFFF" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="179.9697" x="763.36" y="381.2689">SensorData&amp; data_to_fill_</text><line style="stroke:#E7E7E7;stroke-width:0.5;" x1="744.36" x2="948.3297" y1="388.5706" y2="388.5706"/><g data-visibility-modifier="PUBLIC_METHOD"><ellipse cx="754.36" cy="402.2191" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1;"/></g><text fill="#FFFFFF" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="33.3047" x="763.36" y="405.5657">Init()</text><g data-visibility-modifier="PUBLIC_METHOD"><ellipse cx="754.36" cy="418.5159" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1;"/></g><text fill="#FFFFFF" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="45.124" x="763.36" y="421.8626">Start()</text><g data-visibility-modifier="PUBLIC_METHOD"><ellipse cx="754.36" cy="434.8128" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1;"/></g><text fill="#FFFFFF" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="128.1465" x="763.36" y="438.1595">ReadSensorData()</text><g data-visibility-modifier="PUBLIC_METHOD"><ellipse cx="754.36" cy="451.1097" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1;"/></g><text fill="#FFFFFF" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="129.0283" x="763.36" y="454.4564">SetLowPassFilter()</text></g><g class="entity" data-entity="Mpu6050AccConverter" data-source-line="22" data-uid="ent0005" id="entity_Mpu6050AccConverter"><rect fill="#313139" height="80.5938" rx="2.5" ry="2.5" style="stroke:#E7E7E7;stroke-width:0.5;" width="196.1055" x="269.29" y="348.5669"/><ellipse cx="286.0628" cy="364.5669" fill="#2E5233" rx="11" ry="11" style="stroke:#E7E7E7;stroke-width:1;"/><path d="M289.0315,370.2075 Q288.4534,370.5044 287.8128,370.645 Q287.1721,370.8013 286.469,370.8013 Q283.969,370.8013 282.6409,369.1606 Q281.3284,367.5044 281.3284,364.3794 Q281.3284,361.2544 282.6409,359.5981 Q283.969,357.9419 286.469,357.9419 Q287.1721,357.9419 287.8128,358.0981 Q288.469,358.2544 289.0315,358.5513 L289.0315,361.27 Q288.4065,360.6919 287.8128,360.4263 Q287.219,360.145 286.594,360.145 Q285.2503,360.145 284.5628,361.2231 Q283.8753,362.2856 283.8753,364.3794 Q283.8753,366.4731 284.5628,367.5513 Q285.2503,368.6138 286.594,368.6138 Q287.219,368.6138 287.8128,368.3481 Q288.4065,368.0669 289.0315,367.4888 L289.0315,370.2075 Z " fill="#FFFFFF"/><text fill="#FFFFFF" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="160.166" x="300.4567" y="369.4136">Mpu6050AccConverter</text><line style="stroke:#E7E7E7;stroke-width:0.5;" x1="270.29" x2="464.3955" y1="380.5669" y2="380.5669"/><g data-visibility-modifier="PRIVATE_FIELD"><rect fill="none" height="6" style="stroke:#C82930;stroke-width:1;" width="6" x="277.29" y="391.2153"/></g><text fill="#FFFFFF" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="135.3174" x="289.29" y="397.562">SensorData&amp; data_</text><line style="stroke:#E7E7E7;stroke-width:0.5;" x1="270.29" x2="464.3955" y1="404.8638" y2="404.8638"/><g data-visibility-modifier="PUBLIC_METHOD"><ellipse cx="280.29" cy="418.5122" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1;"/></g><text fill="#FFFFFF" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="170.1055" x="289.29" y="421.8589">ConvertRawToPhysical()</text></g><g class="entity" data-entity="Mpu6050AngleConverter" data-source-line="27" data-uid="ent0006" id="entity_Mpu6050AngleConverter"><rect fill="#313139" height="96.8906" rx="2.5" ry="2.5" style="stroke:#E7E7E7;stroke-width:0.5;" width="207.0342" x="500.83" y="340.4169"/><ellipse cx="515.83" cy="356.4169" fill="#2E5233" rx="11" ry="11" style="stroke:#E7E7E7;stroke-width:1;"/><path d="M518.7987,362.0575 Q518.2206,362.3544 517.58,362.495 Q516.9394,362.6512 516.2362,362.6512 Q513.7362,362.6512 512.4081,361.0106 Q511.0956,359.3544 511.0956,356.2294 Q511.0956,353.1044 512.4081,351.4481 Q513.7362,349.7919 516.2362,349.7919 Q516.9394,349.7919 517.58,349.9481 Q518.2362,350.1044 518.7987,350.4012 L518.7987,353.12 Q518.1737,352.5419 517.58,352.2762 Q516.9862,351.995 516.3612,351.995 Q515.0175,351.995 514.33,353.0731 Q513.6425,354.1356 513.6425,356.2294 Q513.6425,358.3231 514.33,359.4012 Q515.0175,360.4637 516.3612,360.4637 Q516.9862,360.4637 517.58,360.1981 Q518.1737,359.9169 518.7987,359.3387 L518.7987,362.0575 Z " fill="#FFFFFF"/><text fill="#FFFFFF" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="175.0342" x="529.83" y="361.2636">Mpu6050AngleConverter</text><line style="stroke:#E7E7E7;stroke-width:0.5;" x1="501.83" x2="706.8642" y1="372.4169" y2="372.4169"/><g data-visibility-modifier="PRIVATE_FIELD"><rect fill="none" height="6" style="stroke:#C82930;stroke-width:1;" width="6" x="508.83" y="383.0653"/></g><text fill="#FFFFFF" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="135.3174" x="520.83" y="389.412">SensorData&amp; data_</text><line style="stroke:#E7E7E7;stroke-width:0.5;" x1="501.83" x2="706.8642" y1="396.7137" y2="396.7137"/><g data-visibility-modifier="PRIVATE_METHOD"><rect fill="#F24D5C" height="6" style="stroke:#C82930;stroke-width:1;" width="6" x="508.83" y="407.3622"/></g><text fill="#FFFFFF" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="164.7051" x="520.83" y="413.7089">CalculateAngle(int32_t)</text><g data-visibility-modifier="PUBLIC_METHOD"><ellipse cx="511.83" cy="426.6591" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1;"/></g><text fill="#FFFFFF" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="160.2412" x="520.83" y="430.0057">CalculateSpiritAngles()</text></g><g class="entity" data-entity="Mpu6050" data-source-line="33" data-uid="ent0007" id="entity_Mpu6050"><rect fill="#313139" height="194.6719" rx="2.5" ry="2.5" style="stroke:#E7E7E7;stroke-width:0.5;" width="325.9746" x="441.36" y="44.2969"/><ellipse cx="567.3634" cy="60.2969" fill="#2E5233" rx="11" ry="11" style="stroke:#E7E7E7;stroke-width:1;"/><path d="M570.3322,65.9375 Q569.754,66.2344 569.1134,66.375 Q568.4728,66.5313 567.7697,66.5313 Q565.2697,66.5313 563.9415,64.8906 Q562.629,63.2344 562.629,60.1094 Q562.629,56.9844 563.9415,55.3281 Q565.2697,53.6719 567.7697,53.6719 Q568.4728,53.6719 569.1134,53.8281 Q569.7697,53.9844 570.3322,54.2813 L570.3322,57 Q569.7072,56.4219 569.1134,56.1563 Q568.5197,55.875 567.8947,55.875 Q566.5509,55.875 565.8634,56.9531 Q565.1759,58.0156 565.1759,60.1094 Q565.1759,62.2031 565.8634,63.2813 Q566.5509,64.3438 567.8947,64.3438 Q568.5197,64.3438 569.1134,64.0781 Q569.7072,63.7969 570.3322,63.2188 L570.3322,65.9375 Z " fill="#FFFFFF"/><text fill="#FFFFFF" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="65.4678" x="587.8634" y="65.1436">Mpu6050</text><line style="stroke:#E7E7E7;stroke-width:0.5;" x1="442.36" x2="766.3346" y1="76.2969" y2="76.2969"/><g data-visibility-modifier="PRIVATE_FIELD"><rect fill="none" height="6" style="stroke:#C82930;stroke-width:1;" width="6" x="449.36" y="86.9453"/></g><text fill="#FFFFFF" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="114.3926" x="461.36" y="93.292">I2c* i2c_handle_</text><g data-visibility-modifier="PRIVATE_FIELD"><rect fill="none" height="6" style="stroke:#C82930;stroke-width:1;" width="6" x="449.36" y="103.2422"/></g><text fill="#FFFFFF" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="177.7959" x="461.36" y="109.5889">SensorData sensor_data_</text><g data-visibility-modifier="PRIVATE_FIELD"><rect fill="none" height="6" style="stroke:#C82930;stroke-width:1;" width="6" x="449.36" y="119.5391"/></g><text fill="#FFFFFF" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="171.3018" x="461.36" y="125.8857">Mpu6050Sensor sensor_</text><g data-visibility-modifier="PRIVATE_FIELD"><rect fill="none" height="6" style="stroke:#C82930;stroke-width:1;" width="6" x="449.36" y="135.8359"/></g><text fill="#FFFFFF" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="270.2383" x="461.36" y="142.1826">Mpu6050AccConverter acc_converter_</text><g data-visibility-modifier="PRIVATE_FIELD"><rect fill="none" height="6" style="stroke:#C82930;stroke-width:1;" width="6" x="449.36" y="152.1328"/></g><text fill="#FFFFFF" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="299.9746" x="461.36" y="158.4795">Mpu6050AngleConverter angle_converter_</text><line style="stroke:#E7E7E7;stroke-width:0.5;" x1="442.36" x2="766.3346" y1="165.7813" y2="165.7813"/><g data-visibility-modifier="PUBLIC_METHOD"><ellipse cx="452.36" cy="179.4297" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1;"/></g><text fill="#FFFFFF" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="33.3047" x="461.36" y="182.7764">Init()</text><g data-visibility-modifier="PUBLIC_METHOD"><ellipse cx="452.36" cy="195.7266" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1;"/></g><text fill="#FFFFFF" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="45.124" x="461.36" y="199.0732">Start()</text><g data-visibility-modifier="PUBLIC_METHOD"><ellipse cx="452.36" cy="212.0234" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1;"/></g><text fill="#FFFFFF" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="128.1465" x="461.36" y="215.3701">ReadSensorData()</text><g data-visibility-modifier="PUBLIC_METHOD"><ellipse cx="452.36" cy="228.3203" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1;"/></g><text fill="#FFFFFF" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="146.002" x="461.36" y="231.667">ProcessSensorData()</text></g><g class="entity" data-entity="GMN17" data-source-line="61" data-uid="ent0018" id="entity_GMN17"><path d="M563.55,579.3469 L563.55,595.4769 L528.62,599.4769 L563.55,603.4769 L563.55,619.6125 A0,0 0 0 0 563.55,619.6125 L907.1252,619.6125 A0,0 0 0 0 907.1252,619.6125 L907.1252,589.3469 L897.1252,579.3469 L563.55,579.3469 A0,0 0 0 0 563.55,579.3469" fill="#714137" style="stroke:#E7E7E7;stroke-width:0.5;"/><path d="M897.1252,579.3469 L897.1252,589.3469 L907.1252,589.3469 L897.1252,579.3469" fill="#714137" style="stroke:#E7E7E7;stroke-width:0.5;"/><text fill="#FFFFFF" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="213.8779" x="569.55" y="596.4138">- Contains mutex (non-copyable)</text><text fill="#FFFFFF" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="322.5752" x="569.55" y="611.5466">- Shared by components; must outlive references</text></g><g class="entity" data-entity="GMN20" data-source-line="66" data-uid="ent0021" id="entity_GMN20"><path d="M6,121.5069 L6,161.7725 A0,0 0 0 0 6,161.7725 L406.6851,161.7725 A0,0 0 0 0 406.6851,161.7725 L406.6851,145.6369 L441.22,141.6369 L406.6851,137.6369 L406.6851,131.5069 L396.6851,121.5069 L6,121.5069 A0,0 0 0 0 6,121.5069" fill="#714137" style="stroke:#E7E7E7;stroke-width:0.5;"/><path d="M396.6851,121.5069 L396.6851,131.5069 L406.6851,131.5069 L396.6851,121.5069" fill="#714137" style="stroke:#E7E7E7;stroke-width:0.5;"/><text fill="#FFFFFF" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="379.6851" x="12" y="138.5738">Member order ensures sensor_data_ is constructed before</text><text fill="#FFFFFF" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="309.7974" x="12" y="153.7066">component members that hold references to it.</text></g><g class="link" data-entity-1="Mpu6050" data-entity-2="SensorData" data-source-line="46" data-uid="lnk8" id="link_Mpu6050_SensorData"><path codeLine="46" d="M430.1392,236.4114 C424.5492,239.0514 429.84,236.4969 424.34,238.9769 C334.45,279.4369 272.66,235.0669 216.34,315.9769 C179.33,369.1469 187.31,403.8269 216.34,461.7569 C231.71,492.4269 257.59,517.9769 285.12,538.3669" fill="none" id="Mpu6050-backto-SensorData" style="stroke:#E7E7E7;stroke-width:1;"/><polygon fill="#E7E7E7" points="440.99,231.2869,433.8564,230.2322,430.1392,236.4114,437.2728,237.4661,440.99,231.2869" style="stroke:#E7E7E7;stroke-width:1;"/><text fill="#FFFFFF" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="33.5981" x="217.34" y="393.4338">owns</text></g><g class="link" data-entity-1="Mpu6050" data-entity-2="Mpu6050Sensor" data-source-line="47" data-uid="lnk9" id="link_Mpu6050_Mpu6050Sensor"><path codeLine="47" d="M708.0698,247.7473 C733.1998,273.2073 751.45,291.7069 775.07,315.6469" fill="none" id="Mpu6050-backto-Mpu6050Sensor" style="stroke:#E7E7E7;stroke-width:1;"/><polygon fill="#E7E7E7" points="699.64,239.2069,701.0081,246.287,708.0698,247.7473,706.7017,240.6672,699.64,239.2069" style="stroke:#E7E7E7;stroke-width:1;"/><text fill="#FFFFFF" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="33.5981" x="740.34" y="282.0438">owns</text></g><g class="link" data-entity-1="Mpu6050" data-entity-2="Mpu6050AccConverter" data-source-line="48" data-uid="lnk10" id="link_Mpu6050_Mpu6050AccConverter"><path codeLine="48" d="M502.6711,247.836 C465.8911,285.896 434.05,318.8469 405.55,348.3269" fill="none" id="Mpu6050-backto-Mpu6050AccConverter" style="stroke:#E7E7E7;stroke-width:1;"/><polygon fill="#E7E7E7" points="511.01,239.2069,503.9642,240.7418,502.6711,247.836,509.7169,246.3011,511.01,239.2069" style="stroke:#E7E7E7;stroke-width:1;"/><text fill="#FFFFFF" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="33.5981" x="480.34" y="282.0438">owns</text></g><g class="link" data-entity-1="Mpu6050" data-entity-2="Mpu6050AngleConverter" data-source-line="49" data-uid="lnk11" id="link_Mpu6050_Mpu6050AngleConverter"><path codeLine="49" d="M604.34,251.2069 C604.34,285.7869 604.34,311.2669 604.34,339.9369" fill="none" id="Mpu6050-backto-Mpu6050AngleConverter" style="stroke:#E7E7E7;stroke-width:1;"/><polygon fill="#E7E7E7" points="604.34,239.2069,600.34,245.2069,604.34,251.2069,608.34,245.2069,604.34,239.2069" style="stroke:#E7E7E7;stroke-width:1;"/><text fill="#FFFFFF" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="33.5981" x="605.34" y="282.0438">owns</text></g><g class="link" data-entity-1="Mpu6050Sensor" data-entity-2="SensorData" data-source-line="52" data-uid="lnk12" id="link_Mpu6050Sensor_SensorData"><path codeLine="52" d="M742.91,452.5769 C737.01,455.7569 731.13,458.8369 725.34,461.7569 C706.23,471.3869 616.6841,508.8228 534.1041,542.9928" fill="none" id="Mpu6050Sensor-to-SensorData" style="stroke:#E7E7E7;stroke-width:1;stroke-dasharray:7,7;"/><polygon fill="#E7E7E7" points="528.56,545.2869,538.4056,545.5419,533.1801,543.3752,535.3468,538.1497,528.56,545.2869" style="stroke:#E7E7E7;stroke-width:1;"/><text fill="#FFFFFF" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="69.418" x="656.34" y="504.8238">references</text></g><g class="link" data-entity-1="Mpu6050AccConverter" data-entity-2="SensorData" data-source-line="53" data-uid="lnk13" id="link_Mpu6050AccConverter_SensorData"><path codeLine="53" d="M373.44,429.5969 C378.15,460.3269 383.8507,497.4662 389.2107,532.4262" fill="none" id="Mpu6050AccConverter-to-SensorData" style="stroke:#E7E7E7;stroke-width:1;stroke-dasharray:7,7;"/><polygon fill="#E7E7E7" points="390.12,538.3569,392.7099,528.8546,389.3623,533.4146,384.8023,530.067,390.12,538.3569" style="stroke:#E7E7E7;stroke-width:1;"/><text fill="#FFFFFF" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="69.418" x="386.34" y="504.8238">references</text></g><g class="link" data-entity-1="Mpu6050AngleConverter" data-entity-2="SensorData" data-source-line="54" data-uid="lnk14" id="link_Mpu6050AngleConverter_SensorData"><path codeLine="54" d="M557.31,437.7269 C527.88,467.6769 493.915,502.237 462.475,534.237" fill="none" id="Mpu6050AngleConverter-to-SensorData" style="stroke:#E7E7E7;stroke-width:1;stroke-dasharray:7,7;"/><polygon fill="#E7E7E7" points="458.27,538.5169,467.4308,534.9003,461.7742,534.9503,461.7243,529.2936,458.27,538.5169" style="stroke:#E7E7E7;stroke-width:1;"/><text fill="#FFFFFF" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="69.418" x="503.34" y="504.8238">references</text></g><g class="link" data-entity-1="Mpu6050" data-entity-2="I2c" data-source-line="57" data-uid="lnk15" id="link_Mpu6050_I2c"><path codeLine="57" d="M767.55,183.1869 C839.39,209.3469 918.22,251.0269 966.34,315.9769 C1025.41,395.6969 1019.104,517.3149 1013.224,569.3249" fill="none" id="Mpu6050-to-I2c" style="stroke:#E7E7E7;stroke-width:1;stroke-dasharray:7,7;"/><polygon fill="#E7E7E7" points="1012.55,575.2869,1017.5357,566.7932,1013.1117,570.3185,1009.5864,565.8945,1012.55,575.2869" style="stroke:#E7E7E7;stroke-width:1;"/><text fill="#FFFFFF" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="85.4585" x="1014.34" y="393.4338">holds pointer</text></g><g class="link" data-entity-1="Mpu6050Sensor" data-entity-2="I2c" data-source-line="58" data-uid="lnk16" id="link_Mpu6050Sensor_I2c"><path codeLine="58" d="M902.89,462.2369 C933.79,501.7869 966.2858,543.369 987.5158,570.539" fill="none" id="Mpu6050Sensor-to-I2c" style="stroke:#E7E7E7;stroke-width:1;stroke-dasharray:7,7;"/><polygon fill="#E7E7E7" points="991.21,575.2669,988.8206,565.7123,988.1315,571.327,982.5167,570.6379,991.21,575.2669" style="stroke:#E7E7E7;stroke-width:1;"/><text fill="#FFFFFF" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="29.7832" x="938.34" y="504.8238">uses</text></g></g></svg></div></div>
+
+<h2 id="dynamic-architecture">Dynamic Architecture</h2>
+<div class='puml-container'><div class="puml light" style=""><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentStyleType="text/css" data-diagram-type="SEQUENCE" height="343px" preserveAspectRatio="xMidYMid meet" style="width:1123px;height:343px;background:#FFFFFF;" version="1.1" viewBox="0 0 1123 343" width="1123px" zoomAndPan="magnify" class="diagram"><title>Reading the MPU sensor</title><defs/><g><text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="193.5186" x="468.6787" y="27.9951">Reading the MPU sensor</text><g><title>Thr_Mpu6050_Read</title><rect fill="#F1F1F1" height="206.6641" style="stroke:#181818;stroke-width:1;" width="10" x="76.2275" y="83.5938"/></g><g><title>Balancer</title><rect fill="#F1F1F1" height="185.5313" style="stroke:#181818;stroke-width:1;" width="10" x="216.3687" y="104.7266"/></g><g><title>mpu6050</title><rect fill="#F1F1F1" height="142.3984" style="stroke:#181818;stroke-width:1;" width="10" x="430.7329" y="133.8594"/></g><g><title>Mpu6050_sensor</title><rect fill="#F1F1F1" height="99.2656" style="stroke:#181818;stroke-width:1;" width="10" x="632.4399" y="162.9922"/></g><g><title>i2c</title><rect fill="#F1F1F1" height="14" style="stroke:#181818;stroke-width:1;" width="10" x="791.2813" y="234.2578"/></g><g><title>Thr_Mpu6050_Read</title><rect fill="#000000" fill-opacity="0.00000" height="234.6641" width="8" x="77.2275" y="73.5938"/><line style="stroke:#181818;stroke-width:0.5;stroke-dasharray:5,5;" x1="81" x2="81" y1="73.5938" y2="308.2578"/></g><g><title>Balancer</title><rect fill="#000000" fill-opacity="0.00000" height="234.6641" width="8" x="217.3687" y="73.5938"/><line style="stroke:#181818;stroke-width:0.5;stroke-dasharray:5,5;" x1="220.5728" x2="220.5728" y1="73.5938" y2="308.2578"/></g><g><title>mpu6050</title><rect fill="#000000" fill-opacity="0.00000" height="234.6641" width="8" x="431.7329" y="73.5938"/><line style="stroke:#181818;stroke-width:0.5;stroke-dasharray:5,5;" x1="435.2197" x2="435.2197" y1="73.5938" y2="308.2578"/></g><g><title>Mpu6050_sensor</title><rect fill="#000000" fill-opacity="0.00000" height="234.6641" width="8" x="633.4399" y="73.5938"/><line style="stroke:#181818;stroke-width:0.5;stroke-dasharray:5,5;" x1="637.0083" x2="637.0083" y1="73.5938" y2="308.2578"/></g><g><title>i2c</title><rect fill="#000000" fill-opacity="0.00000" height="234.6641" width="8" x="792.2813" y="73.5938"/><line style="stroke:#181818;stroke-width:0.5;stroke-dasharray:5,5;" x1="796.0342" x2="796.0342" y1="73.5938" y2="308.2578"/></g><g class="participant participant-head" data-participant="Thr_Mpu6050_Read"><rect fill="#E2E2F0" height="30.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="152.4551" x="5" y="42.2969"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="138.4551" x="12" y="62.292">Thr_Mpu6050_Read</text></g><g class="participant participant-tail" data-participant="Thr_Mpu6050_Read"><rect fill="#E2E2F0" height="30.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="152.4551" x="5" y="307.2578"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="138.4551" x="12" y="327.2529">Thr_Mpu6050_Read</text></g><g class="participant participant-head" data-participant="Balancer"><rect fill="#E2E2F0" height="30.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="75.5918" x="183.5728" y="42.2969"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="61.5918" x="190.5728" y="62.292">Balancer</text></g><g class="participant participant-tail" data-participant="Balancer"><rect fill="#E2E2F0" height="30.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="75.5918" x="183.5728" y="307.2578"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="61.5918" x="190.5728" y="327.2529">Balancer</text></g><g class="participant participant-head" data-participant="mpu6050"><rect fill="#E2E2F0" height="30.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="81.0264" x="395.2197" y="42.2969"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="67.0264" x="402.2197" y="62.292">mpu6050</text></g><g class="participant participant-tail" data-participant="mpu6050"><rect fill="#E2E2F0" height="30.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="81.0264" x="395.2197" y="307.2578"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="67.0264" x="402.2197" y="327.2529">mpu6050</text></g><g class="participant participant-head" data-participant="Mpu6050_sensor"><rect fill="#E2E2F0" height="30.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="132.8633" x="571.0083" y="42.2969"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="118.8633" x="578.0083" y="62.292">Mpu6050_sensor</text></g><g class="participant participant-tail" data-participant="Mpu6050_sensor"><rect fill="#E2E2F0" height="30.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="132.8633" x="571.0083" y="307.2578"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="118.8633" x="578.0083" y="327.2529">Mpu6050_sensor</text></g><g class="participant participant-head" data-participant="i2c"><rect fill="#E2E2F0" height="30.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="34.4941" x="779.0342" y="42.2969"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="20.4941" x="786.0342" y="62.292">i2c</text></g><g class="participant participant-tail" data-participant="i2c"><rect fill="#E2E2F0" height="30.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="34.4941" x="779.0342" y="307.2578"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="20.4941" x="786.0342" y="327.2529">i2c</text></g><g><title>Thr_Mpu6050_Read</title><rect fill="#F1F1F1" height="206.6641" style="stroke:#181818;stroke-width:1;" width="10" x="76.2275" y="83.5938"/></g><g><title>Balancer</title><rect fill="#F1F1F1" height="185.5313" style="stroke:#181818;stroke-width:1;" width="10" x="216.3687" y="104.7266"/></g><g><title>mpu6050</title><rect fill="#F1F1F1" height="142.3984" style="stroke:#181818;stroke-width:1;" width="10" x="430.7329" y="133.8594"/></g><g><title>Mpu6050_sensor</title><rect fill="#F1F1F1" height="99.2656" style="stroke:#181818;stroke-width:1;" width="10" x="632.4399" y="162.9922"/></g><g><title>i2c</title><rect fill="#F1F1F1" height="14" style="stroke:#181818;stroke-width:1;" width="10" x="791.2813" y="234.2578"/></g><g class="message" data-participant-1="Thr_Mpu6050_Read" data-participant-2="Balancer"><polygon fill="#181818" points="204.3687,100.7266,214.3687,104.7266,204.3687,108.7266,208.3687,104.7266" style="stroke:#181818;stroke-width:1;"/><line style="stroke:#181818;stroke-width:1;" x1="86.2275" x2="210.3687" y1="104.7266" y2="104.7266"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="111.1411" x="93.2275" y="99.6606">ReadAccSensor()</text></g><g class="message" data-participant-1="Balancer" data-participant-2="mpu6050"><polygon fill="#181818" points="418.7329,129.8594,428.7329,133.8594,418.7329,137.8594,422.7329,133.8594" style="stroke:#181818;stroke-width:1;"/><line style="stroke:#181818;stroke-width:1;" x1="226.3687" x2="424.7329" y1="133.8594" y2="133.8594"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="185.3643" x="233.3687" y="128.7935">mpu6050.ReadSensorData()</text></g><g class="message" data-participant-1="mpu6050" data-participant-2="Mpu6050_sensor"><polygon fill="#181818" points="620.4399,158.9922,630.4399,162.9922,620.4399,166.9922,624.4399,162.9922" style="stroke:#181818;stroke-width:1;"/><line style="stroke:#181818;stroke-width:1;" x1="440.7329" x2="626.4399" y1="162.9922" y2="162.9922"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="172.707" x="447.7329" y="157.9263">sensor_.ReadSensorData()</text></g><g class="message" data-participant-1="Mpu6050_sensor" data-participant-2="Mpu6050_sensor"><line style="stroke:#181818;stroke-width:1;" x1="642.4399" x2="684.4399" y1="192.125" y2="192.125"/><line style="stroke:#181818;stroke-width:1;" x1="684.4399" x2="684.4399" y1="192.125" y2="205.125"/><line style="stroke:#181818;stroke-width:1;" x1="643.4399" x2="684.4399" y1="205.125" y2="205.125"/><polygon fill="#181818" points="653.4399,201.125,643.4399,205.125,653.4399,209.125,649.4399,205.125" style="stroke:#181818;stroke-width:1;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="124.4014" x="649.4399" y="187.0591">ReadAcceleration()</text></g><path d="M795.4014,179.4922 L795.4014,204.4922 L1116.4014,204.4922 L1116.4014,189.4922 L1106.4014,179.4922 L795.4014,179.4922" fill="#FEFFDD" style="stroke:#181818;stroke-width:0.5;"/><path d="M1106.4014,179.4922 L1106.4014,189.4922 L1116.4014,189.4922 L1106.4014,179.4922" fill="#FEFFDD" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="300.0347" x="801.4014" y="196.5591">Atomic write to raw accelerations - 'acc_lock_'</text><g class="message" data-participant-1="Mpu6050_sensor" data-participant-2="i2c"><polygon fill="#181818" points="779.2813,230.2578,789.2813,234.2578,779.2813,238.2578,783.2813,234.2578" style="stroke:#181818;stroke-width:1;"/><line style="stroke:#181818;stroke-width:1;" x1="642.4399" x2="785.2813" y1="234.2578" y2="234.2578"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="129.8413" x="649.4399" y="229.1919">ReadBlockOfBytes()</text></g><g class="message" data-participant-1="i2c" data-participant-2="Mpu6050_sensor"><polygon fill="#181818" points="653.4399,244.2578,643.4399,248.2578,653.4399,252.2578,649.4399,248.2578" style="stroke:#181818;stroke-width:1;"/><line style="stroke:#181818;stroke-width:1;stroke-dasharray:2,2;" x1="647.4399" x2="795.2813" y1="248.2578" y2="248.2578"/></g><g class="message" data-participant-1="Mpu6050_sensor" data-participant-2="mpu6050"><polygon fill="#181818" points="451.7329,258.2578,441.7329,262.2578,451.7329,266.2578,447.7329,262.2578" style="stroke:#181818;stroke-width:1;"/><line style="stroke:#181818;stroke-width:1;stroke-dasharray:2,2;" x1="445.7329" x2="636.4399" y1="262.2578" y2="262.2578"/></g><g class="message" data-participant-1="mpu6050" data-participant-2="Balancer"><polygon fill="#181818" points="237.3687,272.2578,227.3687,276.2578,237.3687,280.2578,233.3687,276.2578" style="stroke:#181818;stroke-width:1;"/><line style="stroke:#181818;stroke-width:1;stroke-dasharray:2,2;" x1="231.3687" x2="434.7329" y1="276.2578" y2="276.2578"/></g><g class="message" data-participant-1="Balancer" data-participant-2="Thr_Mpu6050_Read"><polygon fill="#181818" points="92.2275,286.2578,82.2275,290.2578,92.2275,294.2578,88.2275,290.2578" style="stroke:#181818;stroke-width:1;"/><line style="stroke:#181818;stroke-width:1;stroke-dasharray:2,2;" x1="86.2275" x2="220.3687" y1="290.2578" y2="290.2578"/></g></g></svg></div><div class="puml dark" style=""><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentStyleType="text/css" data-diagram-type="SEQUENCE" height="343px" preserveAspectRatio="xMidYMid meet" style="width:1123px;height:343px;background:#1B1B1B;" version="1.1" viewBox="0 0 1123 343" width="1123px" zoomAndPan="magnify" class="diagram"><title>Reading the MPU sensor</title><defs/><g><rect fill="#1B1B1B" height="343" style="stroke:none;stroke-width:1;" width="1123" x="0" y="0"/><text fill="#FFFFFF" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="193.5186" x="468.6787" y="27.9951">Reading the MPU sensor</text><g><title>Thr_Mpu6050_Read</title><rect fill="#313139" height="206.6641" style="stroke:#E7E7E7;stroke-width:1;" width="10" x="76.2275" y="83.5938"/></g><g><title>Balancer</title><rect fill="#313139" height="185.5313" style="stroke:#E7E7E7;stroke-width:1;" width="10" x="216.3687" y="104.7266"/></g><g><title>mpu6050</title><rect fill="#313139" height="142.3984" style="stroke:#E7E7E7;stroke-width:1;" width="10" x="430.7329" y="133.8594"/></g><g><title>Mpu6050_sensor</title><rect fill="#313139" height="99.2656" style="stroke:#E7E7E7;stroke-width:1;" width="10" x="632.4399" y="162.9922"/></g><g><title>i2c</title><rect fill="#313139" height="14" style="stroke:#E7E7E7;stroke-width:1;" width="10" x="791.2813" y="234.2578"/></g><g><title>Thr_Mpu6050_Read</title><rect fill="#000000" fill-opacity="0.00000" height="234.6641" width="8" x="77.2275" y="73.5938"/><line style="stroke:#E7E7E7;stroke-width:0.5;stroke-dasharray:5,5;" x1="81" x2="81" y1="73.5938" y2="308.2578"/></g><g><title>Balancer</title><rect fill="#000000" fill-opacity="0.00000" height="234.6641" width="8" x="217.3687" y="73.5938"/><line style="stroke:#E7E7E7;stroke-width:0.5;stroke-dasharray:5,5;" x1="220.5728" x2="220.5728" y1="73.5938" y2="308.2578"/></g><g><title>mpu6050</title><rect fill="#000000" fill-opacity="0.00000" height="234.6641" width="8" x="431.7329" y="73.5938"/><line style="stroke:#E7E7E7;stroke-width:0.5;stroke-dasharray:5,5;" x1="435.2197" x2="435.2197" y1="73.5938" y2="308.2578"/></g><g><title>Mpu6050_sensor</title><rect fill="#000000" fill-opacity="0.00000" height="234.6641" width="8" x="633.4399" y="73.5938"/><line style="stroke:#E7E7E7;stroke-width:0.5;stroke-dasharray:5,5;" x1="637.0083" x2="637.0083" y1="73.5938" y2="308.2578"/></g><g><title>i2c</title><rect fill="#000000" fill-opacity="0.00000" height="234.6641" width="8" x="792.2813" y="73.5938"/><line style="stroke:#E7E7E7;stroke-width:0.5;stroke-dasharray:5,5;" x1="796.0342" x2="796.0342" y1="73.5938" y2="308.2578"/></g><g class="participant participant-head" data-participant="Thr_Mpu6050_Read"><rect fill="#222222" height="30.2969" rx="2.5" ry="2.5" style="stroke:#E7E7E7;stroke-width:0.5;" width="152.4551" x="5" y="42.2969"/><text fill="#FFFFFF" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="138.4551" x="12" y="62.292">Thr_Mpu6050_Read</text></g><g class="participant participant-tail" data-participant="Thr_Mpu6050_Read"><rect fill="#222222" height="30.2969" rx="2.5" ry="2.5" style="stroke:#E7E7E7;stroke-width:0.5;" width="152.4551" x="5" y="307.2578"/><text fill="#FFFFFF" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="138.4551" x="12" y="327.2529">Thr_Mpu6050_Read</text></g><g class="participant participant-head" data-participant="Balancer"><rect fill="#222222" height="30.2969" rx="2.5" ry="2.5" style="stroke:#E7E7E7;stroke-width:0.5;" width="75.5918" x="183.5728" y="42.2969"/><text fill="#FFFFFF" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="61.5918" x="190.5728" y="62.292">Balancer</text></g><g class="participant participant-tail" data-participant="Balancer"><rect fill="#222222" height="30.2969" rx="2.5" ry="2.5" style="stroke:#E7E7E7;stroke-width:0.5;" width="75.5918" x="183.5728" y="307.2578"/><text fill="#FFFFFF" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="61.5918" x="190.5728" y="327.2529">Balancer</text></g><g class="participant participant-head" data-participant="mpu6050"><rect fill="#222222" height="30.2969" rx="2.5" ry="2.5" style="stroke:#E7E7E7;stroke-width:0.5;" width="81.0264" x="395.2197" y="42.2969"/><text fill="#FFFFFF" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="67.0264" x="402.2197" y="62.292">mpu6050</text></g><g class="participant participant-tail" data-participant="mpu6050"><rect fill="#222222" height="30.2969" rx="2.5" ry="2.5" style="stroke:#E7E7E7;stroke-width:0.5;" width="81.0264" x="395.2197" y="307.2578"/><text fill="#FFFFFF" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="67.0264" x="402.2197" y="327.2529">mpu6050</text></g><g class="participant participant-head" data-participant="Mpu6050_sensor"><rect fill="#222222" height="30.2969" rx="2.5" ry="2.5" style="stroke:#E7E7E7;stroke-width:0.5;" width="132.8633" x="571.0083" y="42.2969"/><text fill="#FFFFFF" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="118.8633" x="578.0083" y="62.292">Mpu6050_sensor</text></g><g class="participant participant-tail" data-participant="Mpu6050_sensor"><rect fill="#222222" height="30.2969" rx="2.5" ry="2.5" style="stroke:#E7E7E7;stroke-width:0.5;" width="132.8633" x="571.0083" y="307.2578"/><text fill="#FFFFFF" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="118.8633" x="578.0083" y="327.2529">Mpu6050_sensor</text></g><g class="participant participant-head" data-participant="i2c"><rect fill="#222222" height="30.2969" rx="2.5" ry="2.5" style="stroke:#E7E7E7;stroke-width:0.5;" width="34.4941" x="779.0342" y="42.2969"/><text fill="#FFFFFF" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="20.4941" x="786.0342" y="62.292">i2c</text></g><g class="participant participant-tail" data-participant="i2c"><rect fill="#222222" height="30.2969" rx="2.5" ry="2.5" style="stroke:#E7E7E7;stroke-width:0.5;" width="34.4941" x="779.0342" y="307.2578"/><text fill="#FFFFFF" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="20.4941" x="786.0342" y="327.2529">i2c</text></g><g><title>Thr_Mpu6050_Read</title><rect fill="#313139" height="206.6641" style="stroke:#E7E7E7;stroke-width:1;" width="10" x="76.2275" y="83.5938"/></g><g><title>Balancer</title><rect fill="#313139" height="185.5313" style="stroke:#E7E7E7;stroke-width:1;" width="10" x="216.3687" y="104.7266"/></g><g><title>mpu6050</title><rect fill="#313139" height="142.3984" style="stroke:#E7E7E7;stroke-width:1;" width="10" x="430.7329" y="133.8594"/></g><g><title>Mpu6050_sensor</title><rect fill="#313139" height="99.2656" style="stroke:#E7E7E7;stroke-width:1;" width="10" x="632.4399" y="162.9922"/></g><g><title>i2c</title><rect fill="#313139" height="14" style="stroke:#E7E7E7;stroke-width:1;" width="10" x="791.2813" y="234.2578"/></g><g class="message" data-participant-1="Thr_Mpu6050_Read" data-participant-2="Balancer"><polygon fill="#E7E7E7" points="204.3687,100.7266,214.3687,104.7266,204.3687,108.7266,208.3687,104.7266" style="stroke:#E7E7E7;stroke-width:1;"/><line style="stroke:#E7E7E7;stroke-width:1;" x1="86.2275" x2="210.3687" y1="104.7266" y2="104.7266"/><text fill="#FFFFFF" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="111.1411" x="93.2275" y="99.6606">ReadAccSensor()</text></g><g class="message" data-participant-1="Balancer" data-participant-2="mpu6050"><polygon fill="#E7E7E7" points="418.7329,129.8594,428.7329,133.8594,418.7329,137.8594,422.7329,133.8594" style="stroke:#E7E7E7;stroke-width:1;"/><line style="stroke:#E7E7E7;stroke-width:1;" x1="226.3687" x2="424.7329" y1="133.8594" y2="133.8594"/><text fill="#FFFFFF" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="185.3643" x="233.3687" y="128.7935">mpu6050.ReadSensorData()</text></g><g class="message" data-participant-1="mpu6050" data-participant-2="Mpu6050_sensor"><polygon fill="#E7E7E7" points="620.4399,158.9922,630.4399,162.9922,620.4399,166.9922,624.4399,162.9922" style="stroke:#E7E7E7;stroke-width:1;"/><line style="stroke:#E7E7E7;stroke-width:1;" x1="440.7329" x2="626.4399" y1="162.9922" y2="162.9922"/><text fill="#FFFFFF" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="172.707" x="447.7329" y="157.9263">sensor_.ReadSensorData()</text></g><g class="message" data-participant-1="Mpu6050_sensor" data-participant-2="Mpu6050_sensor"><line style="stroke:#E7E7E7;stroke-width:1;" x1="642.4399" x2="684.4399" y1="192.125" y2="192.125"/><line style="stroke:#E7E7E7;stroke-width:1;" x1="684.4399" x2="684.4399" y1="192.125" y2="205.125"/><line style="stroke:#E7E7E7;stroke-width:1;" x1="643.4399" x2="684.4399" y1="205.125" y2="205.125"/><polygon fill="#E7E7E7" points="653.4399,201.125,643.4399,205.125,653.4399,209.125,649.4399,205.125" style="stroke:#E7E7E7;stroke-width:1;"/><text fill="#FFFFFF" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="124.4014" x="649.4399" y="187.0591">ReadAcceleration()</text></g><path d="M795.4014,179.4922 L795.4014,204.4922 L1116.4014,204.4922 L1116.4014,189.4922 L1106.4014,179.4922 L795.4014,179.4922" fill="#714137" style="stroke:#E7E7E7;stroke-width:0.5;"/><path d="M1106.4014,179.4922 L1106.4014,189.4922 L1116.4014,189.4922 L1106.4014,179.4922" fill="#714137" style="stroke:#E7E7E7;stroke-width:0.5;"/><text fill="#FFFFFF" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="300.0347" x="801.4014" y="196.5591">Atomic write to raw accelerations - 'acc_lock_'</text><g class="message" data-participant-1="Mpu6050_sensor" data-participant-2="i2c"><polygon fill="#E7E7E7" points="779.2813,230.2578,789.2813,234.2578,779.2813,238.2578,783.2813,234.2578" style="stroke:#E7E7E7;stroke-width:1;"/><line style="stroke:#E7E7E7;stroke-width:1;" x1="642.4399" x2="785.2813" y1="234.2578" y2="234.2578"/><text fill="#FFFFFF" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="129.8413" x="649.4399" y="229.1919">ReadBlockOfBytes()</text></g><g class="message" data-participant-1="i2c" data-participant-2="Mpu6050_sensor"><polygon fill="#E7E7E7" points="653.4399,244.2578,643.4399,248.2578,653.4399,252.2578,649.4399,248.2578" style="stroke:#E7E7E7;stroke-width:1;"/><line style="stroke:#E7E7E7;stroke-width:1;stroke-dasharray:2,2;" x1="647.4399" x2="795.2813" y1="248.2578" y2="248.2578"/></g><g class="message" data-participant-1="Mpu6050_sensor" data-participant-2="mpu6050"><polygon fill="#E7E7E7" points="451.7329,258.2578,441.7329,262.2578,451.7329,266.2578,447.7329,262.2578" style="stroke:#E7E7E7;stroke-width:1;"/><line style="stroke:#E7E7E7;stroke-width:1;stroke-dasharray:2,2;" x1="445.7329" x2="636.4399" y1="262.2578" y2="262.2578"/></g><g class="message" data-participant-1="mpu6050" data-participant-2="Balancer"><polygon fill="#E7E7E7" points="237.3687,272.2578,227.3687,276.2578,237.3687,280.2578,233.3687,276.2578" style="stroke:#E7E7E7;stroke-width:1;"/><line style="stroke:#E7E7E7;stroke-width:1;stroke-dasharray:2,2;" x1="231.3687" x2="434.7329" y1="276.2578" y2="276.2578"/></g><g class="message" data-participant-1="Balancer" data-participant-2="Thr_Mpu6050_Read"><polygon fill="#E7E7E7" points="92.2275,286.2578,82.2275,290.2578,92.2275,294.2578,88.2275,290.2578" style="stroke:#E7E7E7;stroke-width:1;"/><line style="stroke:#E7E7E7;stroke-width:1;stroke-dasharray:2,2;" x1="86.2275" x2="220.3687" y1="290.2578" y2="290.2578"/></g></g></svg></div></div>
+
+<div class='puml-container'><div class="puml light" style=""><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentStyleType="text/css" data-diagram-type="SEQUENCE" height="477px" preserveAspectRatio="xMidYMid meet" style="width:1053px;height:477px;background:#FFFFFF;" version="1.1" viewBox="0 0 1053 477" width="1053px" zoomAndPan="magnify" class="diagram"><title>Performing ACC Calculation and PID control</title><defs/><g><text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="344.9346" x="353.4465" y="27.9951">Performing ACC Calculation and PID control</text><g><title>Thr_Flight_Ctrl</title><rect fill="#F1F1F1" height="350.0625" style="stroke:#181818;stroke-width:1;" width="10" x="57.5859" y="83.5938"/></g><g><title>Balancer</title><rect fill="#F1F1F1" height="319.9297" style="stroke:#181818;stroke-width:1;" width="10" x="247.7847" y="104.7266"/></g><g><title>mpu6050</title><rect fill="#F1F1F1" height="148.3984" style="stroke:#181818;stroke-width:1;" width="10" x="478.729" y="133.8594"/></g><g><title>mpu6050</title><rect fill="#F1F1F1" height="14" style="stroke:#181818;stroke-width:1;" width="10" x="478.729" y="311.3906"/></g><g><title>Mpu6050_acc_converter</title><rect fill="#F1F1F1" height="17" style="stroke:#181818;stroke-width:1;" width="10" x="665.6841" y="165.9922"/></g><g><title>Mpu6050_angle_converter</title><rect fill="#F1F1F1" height="35.1328" style="stroke:#181818;stroke-width:1;" width="10" x="868.208" y="212.125"/></g><g><title>Spi_Hw</title><rect fill="#F1F1F1" height="14" style="stroke:#181818;stroke-width:1;" width="10" x="1010.5073" y="396.6563"/></g><g><title>Thr_Flight_Ctrl</title><rect fill="#000000" fill-opacity="0.00000" height="369.0625" width="8" x="58.5859" y="73.5938"/><line style="stroke:#181818;stroke-width:0.5;stroke-dasharray:5,5;" x1="62" x2="62" y1="73.5938" y2="442.6563"/></g><g><title>Balancer</title><rect fill="#000000" fill-opacity="0.00000" height="369.0625" width="8" x="248.7847" y="73.5938"/><line style="stroke:#181818;stroke-width:0.5;stroke-dasharray:5,5;" x1="251.9888" x2="251.9888" y1="73.5938" y2="442.6563"/></g><g><title>mpu6050</title><rect fill="#000000" fill-opacity="0.00000" height="369.0625" width="8" x="479.729" y="73.5938"/><line style="stroke:#181818;stroke-width:0.5;stroke-dasharray:5,5;" x1="483.2158" x2="483.2158" y1="73.5938" y2="442.6563"/></g><g><title>Mpu6050_acc_converter</title><rect fill="#000000" fill-opacity="0.00000" height="369.0625" width="8" x="666.6841" y="73.5938"/><line style="stroke:#181818;stroke-width:0.5;stroke-dasharray:5,5;" x1="670.1392" x2="670.1392" y1="73.5938" y2="442.6563"/></g><g><title>Mpu6050_angle_converter</title><rect fill="#000000" fill-opacity="0.00000" height="369.0625" width="8" x="869.208" y="73.5938"/><line style="stroke:#181818;stroke-width:0.5;stroke-dasharray:5,5;" x1="872.229" x2="872.229" y1="73.5938" y2="442.6563"/></g><g><title>Spi_Hw</title><rect fill="#000000" fill-opacity="0.00000" height="369.0625" width="8" x="1011.5073" y="73.5938"/><line style="stroke:#181818;stroke-width:0.5;stroke-dasharray:5,5;" x1="1015.187" x2="1015.187" y1="73.5938" y2="442.6563"/></g><g class="participant participant-head" data-participant="Thr_Flight_Ctrl"><rect fill="#E2E2F0" height="30.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="115.1719" x="5" y="42.2969"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="101.1719" x="12" y="62.292">Thr_Flight_Ctrl</text></g><g class="participant participant-tail" data-participant="Thr_Flight_Ctrl"><rect fill="#E2E2F0" height="30.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="115.1719" x="5" y="441.6563"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="101.1719" x="12" y="461.6514">Thr_Flight_Ctrl</text></g><g class="participant participant-head" data-participant="Balancer"><rect fill="#E2E2F0" height="30.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="75.5918" x="214.9888" y="42.2969"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="61.5918" x="221.9888" y="62.292">Balancer</text></g><g class="participant participant-tail" data-participant="Balancer"><rect fill="#E2E2F0" height="30.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="75.5918" x="214.9888" y="441.6563"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="61.5918" x="221.9888" y="461.6514">Balancer</text></g><g class="participant participant-head" data-participant="mpu6050"><rect fill="#E2E2F0" height="30.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="81.0264" x="443.2158" y="42.2969"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="67.0264" x="450.2158" y="62.292">mpu6050</text></g><g class="participant participant-tail" data-participant="mpu6050"><rect fill="#E2E2F0" height="30.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="81.0264" x="443.2158" y="441.6563"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="67.0264" x="450.2158" y="461.6514">mpu6050</text></g><g class="participant participant-head" data-participant="Mpu6050_acc_converter"><rect fill="#E2E2F0" height="30.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="185.0898" x="578.1392" y="42.2969"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="171.0898" x="585.1392" y="62.292">Mpu6050_acc_converter</text></g><g class="participant participant-tail" data-participant="Mpu6050_acc_converter"><rect fill="#E2E2F0" height="30.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="185.0898" x="578.1392" y="441.6563"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="171.0898" x="585.1392" y="461.6514">Mpu6050_acc_converter</text></g><g class="participant participant-head" data-participant="Mpu6050_angle_converter"><rect fill="#E2E2F0" height="30.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="199.958" x="773.229" y="42.2969"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="185.958" x="780.229" y="62.292">Mpu6050_angle_converter</text></g><g class="participant participant-tail" data-participant="Mpu6050_angle_converter"><rect fill="#E2E2F0" height="30.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="199.958" x="773.229" y="441.6563"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="185.958" x="780.229" y="461.6514">Mpu6050_angle_converter</text></g><g class="participant participant-head" data-participant="Spi_Hw"><rect fill="#E2E2F0" height="30.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="64.6406" x="983.187" y="42.2969"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="50.6406" x="990.187" y="62.292">Spi_Hw</text></g><g class="participant participant-tail" data-participant="Spi_Hw"><rect fill="#E2E2F0" height="30.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="64.6406" x="983.187" y="441.6563"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="50.6406" x="990.187" y="461.6514">Spi_Hw</text></g><g><title>Thr_Flight_Ctrl</title><rect fill="#F1F1F1" height="350.0625" style="stroke:#181818;stroke-width:1;" width="10" x="57.5859" y="83.5938"/></g><g><title>Balancer</title><rect fill="#F1F1F1" height="319.9297" style="stroke:#181818;stroke-width:1;" width="10" x="247.7847" y="104.7266"/></g><g><title>mpu6050</title><rect fill="#F1F1F1" height="148.3984" style="stroke:#181818;stroke-width:1;" width="10" x="478.729" y="133.8594"/></g><g><title>mpu6050</title><rect fill="#F1F1F1" height="14" style="stroke:#181818;stroke-width:1;" width="10" x="478.729" y="311.3906"/></g><g><title>Mpu6050_acc_converter</title><rect fill="#F1F1F1" height="17" style="stroke:#181818;stroke-width:1;" width="10" x="665.6841" y="165.9922"/></g><g><title>Mpu6050_angle_converter</title><rect fill="#F1F1F1" height="35.1328" style="stroke:#181818;stroke-width:1;" width="10" x="868.208" y="212.125"/></g><g><title>Spi_Hw</title><rect fill="#F1F1F1" height="14" style="stroke:#181818;stroke-width:1;" width="10" x="1010.5073" y="396.6563"/></g><g class="message" data-participant-1="Thr_Flight_Ctrl" data-participant-2="Balancer"><polygon fill="#181818" points="235.7847,100.7266,245.7847,104.7266,235.7847,108.7266,239.7847,104.7266" style="stroke:#181818;stroke-width:1;"/><line style="stroke:#181818;stroke-width:1;" x1="67.5859" x2="241.7847" y1="104.7266" y2="104.7266"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="161.1987" x="74.5859" y="99.6606">CalculateFlightControls()</text></g><g class="message" data-participant-1="Balancer" data-participant-2="mpu6050"><polygon fill="#181818" points="466.729,129.8594,476.729,133.8594,466.729,137.8594,470.729,133.8594" style="stroke:#181818;stroke-width:1;"/><line style="stroke:#181818;stroke-width:1;" x1="257.7847" x2="472.729" y1="133.8594" y2="133.8594"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="201.9443" x="264.7847" y="128.7935">mpu6050.ProcessSensorData()</text></g><g class="message" data-participant-1="mpu6050" data-participant-2="Mpu6050_acc_converter"><polygon fill="#181818" points="653.6841,161.9922,663.6841,165.9922,653.6841,169.9922,657.6841,165.9922" style="stroke:#181818;stroke-width:1;"/><line style="stroke:#181818;stroke-width:1;" x1="488.729" x2="659.6841" y1="165.9922" y2="165.9922"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="157.9551" x="495.729" y="160.9263">ConvertRawToPhysical()</text></g><path d="M680,146.8594 L680,171.8594 L997,171.8594 L997,156.8594 L987,146.8594 L680,146.8594" fill="#FEFFDD" style="stroke:#181818;stroke-width:0.5;"/><path d="M987,146.8594 L987,156.8594 L997,156.8594 L987,146.8594" fill="#FEFFDD" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="296.3911" x="686" y="163.9263">Atomic read of raw accelerations - 'acc_lock_'</text><g class="message" data-participant-1="Mpu6050_acc_converter" data-participant-2="mpu6050"><polygon fill="#181818" points="499.729,178.9922,489.729,182.9922,499.729,186.9922,495.729,182.9922" style="stroke:#181818;stroke-width:1;"/><line style="stroke:#181818;stroke-width:1;stroke-dasharray:2,2;" x1="493.729" x2="669.6841" y1="182.9922" y2="182.9922"/></g><g class="message" data-participant-1="mpu6050" data-participant-2="Mpu6050_angle_converter"><polygon fill="#181818" points="856.208,208.125,866.208,212.125,856.208,216.125,860.208,212.125" style="stroke:#181818;stroke-width:1;"/><line style="stroke:#181818;stroke-width:1;" x1="488.729" x2="862.208" y1="212.125" y2="212.125"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="148.7954" x="495.729" y="207.0591">CalculateSpiritAngles()</text></g><g class="message" data-participant-1="Mpu6050_angle_converter" data-participant-2="Mpu6050_angle_converter"><line style="stroke:#181818;stroke-width:1;" x1="878.208" x2="920.208" y1="246.2578" y2="246.2578"/><line style="stroke:#181818;stroke-width:1;" x1="920.208" x2="920.208" y1="246.2578" y2="259.2578"/><line style="stroke:#181818;stroke-width:1;" x1="873.208" x2="920.208" y1="259.2578" y2="259.2578"/><polygon fill="#181818" points="883.208,255.2578,873.208,259.2578,883.208,263.2578,879.208,259.2578" style="stroke:#181818;stroke-width:1;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="107.853" x="885.208" y="241.1919">CalculateAngle()</text></g><g class="message" data-participant-1="Mpu6050_angle_converter" data-participant-2="mpu6050"><polygon fill="#181818" points="499.729,264.2578,489.729,268.2578,499.729,272.2578,495.729,268.2578" style="stroke:#181818;stroke-width:1;"/><line style="stroke:#181818;stroke-width:1;stroke-dasharray:2,2;" x1="493.729" x2="872.208" y1="268.2578" y2="268.2578"/></g><g class="message" data-participant-1="mpu6050" data-participant-2="Balancer"><polygon fill="#181818" points="268.7847,278.2578,258.7847,282.2578,268.7847,286.2578,264.7847,282.2578" style="stroke:#181818;stroke-width:1;"/><line style="stroke:#181818;stroke-width:1;stroke-dasharray:2,2;" x1="262.7847" x2="482.729" y1="282.2578" y2="282.2578"/></g><g class="message" data-participant-1="Balancer" data-participant-2="mpu6050"><polygon fill="#181818" points="466.729,307.3906,476.729,311.3906,466.729,315.3906,470.729,311.3906" style="stroke:#181818;stroke-width:1;"/><line style="stroke:#181818;stroke-width:1;" x1="257.7847" x2="472.729" y1="311.3906" y2="311.3906"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="170.8472" x="264.7847" y="306.3247">mpu6050.GetSpiritAngle()</text></g><g class="message" data-participant-1="mpu6050" data-participant-2="Balancer"><polygon fill="#181818" points="268.7847,321.3906,258.7847,325.3906,268.7847,329.3906,264.7847,325.3906" style="stroke:#181818;stroke-width:1;"/><line style="stroke:#181818;stroke-width:1;stroke-dasharray:2,2;" x1="262.7847" x2="482.729" y1="325.3906" y2="325.3906"/></g><g class="message" data-participant-1="Balancer" data-participant-2="Balancer"><line style="stroke:#181818;stroke-width:1;" x1="257.7847" x2="299.7847" y1="354.5234" y2="354.5234"/><line style="stroke:#181818;stroke-width:1;" x1="299.7847" x2="299.7847" y1="354.5234" y2="367.5234"/><line style="stroke:#181818;stroke-width:1;" x1="258.7847" x2="299.7847" y1="367.5234" y2="367.5234"/><polygon fill="#181818" points="268.7847,363.5234,258.7847,367.5234,268.7847,371.5234,264.7847,367.5234" style="stroke:#181818;stroke-width:1;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="92.5425" x="264.7847" y="349.4575">CalculatePID()</text></g><g class="message" data-participant-1="Balancer" data-participant-2="Spi_Hw"><polygon fill="#181818" points="998.5073,392.6563,1008.5073,396.6563,998.5073,400.6563,1002.5073,396.6563" style="stroke:#181818;stroke-width:1;"/><line style="stroke:#181818;stroke-width:1;" x1="257.7847" x2="1004.5073" y1="396.6563" y2="396.6563"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="161.8716" x="264.7847" y="391.5903">spi_bus.ReadWriteData()</text></g><g class="message" data-participant-1="Spi_Hw" data-participant-2="Balancer"><polygon fill="#181818" points="268.7847,406.6563,258.7847,410.6563,268.7847,414.6563,264.7847,410.6563" style="stroke:#181818;stroke-width:1;"/><line style="stroke:#181818;stroke-width:1;stroke-dasharray:2,2;" x1="262.7847" x2="1014.5073" y1="410.6563" y2="410.6563"/></g><g class="message" data-participant-1="Balancer" data-participant-2="Thr_Flight_Ctrl"><polygon fill="#181818" points="78.5859,420.6563,68.5859,424.6563,78.5859,428.6563,74.5859,424.6563" style="stroke:#181818;stroke-width:1;"/><line style="stroke:#181818;stroke-width:1;stroke-dasharray:2,2;" x1="72.5859" x2="251.7847" y1="424.6563" y2="424.6563"/></g></g></svg></div><div class="puml dark" style=""><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentStyleType="text/css" data-diagram-type="SEQUENCE" height="477px" preserveAspectRatio="xMidYMid meet" style="width:1053px;height:477px;background:#1B1B1B;" version="1.1" viewBox="0 0 1053 477" width="1053px" zoomAndPan="magnify" class="diagram"><title>Performing ACC Calculation and PID control</title><defs/><g><rect fill="#1B1B1B" height="477" style="stroke:none;stroke-width:1;" width="1053" x="0" y="0"/><text fill="#FFFFFF" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="344.9346" x="353.4465" y="27.9951">Performing ACC Calculation and PID control</text><g><title>Thr_Flight_Ctrl</title><rect fill="#313139" height="350.0625" style="stroke:#E7E7E7;stroke-width:1;" width="10" x="57.5859" y="83.5938"/></g><g><title>Balancer</title><rect fill="#313139" height="319.9297" style="stroke:#E7E7E7;stroke-width:1;" width="10" x="247.7847" y="104.7266"/></g><g><title>mpu6050</title><rect fill="#313139" height="148.3984" style="stroke:#E7E7E7;stroke-width:1;" width="10" x="478.729" y="133.8594"/></g><g><title>mpu6050</title><rect fill="#313139" height="14" style="stroke:#E7E7E7;stroke-width:1;" width="10" x="478.729" y="311.3906"/></g><g><title>Mpu6050_acc_converter</title><rect fill="#313139" height="17" style="stroke:#E7E7E7;stroke-width:1;" width="10" x="665.6841" y="165.9922"/></g><g><title>Mpu6050_angle_converter</title><rect fill="#313139" height="35.1328" style="stroke:#E7E7E7;stroke-width:1;" width="10" x="868.208" y="212.125"/></g><g><title>Spi_Hw</title><rect fill="#313139" height="14" style="stroke:#E7E7E7;stroke-width:1;" width="10" x="1010.5073" y="396.6563"/></g><g><title>Thr_Flight_Ctrl</title><rect fill="#000000" fill-opacity="0.00000" height="369.0625" width="8" x="58.5859" y="73.5938"/><line style="stroke:#E7E7E7;stroke-width:0.5;stroke-dasharray:5,5;" x1="62" x2="62" y1="73.5938" y2="442.6563"/></g><g><title>Balancer</title><rect fill="#000000" fill-opacity="0.00000" height="369.0625" width="8" x="248.7847" y="73.5938"/><line style="stroke:#E7E7E7;stroke-width:0.5;stroke-dasharray:5,5;" x1="251.9888" x2="251.9888" y1="73.5938" y2="442.6563"/></g><g><title>mpu6050</title><rect fill="#000000" fill-opacity="0.00000" height="369.0625" width="8" x="479.729" y="73.5938"/><line style="stroke:#E7E7E7;stroke-width:0.5;stroke-dasharray:5,5;" x1="483.2158" x2="483.2158" y1="73.5938" y2="442.6563"/></g><g><title>Mpu6050_acc_converter</title><rect fill="#000000" fill-opacity="0.00000" height="369.0625" width="8" x="666.6841" y="73.5938"/><line style="stroke:#E7E7E7;stroke-width:0.5;stroke-dasharray:5,5;" x1="670.1392" x2="670.1392" y1="73.5938" y2="442.6563"/></g><g><title>Mpu6050_angle_converter</title><rect fill="#000000" fill-opacity="0.00000" height="369.0625" width="8" x="869.208" y="73.5938"/><line style="stroke:#E7E7E7;stroke-width:0.5;stroke-dasharray:5,5;" x1="872.229" x2="872.229" y1="73.5938" y2="442.6563"/></g><g><title>Spi_Hw</title><rect fill="#000000" fill-opacity="0.00000" height="369.0625" width="8" x="1011.5073" y="73.5938"/><line style="stroke:#E7E7E7;stroke-width:0.5;stroke-dasharray:5,5;" x1="1015.187" x2="1015.187" y1="73.5938" y2="442.6563"/></g><g class="participant participant-head" data-participant="Thr_Flight_Ctrl"><rect fill="#222222" height="30.2969" rx="2.5" ry="2.5" style="stroke:#E7E7E7;stroke-width:0.5;" width="115.1719" x="5" y="42.2969"/><text fill="#FFFFFF" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="101.1719" x="12" y="62.292">Thr_Flight_Ctrl</text></g><g class="participant participant-tail" data-participant="Thr_Flight_Ctrl"><rect fill="#222222" height="30.2969" rx="2.5" ry="2.5" style="stroke:#E7E7E7;stroke-width:0.5;" width="115.1719" x="5" y="441.6563"/><text fill="#FFFFFF" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="101.1719" x="12" y="461.6514">Thr_Flight_Ctrl</text></g><g class="participant participant-head" data-participant="Balancer"><rect fill="#222222" height="30.2969" rx="2.5" ry="2.5" style="stroke:#E7E7E7;stroke-width:0.5;" width="75.5918" x="214.9888" y="42.2969"/><text fill="#FFFFFF" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="61.5918" x="221.9888" y="62.292">Balancer</text></g><g class="participant participant-tail" data-participant="Balancer"><rect fill="#222222" height="30.2969" rx="2.5" ry="2.5" style="stroke:#E7E7E7;stroke-width:0.5;" width="75.5918" x="214.9888" y="441.6563"/><text fill="#FFFFFF" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="61.5918" x="221.9888" y="461.6514">Balancer</text></g><g class="participant participant-head" data-participant="mpu6050"><rect fill="#222222" height="30.2969" rx="2.5" ry="2.5" style="stroke:#E7E7E7;stroke-width:0.5;" width="81.0264" x="443.2158" y="42.2969"/><text fill="#FFFFFF" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="67.0264" x="450.2158" y="62.292">mpu6050</text></g><g class="participant participant-tail" data-participant="mpu6050"><rect fill="#222222" height="30.2969" rx="2.5" ry="2.5" style="stroke:#E7E7E7;stroke-width:0.5;" width="81.0264" x="443.2158" y="441.6563"/><text fill="#FFFFFF" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="67.0264" x="450.2158" y="461.6514">mpu6050</text></g><g class="participant participant-head" data-participant="Mpu6050_acc_converter"><rect fill="#222222" height="30.2969" rx="2.5" ry="2.5" style="stroke:#E7E7E7;stroke-width:0.5;" width="185.0898" x="578.1392" y="42.2969"/><text fill="#FFFFFF" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="171.0898" x="585.1392" y="62.292">Mpu6050_acc_converter</text></g><g class="participant participant-tail" data-participant="Mpu6050_acc_converter"><rect fill="#222222" height="30.2969" rx="2.5" ry="2.5" style="stroke:#E7E7E7;stroke-width:0.5;" width="185.0898" x="578.1392" y="441.6563"/><text fill="#FFFFFF" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="171.0898" x="585.1392" y="461.6514">Mpu6050_acc_converter</text></g><g class="participant participant-head" data-participant="Mpu6050_angle_converter"><rect fill="#222222" height="30.2969" rx="2.5" ry="2.5" style="stroke:#E7E7E7;stroke-width:0.5;" width="199.958" x="773.229" y="42.2969"/><text fill="#FFFFFF" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="185.958" x="780.229" y="62.292">Mpu6050_angle_converter</text></g><g class="participant participant-tail" data-participant="Mpu6050_angle_converter"><rect fill="#222222" height="30.2969" rx="2.5" ry="2.5" style="stroke:#E7E7E7;stroke-width:0.5;" width="199.958" x="773.229" y="441.6563"/><text fill="#FFFFFF" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="185.958" x="780.229" y="461.6514">Mpu6050_angle_converter</text></g><g class="participant participant-head" data-participant="Spi_Hw"><rect fill="#222222" height="30.2969" rx="2.5" ry="2.5" style="stroke:#E7E7E7;stroke-width:0.5;" width="64.6406" x="983.187" y="42.2969"/><text fill="#FFFFFF" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="50.6406" x="990.187" y="62.292">Spi_Hw</text></g><g class="participant participant-tail" data-participant="Spi_Hw"><rect fill="#222222" height="30.2969" rx="2.5" ry="2.5" style="stroke:#E7E7E7;stroke-width:0.5;" width="64.6406" x="983.187" y="441.6563"/><text fill="#FFFFFF" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="50.6406" x="990.187" y="461.6514">Spi_Hw</text></g><g><title>Thr_Flight_Ctrl</title><rect fill="#313139" height="350.0625" style="stroke:#E7E7E7;stroke-width:1;" width="10" x="57.5859" y="83.5938"/></g><g><title>Balancer</title><rect fill="#313139" height="319.9297" style="stroke:#E7E7E7;stroke-width:1;" width="10" x="247.7847" y="104.7266"/></g><g><title>mpu6050</title><rect fill="#313139" height="148.3984" style="stroke:#E7E7E7;stroke-width:1;" width="10" x="478.729" y="133.8594"/></g><g><title>mpu6050</title><rect fill="#313139" height="14" style="stroke:#E7E7E7;stroke-width:1;" width="10" x="478.729" y="311.3906"/></g><g><title>Mpu6050_acc_converter</title><rect fill="#313139" height="17" style="stroke:#E7E7E7;stroke-width:1;" width="10" x="665.6841" y="165.9922"/></g><g><title>Mpu6050_angle_converter</title><rect fill="#313139" height="35.1328" style="stroke:#E7E7E7;stroke-width:1;" width="10" x="868.208" y="212.125"/></g><g><title>Spi_Hw</title><rect fill="#313139" height="14" style="stroke:#E7E7E7;stroke-width:1;" width="10" x="1010.5073" y="396.6563"/></g><g class="message" data-participant-1="Thr_Flight_Ctrl" data-participant-2="Balancer"><polygon fill="#E7E7E7" points="235.7847,100.7266,245.7847,104.7266,235.7847,108.7266,239.7847,104.7266" style="stroke:#E7E7E7;stroke-width:1;"/><line style="stroke:#E7E7E7;stroke-width:1;" x1="67.5859" x2="241.7847" y1="104.7266" y2="104.7266"/><text fill="#FFFFFF" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="161.1987" x="74.5859" y="99.6606">CalculateFlightControls()</text></g><g class="message" data-participant-1="Balancer" data-participant-2="mpu6050"><polygon fill="#E7E7E7" points="466.729,129.8594,476.729,133.8594,466.729,137.8594,470.729,133.8594" style="stroke:#E7E7E7;stroke-width:1;"/><line style="stroke:#E7E7E7;stroke-width:1;" x1="257.7847" x2="472.729" y1="133.8594" y2="133.8594"/><text fill="#FFFFFF" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="201.9443" x="264.7847" y="128.7935">mpu6050.ProcessSensorData()</text></g><g class="message" data-participant-1="mpu6050" data-participant-2="Mpu6050_acc_converter"><polygon fill="#E7E7E7" points="653.6841,161.9922,663.6841,165.9922,653.6841,169.9922,657.6841,165.9922" style="stroke:#E7E7E7;stroke-width:1;"/><line style="stroke:#E7E7E7;stroke-width:1;" x1="488.729" x2="659.6841" y1="165.9922" y2="165.9922"/><text fill="#FFFFFF" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="157.9551" x="495.729" y="160.9263">ConvertRawToPhysical()</text></g><path d="M680,146.8594 L680,171.8594 L997,171.8594 L997,156.8594 L987,146.8594 L680,146.8594" fill="#714137" style="stroke:#E7E7E7;stroke-width:0.5;"/><path d="M987,146.8594 L987,156.8594 L997,156.8594 L987,146.8594" fill="#714137" style="stroke:#E7E7E7;stroke-width:0.5;"/><text fill="#FFFFFF" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="296.3911" x="686" y="163.9263">Atomic read of raw accelerations - 'acc_lock_'</text><g class="message" data-participant-1="Mpu6050_acc_converter" data-participant-2="mpu6050"><polygon fill="#E7E7E7" points="499.729,178.9922,489.729,182.9922,499.729,186.9922,495.729,182.9922" style="stroke:#E7E7E7;stroke-width:1;"/><line style="stroke:#E7E7E7;stroke-width:1;stroke-dasharray:2,2;" x1="493.729" x2="669.6841" y1="182.9922" y2="182.9922"/></g><g class="message" data-participant-1="mpu6050" data-participant-2="Mpu6050_angle_converter"><polygon fill="#E7E7E7" points="856.208,208.125,866.208,212.125,856.208,216.125,860.208,212.125" style="stroke:#E7E7E7;stroke-width:1;"/><line style="stroke:#E7E7E7;stroke-width:1;" x1="488.729" x2="862.208" y1="212.125" y2="212.125"/><text fill="#FFFFFF" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="148.7954" x="495.729" y="207.0591">CalculateSpiritAngles()</text></g><g class="message" data-participant-1="Mpu6050_angle_converter" data-participant-2="Mpu6050_angle_converter"><line style="stroke:#E7E7E7;stroke-width:1;" x1="878.208" x2="920.208" y1="246.2578" y2="246.2578"/><line style="stroke:#E7E7E7;stroke-width:1;" x1="920.208" x2="920.208" y1="246.2578" y2="259.2578"/><line style="stroke:#E7E7E7;stroke-width:1;" x1="873.208" x2="920.208" y1="259.2578" y2="259.2578"/><polygon fill="#E7E7E7" points="883.208,255.2578,873.208,259.2578,883.208,263.2578,879.208,259.2578" style="stroke:#E7E7E7;stroke-width:1;"/><text fill="#FFFFFF" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="107.853" x="885.208" y="241.1919">CalculateAngle()</text></g><g class="message" data-participant-1="Mpu6050_angle_converter" data-participant-2="mpu6050"><polygon fill="#E7E7E7" points="499.729,264.2578,489.729,268.2578,499.729,272.2578,495.729,268.2578" style="stroke:#E7E7E7;stroke-width:1;"/><line style="stroke:#E7E7E7;stroke-width:1;stroke-dasharray:2,2;" x1="493.729" x2="872.208" y1="268.2578" y2="268.2578"/></g><g class="message" data-participant-1="mpu6050" data-participant-2="Balancer"><polygon fill="#E7E7E7" points="268.7847,278.2578,258.7847,282.2578,268.7847,286.2578,264.7847,282.2578" style="stroke:#E7E7E7;stroke-width:1;"/><line style="stroke:#E7E7E7;stroke-width:1;stroke-dasharray:2,2;" x1="262.7847" x2="482.729" y1="282.2578" y2="282.2578"/></g><g class="message" data-participant-1="Balancer" data-participant-2="mpu6050"><polygon fill="#E7E7E7" points="466.729,307.3906,476.729,311.3906,466.729,315.3906,470.729,311.3906" style="stroke:#E7E7E7;stroke-width:1;"/><line style="stroke:#E7E7E7;stroke-width:1;" x1="257.7847" x2="472.729" y1="311.3906" y2="311.3906"/><text fill="#FFFFFF" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="170.8472" x="264.7847" y="306.3247">mpu6050.GetSpiritAngle()</text></g><g class="message" data-participant-1="mpu6050" data-participant-2="Balancer"><polygon fill="#E7E7E7" points="268.7847,321.3906,258.7847,325.3906,268.7847,329.3906,264.7847,325.3906" style="stroke:#E7E7E7;stroke-width:1;"/><line style="stroke:#E7E7E7;stroke-width:1;stroke-dasharray:2,2;" x1="262.7847" x2="482.729" y1="325.3906" y2="325.3906"/></g><g class="message" data-participant-1="Balancer" data-participant-2="Balancer"><line style="stroke:#E7E7E7;stroke-width:1;" x1="257.7847" x2="299.7847" y1="354.5234" y2="354.5234"/><line style="stroke:#E7E7E7;stroke-width:1;" x1="299.7847" x2="299.7847" y1="354.5234" y2="367.5234"/><line style="stroke:#E7E7E7;stroke-width:1;" x1="258.7847" x2="299.7847" y1="367.5234" y2="367.5234"/><polygon fill="#E7E7E7" points="268.7847,363.5234,258.7847,367.5234,268.7847,371.5234,264.7847,367.5234" style="stroke:#E7E7E7;stroke-width:1;"/><text fill="#FFFFFF" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="92.5425" x="264.7847" y="349.4575">CalculatePID()</text></g><g class="message" data-participant-1="Balancer" data-participant-2="Spi_Hw"><polygon fill="#E7E7E7" points="998.5073,392.6563,1008.5073,396.6563,998.5073,400.6563,1002.5073,396.6563" style="stroke:#E7E7E7;stroke-width:1;"/><line style="stroke:#E7E7E7;stroke-width:1;" x1="257.7847" x2="1004.5073" y1="396.6563" y2="396.6563"/><text fill="#FFFFFF" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="161.8716" x="264.7847" y="391.5903">spi_bus.ReadWriteData()</text></g><g class="message" data-participant-1="Spi_Hw" data-participant-2="Balancer"><polygon fill="#E7E7E7" points="268.7847,406.6563,258.7847,410.6563,268.7847,414.6563,264.7847,410.6563" style="stroke:#E7E7E7;stroke-width:1;"/><line style="stroke:#E7E7E7;stroke-width:1;stroke-dasharray:2,2;" x1="262.7847" x2="1014.5073" y1="410.6563" y2="410.6563"/></g><g class="message" data-participant-1="Balancer" data-participant-2="Thr_Flight_Ctrl"><polygon fill="#E7E7E7" points="78.5859,420.6563,68.5859,424.6563,78.5859,428.6563,74.5859,424.6563" style="stroke:#E7E7E7;stroke-width:1;"/><line style="stroke:#E7E7E7;stroke-width:1;stroke-dasharray:2,2;" x1="72.5859" x2="251.7847" y1="424.6563" y2="424.6563"/></g></g></svg></div></div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+    <a href="https://www.linkedin.com/in/bartłomiej-burda-837579164" target="_blank" rel="noopener" title="LinkedIn (Bartłomiej Burda)" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3M135.4 416H69V202.2h66.5V416zM102.2 96a38.5 38.5 0 1 1 0 77 38.5 38.5 0 1 1 0-77m282.1 320h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "toc.integrate", "navigation.top", "search.suggest", "search.highlight", "content.tabs.link", "content.code.annotation", "content.code.copy"], "search": "../../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.e71a0d61.min.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+        <script src="../../assets/mkdocs_puml/puml.js"></script>
+      
+        <script src="https://unpkg.com/@panzoom/panzoom@4.5.1/dist/panzoom.min.js"></script>
+      
+        <script src="../../assets/mkdocs_puml/interaction.js"></script>
+      
+    
+  </body>
+</html>
